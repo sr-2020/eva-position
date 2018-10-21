@@ -8,5 +8,5 @@ class ShopController extends Controller
 {
     use Traits\CrudTrait;
     
-    const Model = Shop::class;
+    const MODEL = Shop::class;
 }

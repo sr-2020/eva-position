@@ -8,6 +8,6 @@ class UserTest extends TestCase
     use DatabaseMigrations;
     use TestCrudTrait;
 
-    const Route = '/api/v1/users';
-    const Controller = UserController::class;
+    const ROUTE = '/api/v1/users';
+    const CONTROLLER = UserController::class;
 }

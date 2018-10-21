@@ -1,4 +1,11 @@
 /src/vendor
-/src/.env
+/src/tests/build
 /src/composer.lock
+/src/.scannerwork
+/src/.env
+/tests/vendor
+/tests/loadtest/logs
+/tests/loadtest/.token
+/tests/loadtest/*.log
+/tests/tests/_output/
 /.idea

@@ -8,6 +8,6 @@ class UserItemController extends Controller
 {
     use Traits\ManyToManyTrait;
 
-    const Model = User::class;
-    const Method = 'items';
+    const MODEL = User::class;
+    const METHOD = 'items';
 }

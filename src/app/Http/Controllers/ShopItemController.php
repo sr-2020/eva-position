@@ -8,6 +8,6 @@ class ShopItemController extends Controller
 {
     use Traits\ManyToManyTrait;
 
-    const Model = Shop::class;
-    const Method = 'items';
+    const MODEL = Shop::class;
+    const METHOD = 'items';
 }

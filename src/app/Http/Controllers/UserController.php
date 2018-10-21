@@ -8,5 +8,5 @@ class UserController extends Controller
 {
     use Traits\CrudTrait;
     
-    const Model = User::class;
+    const MODEL = User::class;
 }

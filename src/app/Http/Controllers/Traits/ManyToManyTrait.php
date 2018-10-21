@@ -20,15 +20,15 @@ trait ManyToManyTrait
      */
     public function index($master_id)
     {
-        $modelClass = static::Model;
-        $method = static::Method;
-        $model = $modelClass::findOrFail($master_id);
+        $modelClass = static::MODEL;
+        $method = static::METHOD;
+        $model= $modelClass::findOrFail($master_id);
         $items = $model->$method()->get();
         return new JsonResponse($items, JsonResponse::HTTP_OK);
     }    
 
     /**
-     * Attache a resource in model.
+     * Attache a resource in MODEL.
      *
      * @param  int  $master_id
      * @param  int  $slave_id
@@ -36,15 +36,15 @@ trait ManyToManyTrait
      */
     public function create($master_id, $slave_id)
     {
-        $modelClass = static::Model;
-        $method = static::Method;
-        $model = $modelClass::findOrFail($master_id);
+        $modelClass = static::MODEL;
+        $method = static::METHOD;
+        $model= $modelClass::findOrFail($master_id);
         $model->$method()->attach($slave_id);
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
     }
 
     /**
-     * Show a resource in model.
+     * Show a resource in MODEL.
      *
      * @param  int  $master_id
      * @param  int  $slave_id
@@ -52,16 +52,16 @@ trait ManyToManyTrait
      */
     public function read($master_id, $slave_id)
     {
-        $modelClass = static::Model;
-        $method = static::Method;
-        $model = $modelClass::findOrFail($master_id);
+        $modelClass = static::MODEL;
+        $method = static::METHOD;
+        $model= $modelClass::findOrFail($master_id);
         $relations = $model->$method();
         $item = $relations->where($relations->getRelatedPivotKeyName(), $slave_id)->get();
         return new JsonResponse($item, JsonResponse::HTTP_OK);
     }
 
     /**
-     * Detache a resource in model.
+     * Detache a resource in MODEL.
      *
      * @param  int  $master_id
      * @param  int  $slave_id
@@ -69,9 +69,9 @@ trait ManyToManyTrait
      */
     public function delete($master_id, $slave_id)
     {
-        $modelClass = static::Model;
-        $method = static::Method;
-        $model = $modelClass::findOrFail($master_id);
+        $modelClass = static::MODEL;
+        $method = static::METHOD;
+        $model= $modelClass::findOrFail($master_id);
         $model->$method()->detach($slave_id);
         return new JsonResponse($model, JsonResponse::HTTP_NO_CONTENT);
     }

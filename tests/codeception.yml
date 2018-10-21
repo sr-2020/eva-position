@@ -1,0 +1,29 @@
+# suite config
+suites:
+    local:
+        actor: ApiTester
+        path: .
+        modules:
+            enabled:
+                - REST:
+                    url: http://localhost:5050/api/v1
+                    depends: PhpBrowser
+
+    production:
+        actor: ApiTester
+        path: .
+        modules:
+            enabled:
+                - REST:
+                    url: http://85.143.222.113:8001/api/v1
+                    depends: PhpBrowser
+
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    support: tests/_support
+
+settings:
+    shuffle: false
+    lint: true

@@ -19,7 +19,7 @@ trait CrudTrait
      */
     public function index()
     {
-        $modelClass = self::Model;
+        $modelClass = self::MODEL;
         return new JsonResponse($modelClass::all(), JsonResponse::HTTP_OK);
     }
 
@@ -31,8 +31,8 @@ trait CrudTrait
      */
     public function create(Request $request)
     {
-        $modelClass = self::Model;
-        $model = $modelClass::create($request->all());
+        $modelClass = self::MODEL;
+        $model= $modelClass::create($request->all());
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
     }
 
@@ -44,8 +44,8 @@ trait CrudTrait
      */
     public function read($id)
     {
-        $modelClass = self::Model;
-        $model = $modelClass::findOrFail($id);
+        $modelClass = self::MODEL;
+        $model= $modelClass::findOrFail($id);
         return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 
@@ -58,8 +58,8 @@ trait CrudTrait
      */
     public function update(Request $request, $id)
     {
-        $modelClass = self::Model;
-        $model = $modelClass::findOrFail($id);
+        $modelClass = self::MODEL;
+        $model= $modelClass::findOrFail($id);
         $model->fill($request->all());
         $model->save();
         return new JsonResponse($model, JsonResponse::HTTP_OK);
@@ -73,8 +73,8 @@ trait CrudTrait
      */
     public function delete($id)
     {
-        $modelClass = self::Model;
-        $model = $modelClass::findOrFail($id);
+        $modelClass = self::MODEL;
+        $model= $modelClass::findOrFail($id);
         $model->delete();
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }

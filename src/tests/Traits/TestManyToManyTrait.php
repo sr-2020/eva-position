@@ -11,8 +11,8 @@ trait TestManyToManyTrait
      */
     protected function makeMasterFactory()
     {
-        $controller = static::Controller;
-        return factory($controller::Model)->make();
+        $controller = static::CONTROLLER;
+        return factory($controller::MODEL)->make();
     }
 
     /**
@@ -22,9 +22,9 @@ trait TestManyToManyTrait
      */
     protected function makeSlaveFactory()
     {
-        $controller = static::Controller;
-        $masterModel = factory($controller::Model)->make();
-        $method = $controller::Method;
+        $controller = static::CONTROLLER;
+        $masterModel = factory($controller::MODEL)->make();
+        $method = $controller::METHOD;
         $relations = $masterModel->$method();
         $slaveModelClass = get_class($relations->getRelated());
         
@@ -38,8 +38,8 @@ trait TestManyToManyTrait
      */
     protected function getRelationsMethod()
     {
-        $controller = static::Controller;
-        return $controller::Method;
+        $controller = static::CONTROLLER;
+        return $controller::METHOD;
     }
 
     /**
@@ -58,7 +58,7 @@ trait TestManyToManyTrait
         $method = $this->getRelationsMethod();
         $masterModel->$method()->attach($slaveModel->id);
 
-        $this->json('GET', static::Route . '/' . $masterModel->id . '/' . $method)
+        $this->json('GET', static::ROUTE . '/' . $masterModel->id . '/' . $method)
             ->seeStatusCode(JsonResponse::HTTP_OK)
             ->seeJson([$slaveModel->toArray()]);
     }    
@@ -77,7 +77,7 @@ trait TestManyToManyTrait
         $slaveModel->save();
 
         $method = $this->getRelationsMethod();
-        $this->json('POST', static::Route . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
+        $this->json('POST', static::ROUTE . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
     }
 
@@ -97,7 +97,7 @@ trait TestManyToManyTrait
         $method = $this->getRelationsMethod();
         $masterModel->$method()->attach($slaveModel->id);
 
-        $this->json('GET', static::Route . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
+        $this->json('GET', static::ROUTE . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
             ->seeStatusCode(JsonResponse::HTTP_OK)
             ->seeJson([$slaveModel->toArray()]);
     }
@@ -118,7 +118,7 @@ trait TestManyToManyTrait
         $method = $this->getRelationsMethod();
         $masterModel->$method()->attach($slaveModel->id);
 
-        $this->json('DELETE', static::Route . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
+        $this->json('DELETE', static::ROUTE . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
             ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT)
             ->seeJson([]);
     }

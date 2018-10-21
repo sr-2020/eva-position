@@ -8,6 +8,6 @@ class ShopTest extends TestCase
     use DatabaseMigrations;
     use TestCrudTrait;
 
-    const Route = '/api/v1/shops';
-    const Controller = ShopController::class;
+    const ROUTE = '/api/v1/shops';
+    const CONTROLLER = ShopController::class;
 }

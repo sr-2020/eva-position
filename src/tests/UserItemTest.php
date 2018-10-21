@@ -8,6 +8,6 @@ class UserItemTest extends TestCase
     use DatabaseMigrations;
     use TestCrudTrait;
 
-    const Route = '/api/v1/users';
-    const Controller = UserItemController::class;
+    const ROUTE = '/api/v1/users';
+    const CONTROLLER = UserItemController::class;
 }

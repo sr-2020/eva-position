@@ -11,8 +11,8 @@ trait TestCrudTrait
      */
     protected function makeFactory()
     {
-        $controller = static::Controller;
-        $model = factory($controller::Model)->make();
+        $controller = static::CONTROLLER;
+        $model = factory($controller::MODEL)->make();
         return $model;
     }
 
@@ -26,7 +26,7 @@ trait TestCrudTrait
         $model = $this->makeFactory();
         $model->save();
 
-        $this->json('GET', static::Route)
+        $this->json('GET', static::ROUTE)
             ->seeStatusCode(JsonResponse::HTTP_OK)
             ->seeJson([$model->toArray()]);
     }
@@ -40,7 +40,7 @@ trait TestCrudTrait
     {
         $model = $this->makeFactory();
  
-        $this->json('POST', static::Route, $model->toArray())
+        $this->json('POST', static::ROUTE, $model->toArray())
             ->seeStatusCode(JsonResponse::HTTP_CREATED)   
             ->seeJson($model->toArray());
     }
@@ -55,7 +55,7 @@ trait TestCrudTrait
         $model = $this->makeFactory();
         $model->save();
 
-        $this->json('GET', static::Route . '/' . $model->id)
+        $this->json('GET', static::ROUTE . '/' . $model->id)
             ->seeStatusCode(JsonResponse::HTTP_OK)   
             ->seeJson($model->toArray());
     }
@@ -72,7 +72,7 @@ trait TestCrudTrait
 
         $newModel = $this->makeFactory();
 
-        $this->json('PUT', static::Route . '/' . $model->id, $newModel->toArray())
+        $this->json('PUT', static::ROUTE . '/' . $model->id, $newModel->toArray())
             ->seeStatusCode(JsonResponse::HTTP_OK)   
             ->seeJson($newModel->toArray());
     }
@@ -87,7 +87,7 @@ trait TestCrudTrait
         $model = $this->makeFactory();
         $model->save();
 
-        $this->json('DELETE', static::Route . '/' . $model->id)
+        $this->json('DELETE', static::ROUTE . '/' . $model->id)
             ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT)   
             ->seeJson(null);
     }    

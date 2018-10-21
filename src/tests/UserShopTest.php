@@ -8,6 +8,6 @@ class UserShopTest extends TestCase
     use DatabaseMigrations;
     use TestManyToManyTrait;
 
-    const Route = '/api/v1/users';
-    const Controller = UserShopController::class;
+    const ROUTE = '/api/v1/users';
+    const CONTROLLER = UserShopController::class;
 }
