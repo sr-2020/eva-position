@@ -1,0 +1,18 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: gurkalov
+  description: Create deploy user
+  company: "Gurkalov"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.3
+  platforms:
+    - name: Ubuntu
+      versions:
+      - trusty
+      - xenial
+      - bionic
+  galaxy_tags:
+    - deploy
+

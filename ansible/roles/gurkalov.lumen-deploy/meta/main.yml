@@ -1,0 +1,18 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: gurkalov
+  description: Lumen deploy for Ubuntu 18.04
+  company: "Gurkalov"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.3
+  platforms:
+    - name: Ubuntu
+      versions:
+      - bionic
+  galaxy_tags:
+    - lumen
+    - deploy
+    - development
+    - web

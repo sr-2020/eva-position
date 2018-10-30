@@ -1,0 +1,23 @@
+- name: Remove old build
+  local_action:
+    module: file
+    path: "{{build_filename}}.{{build_format}}"
+    state: absent
+  run_once: true
+
+- name: Composer install
+  local_action: command {{command_composer_install}}
+  environment:
+    APP_ENV: local
+  args:
+    chdir: "{{app_src}}"
+  run_once: true
+
+- name: Create new build
+  local_action:
+    module: archive  
+    path: "{{app_directories}}"
+    dest: "{{build_filename}}.{{build_format}}"
+    format: "{{build_format}}"
+  run_once: true
+

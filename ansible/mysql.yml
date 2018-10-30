@@ -1,0 +1,5 @@
+- hosts: storage
+  user: root
+
+  roles:
+    - { role: geerlingguy.mysql }

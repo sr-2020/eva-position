@@ -1,0 +1,39 @@
+---
+app_user: deploy
+app_group: deploy
+app_port: 9000
+app_name: app
+app_src: "../src/"
+
+nginx_user: "{{app_user}}"
+nginx_remove_default_vhost: true
+nginx_vhosts:
+  - listen: 80
+    server_name: default
+    root: /var/www/{{app_name}}/current/public
+    index: "index.php index.html index.htm"
+    extra_parameters: |
+      location / {
+          try_files $uri $uri/ /index.php?$query_string;
+      }
+      location ~ \.php$ {
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
+          fastcgi_pass 127.0.0.1:{{app_port}};
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          include fastcgi_params;
+      }
+
+php_fpm_version: 7.2
+php_fpm_service_name: php{{php_fpm_version}}-fpm
+
+php_fpm_pools:
+ - name: "{{app_name}}"
+   user: "{{app_user}}"
+   group: "{{app_group}}"
+   listen: "{{app_port}}"
+   chdir: /
+
+app_mysql_username: app_user
+app_mysql_password: secret
+app_mysql_database: eva

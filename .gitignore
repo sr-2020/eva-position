@@ -8,4 +8,5 @@
 /tests/loadtest/.token
 /tests/loadtest/*.log
 /tests/tests/_output/
+/ansible/build.zip
 /.idea

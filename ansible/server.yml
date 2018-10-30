@@ -1,0 +1,7 @@
+- hosts: server
+  user: root
+
+  roles:
+    - { role: gurkalov.user-deploy, tags: user-deploy }
+    - { role: nbz4live.php-fpm, tags: php }
+    - { role: geerlingguy.nginx, tags: nginx }

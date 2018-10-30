@@ -1,0 +1,8 @@
+[server]
+172.37.0.77
+
+[storage]
+172.37.0.77 ansible_user=root
+
+[localhost]
+localhost ansible_connection=local

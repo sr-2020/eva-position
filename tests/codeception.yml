@@ -9,6 +9,15 @@ suites:
                     url: http://localhost:5050/api/v1
                     depends: PhpBrowser
 
+    docker:
+      actor: ApiTester
+      path: .
+      modules:
+        enabled:
+        - REST:
+            url: http://172.37.0.77/api/v1
+            depends: PhpBrowser
+
     production:
         actor: ApiTester
         path: .
