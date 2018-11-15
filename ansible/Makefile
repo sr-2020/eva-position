@@ -1,9 +1,11 @@
 DOCKER_SSH_KEY := $(shell cat ~/.ssh/id_rsa.pub)
 NODE_IP := 172.37.0.77
-NODE_NAME := ansible-app-test
-PRIVATE_KEY := roles/gurkalov.lumen-deploy/files/id_rsa
+NODE_NAME := ansible-eva-app-test
+PRIVATE_KEY := roles/gurkalov.deploy_user/files/id_rsa
 NETWORK := eva
 SUBNET := 172.37.0.0/16
+
+.PHONY : test
 
 network-create:
 	docker network create --subnet=$(SUBNET) $(NETWORK) || true
@@ -30,7 +32,7 @@ app:
 
 setup:
 	ansible-playbook bootstrap.yml
-	ansible-playbook server.yml --tags=user-deploy
+	ansible-playbook server.yml --tags=user
 	ansible-playbook server.yml --tags=php
 	ansible-playbook server.yml --tags=nginx
 	ansible-playbook mysql.yml
@@ -40,3 +42,12 @@ reboot:
 	make down
 	make server
 	make setup
+
+codecept:
+	cd ../tests && codecept run docker
+
+test:
+	make down
+	make server
+	make setup
+	make codecept

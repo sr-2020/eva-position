@@ -2,6 +2,6 @@
   user: root
 
   roles:
-    - { role: gurkalov.user-deploy, tags: user-deploy }
+    - { role: gurkalov.deploy_user, tags: user }
     - { role: nbz4live.php-fpm, tags: php }
     - { role: geerlingguy.nginx, tags: nginx }
