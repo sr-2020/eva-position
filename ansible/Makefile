@@ -46,6 +46,9 @@ reboot:
 codecept:
 	cd ../tests && codecept run docker
 
+codecept-production:
+	cd ../tests && codecept run production
+
 test:
 	make down
 	make server
