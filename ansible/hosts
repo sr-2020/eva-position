@@ -1,8 +1,8 @@
 [server]
-95.213.237.175
+85.143.222.113
 
 [storage]
-95.213.237.175 ansible_user=root
+85.143.222.113
 
 [localhost]
 localhost ansible_connection=local

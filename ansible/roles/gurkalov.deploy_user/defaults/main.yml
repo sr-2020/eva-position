@@ -1,6 +1,9 @@
 ---
 # defaults file for gurkalov.deploy-user
 
+# User password
+user_password: ""
+
 # Private key
 private_key: ""
 

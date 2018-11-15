@@ -1,3 +1,14 @@
 - hosts: server
+  gather_facts: False
+  vars_files:
+    - creds.yml
+
+  pre_tasks:
+    - include_vars:
+        file: deploy-vars.yml
+      when: ansible_user == 'deploy'
+      tags:
+        - deploy
+
   roles:
     - {role: gurkalov.lumen-deploy}

@@ -17,7 +17,9 @@
   tags: deploy
 
 - include: migrate.yml
-  tags: setup
+  tags:
+    - setup
+    - migrate
 
 - include: start.yml
   tags: setup

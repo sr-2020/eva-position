@@ -11,10 +11,10 @@
     append: yes
     groups: "{{ (user_groups | join(',')) }}"
     name: "{{ user_name }}"
-    password: "{{ lookup('password', '/dev/null length=18') | password_hash('sha512') }}"
+    password: "{{ 'password' | password_hash('sha512') }}"
     shell: "{{ user_shell }}"
     state: present
-    update_password: on_create
+    update_password: always
 
 - name: Setup authorized_keys
   authorized_key:

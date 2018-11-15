@@ -1,0 +1,27 @@
+dist: xenial
+
+phpenv: 7.2
+
+language: python
+
+python:
+  - "2.7"
+
+branches:
+  only:
+  - master
+
+install:
+  - pip install ansible
+  - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+  - cd ansible
+
+script:
+  - make deploy
+
+addons:
+  ssh_known_hosts:
+  - 85.143.222.113
+  apt:
+    packages:
+    - sshpass

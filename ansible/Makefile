@@ -25,17 +25,17 @@ down:
 	make network-remove
 
 deploy:
-	ansible-playbook -u deploy deploy.yml --private-key=$(PRIVATE_KEY) --tags=deploy
+	ansible-playbook -u deploy deploy.yml --tags=deploy
 
 app:
 	ansible-playbook -u root deploy.yml
 
 setup:
-	ansible-playbook bootstrap.yml
-	ansible-playbook server.yml --tags=user
-	ansible-playbook server.yml --tags=php
-	ansible-playbook server.yml --tags=nginx
-	ansible-playbook mysql.yml
+	ansible-playbook -u root bootstrap.yml
+	ansible-playbook -u root server.yml --tags=user
+	ansible-playbook -u root server.yml --tags=php
+	ansible-playbook -u root server.yml --tags=nginx
+	ansible-playbook -u root mysql.yml
 	make app
 
 reboot:

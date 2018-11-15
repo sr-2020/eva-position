@@ -9,4 +9,5 @@
 /tests/loadtest/*.log
 /tests/tests/_output/
 /ansible/build.zip
+/ansible/.vault_pass
 /.idea
