@@ -7,13 +7,22 @@ language: python
 python:
   - "2.7"
 
-install:
-  - pip install ansible
-  - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
-  - cd ansible
+jobs:
+  include:
+    - stage: deploy
+      install:
+        - pip install ansible
+      script:
+        - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+        - cd ansible
+        - make deploy env=production
 
-script:
-  - make deploy env=production
+    - stage: test
+      script:
+        - cd tests
+        - composer install --no-interaction
+        - cd ../ansible
+        - make codecept env=production
 
 addons:
   ssh_known_hosts:

@@ -46,7 +46,7 @@ reboot:
 	make setup
 
 codecept:
-	cd ../tests && codecept run docker
+	cd ../tests && php vendor/bin/codecept run $(ENV)
 
 codecept-production:
 	cd ../tests && codecept run production
