@@ -4,6 +4,8 @@ NODE_NAME := ansible-eva-app-test
 PRIVATE_KEY := roles/gurkalov.deploy_user/files/id_rsa
 NETWORK := eva
 SUBNET := 172.37.0.0/16
+ENV := $(or ${env},${env},local)
+INVENTORY := inventories/$(ENV)
 
 .PHONY : test
 
@@ -25,17 +27,17 @@ down:
 	make network-remove
 
 deploy:
-	ansible-playbook -u deploy deploy.yml --tags=deploy
+	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=deploy
 
 app:
-	ansible-playbook -u root deploy.yml
+	ansible-playbook -i $(INVENTORY) -u root deploy.yml
 
 setup:
-	ansible-playbook -u root bootstrap.yml
-	ansible-playbook -u root server.yml --tags=user
-	ansible-playbook -u root server.yml --tags=php
-	ansible-playbook -u root server.yml --tags=nginx
-	ansible-playbook -u root mysql.yml
+	ansible-playbook -i $(INVENTORY) -u root bootstrap.yml
+	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=user
+	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=php
+	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=nginx
+	ansible-playbook -i $(INVENTORY) -u root mysql.yml
 	make app
 
 reboot:

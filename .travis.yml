@@ -13,7 +13,7 @@ install:
   - cd ansible
 
 script:
-  - make deploy
+  - make deploy env=production
 
 addons:
   ssh_known_hosts:
