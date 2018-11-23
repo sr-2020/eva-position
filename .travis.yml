@@ -1,4 +1,7 @@
 dist: xenial
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 phpenv: 7.2
 
@@ -9,7 +12,7 @@ python:
 
 jobs:
   include:
-    - stage: deploy
+    - stage: deploy stage
       install:
         - pip install ansible
       script:
@@ -23,6 +26,14 @@ jobs:
         - composer install --no-interaction
         - cd ../ansible
         - make codecept env=production
+
+    - stage: deploy production
+      install:
+        - pip install ansible
+      script:
+        - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+        - cd ansible
+        - make deploy env=production
 
 addons:
   ssh_known_hosts:
