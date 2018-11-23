@@ -1,7 +1,6 @@
 - hosts: server
   user: root
-  vars_files:
-    - creds.yml
+
   roles:
     - { role: gurkalov.deploy_user, tags: user }
     - { role: nbz4live.php-fpm, tags: php }

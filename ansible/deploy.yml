@@ -1,7 +1,5 @@
 - hosts: server
   gather_facts: False
-  vars_files:
-    - creds.yml
 
   pre_tasks:
     - include_vars:
