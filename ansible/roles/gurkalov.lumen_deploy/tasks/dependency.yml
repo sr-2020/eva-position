@@ -5,12 +5,12 @@
 - name: Install Laravel php extensions
   apt: name={{item}}
   with_items: "{{laravel_php_extensions}}"
-  notify: Reload php-fpm
+  notify: reload php-fpm
     
 - name: Install App php extensions
   apt: name={{item}}
   with_items: "{{app_php_extensions}}"
-  notify: Reload php-fpm
+  notify: reload php-fpm
 
 - name: Install Composer
   command: bash -c 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'

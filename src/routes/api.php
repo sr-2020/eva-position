@@ -16,6 +16,14 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
+    $router->get('version', function () use ($router) {
+        $versionPath = base_path() . '/public/version.txt';
+        if (!file_exists($versionPath)) {
+            return '';
+        }
+
+        return file_get_contents($versionPath);
+    });
 
     /**
      * CRUD Routes

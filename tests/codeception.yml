@@ -1,6 +1,6 @@
 # suite config
 suites:
-    local:
+    dev:
         actor: ApiTester
         path: .
         modules:
@@ -9,7 +9,7 @@ suites:
                     url: http://localhost:5050/api/v1
                     depends: PhpBrowser
 
-    docker:
+    local:
       actor: ApiTester
       path: .
       modules:

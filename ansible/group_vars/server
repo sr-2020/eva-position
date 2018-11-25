@@ -5,6 +5,20 @@ app_port: 9000
 app_name: app
 app_src: "../src/"
 
+app_extra_parameters: |
+  location / {
+      try_files $uri $uri/ /index.php?$query_string;
+  }
+  location ~ \.php$ {
+      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+      fastcgi_pass 127.0.0.1:{{app_port}};
+      fastcgi_index index.php;
+      fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+      include fastcgi_params;
+  }
+
+app_sandbox_enabled: true
+
 user_password: "{{ vault_user_password | default('') }}"
 
 #ansible_connection: ssh
@@ -17,18 +31,14 @@ nginx_vhosts:
   - listen: 80
     server_name: default
     root: /var/www/{{app_name}}/current/public
-    index: "index.php index.html index.htm"
-    extra_parameters: |
-      location / {
-          try_files $uri $uri/ /index.php?$query_string;
-      }
-      location ~ \.php$ {
-          fastcgi_split_path_info ^(.+\.php)(/.+)$;
-          fastcgi_pass 127.0.0.1:{{app_port}};
-          fastcgi_index index.php;
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-          include fastcgi_params;
-      }
+    index: "index.php"
+    extra_parameters: "{{app_extra_parameters}}"
+
+  - listen: 8077
+    server_name: sandbox
+    root: /var/www/{{app_name}}/sandbox/public
+    index: "index.php"
+    extra_parameters: "{{app_extra_parameters}}"
 
 php_fpm_version: 7.2
 php_fpm_service_name: php{{php_fpm_version}}-fpm

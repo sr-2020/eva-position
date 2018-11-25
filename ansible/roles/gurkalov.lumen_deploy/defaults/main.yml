@@ -9,6 +9,10 @@ app_name: lumen.app
 app_directory: "/var/www/{{app_name}}"
 app_src: "./src/"
 
+app_sandbox_enabled: false
+app_sandbox_port: 8077
+app_sandbox_host: "http://{{inventory_hostname}}:{{app_sandbox_port}}"
+
 app_user: www-data
 app_group: www-data
 

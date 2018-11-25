@@ -4,9 +4,11 @@
   pre_tasks:
     - include_vars:
         file: deploy-vars.yml
-      when: ansible_user == 'deploy'
+      when:
+        - ansible_user is defined
+        - ansible_user == 'deploy'
       tags:
         - deploy
 
   roles:
-    - {role: gurkalov.lumen-deploy}
+    - {role: gurkalov.lumen_deploy}

@@ -1,7 +1,3 @@
-# Build
-#- include: user.yml
-#  tags: setup
-
 - include: struct.yml
   tags: setup
 

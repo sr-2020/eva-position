@@ -15,6 +15,6 @@
   tags: [configuration,php,fpm]
 
 - name: Start the {{ php_fpm_service_name }} service
-  service: name={{ php_fpm_service_name }} state=started enabled=yes
+  command: service {{ php_fpm_service_name }} start
   when: php_fpm_pools|length > 0
   tags: [service,php,fpm]
