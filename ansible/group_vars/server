@@ -21,10 +21,6 @@ app_sandbox_enabled: true
 
 user_password: "{{ vault_user_password | default('') }}"
 
-#ansible_connection: ssh
-#ansible_ssh_user: "{{ app_user }}"
-#ansible_ssh_pass: "{{ user_password }}"
-
 nginx_user: "{{app_user}}"
 nginx_remove_default_vhost: true
 nginx_vhosts:
@@ -51,5 +47,5 @@ php_fpm_pools:
    chdir: /
 
 app_mysql_username: app_user
-app_mysql_password: secret
 app_mysql_database: eva
+app_mysql_password: "{{vault_app_mysql_password}}"
