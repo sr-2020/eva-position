@@ -11,3 +11,4 @@
 /ansible/build.zip
 /ansible/.vault_pass
 /.idea
+/ansible/roles/gurkalov.lumen_deploy/molecule/default/src

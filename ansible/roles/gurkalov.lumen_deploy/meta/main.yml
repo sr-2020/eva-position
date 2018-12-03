@@ -1,18 +1,32 @@
 ---
-dependencies: []
-
 galaxy_info:
-  author: gurkalov
-  description: Lumen deploy for Ubuntu 18.04
-  company: "Gurkalov"
-  license: "license (BSD, MIT)"
-  min_ansible_version: 2.3
+  role_name: lumen_deploy
+  author: Gurkalov Dmitry
+  description: Lumen deploy.
+  company: Gurkalov
+  license: MIT
+  min_ansible_version: 2.7
+  issue_tracker_url: https://github.com/gurkalov/ansible-lumen-deploy/issues
+
   platforms:
     - name: Ubuntu
       versions:
-      - bionic
+        - bionic
+
   galaxy_tags:
+    - php
     - lumen
     - deploy
-    - development
-    - web
+
+dependencies:
+  - role: gurkalov.deploy_user
+    tags:
+      - user
+
+  - role: gurkalov.php_fpm
+    tags:
+      - php
+
+  - role: geerlingguy.nginx
+    tags:
+      - nginx

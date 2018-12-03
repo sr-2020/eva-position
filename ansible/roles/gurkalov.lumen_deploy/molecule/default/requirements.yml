@@ -1,0 +1,4 @@
+---
+- gurkalov.deploy_user
+- gurkalov.php_fpm
+- geerlingguy.nginx

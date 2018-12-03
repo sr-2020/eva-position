@@ -1,0 +1,5 @@
+---
+- name: Install php-fpm on all hosts.
+  hosts: all
+  roles:
+    - {role: gurkalov.php_fpm}

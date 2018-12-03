@@ -29,8 +29,11 @@ down:
 deploy:
 	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=deploy
 
+migrate:
+	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=migrate
+
 app:
-	ansible-playbook -i $(INVENTORY) -u root deploy.yml
+	ansible-playbook -i $(INVENTORY) -u root deploy.yml --tags=setup
 
 setup:
 	ansible-playbook -i $(INVENTORY) -u root bootstrap.yml

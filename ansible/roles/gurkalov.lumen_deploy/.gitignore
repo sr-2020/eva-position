@@ -1,2 +1,2 @@
-*.retry
-tests/test.sh
+molecule/default/tests/__pycache__
+molecule/default/build.zip

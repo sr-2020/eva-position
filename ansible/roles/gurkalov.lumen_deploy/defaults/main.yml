@@ -1,5 +1,6 @@
 ---
-# Build
+# defaults file for lumen_deploy
+
 build_filename: build
 build_format: zip
 
@@ -8,6 +9,8 @@ command_composer_install: "composer install"
 app_name: lumen.app
 app_directory: "/var/www/{{app_name}}"
 app_src: "./src/"
+
+app_db: false
 
 app_sandbox_enabled: false
 app_sandbox_port: 8077

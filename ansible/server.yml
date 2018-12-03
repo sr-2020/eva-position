@@ -3,5 +3,5 @@
 
   roles:
     - { role: gurkalov.deploy_user, tags: user }
-    - { role: nbz4live.php-fpm, tags: php }
+    - { role: gurkalov.php_fpm, tags: php }
     - { role: geerlingguy.nginx, tags: nginx }

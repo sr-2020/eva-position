@@ -1,4 +1,5 @@
 ---
+# handlers file for lumen_deploy
 - name: restart php-fpm
   command: service php7.2-fpm restart
 

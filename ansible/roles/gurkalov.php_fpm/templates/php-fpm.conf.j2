@@ -1,0 +1,4 @@
+[global]
+pid = {{ php_fpm_pid_file }}
+error_log = /var/log/php{{ php_fpm_version }}-fpm.log
+include = {{ php_fpm_pool }}/*.conf

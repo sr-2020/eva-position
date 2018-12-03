@@ -46,6 +46,7 @@ php_fpm_pools:
    listen: "{{app_port}}"
    chdir: /
 
+app_db: true
 app_mysql_username: app_user
 app_mysql_database: eva
 app_mysql_password: "{{vault_app_mysql_password}}"

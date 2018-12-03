@@ -1,0 +1,10 @@
+[app]
+user = {{ php_fpm_user }}
+group = {{ php_fpm_group }}
+listen = {{ php_fpm_listen }}
+chdir = /
+pm = dynamic
+pm.start_servers = 2
+pm.max_spare_servers = 3
+pm.min_spare_servers = 1
+pm.max_children = 5
