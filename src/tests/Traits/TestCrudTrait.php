@@ -88,7 +88,6 @@ trait TestCrudTrait
         $model->save();
 
         $this->json('DELETE', static::ROUTE . '/' . $model->id)
-            ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT)   
-            ->seeJson(null);
-    }    
+            ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT);
+    }
 }

@@ -119,7 +119,6 @@ trait TestManyToManyTrait
         $masterModel->$method()->attach($slaveModel->id);
 
         $this->json('DELETE', static::ROUTE . '/' . $masterModel->id . '/' . $method . '/' . $slaveModel->id)
-            ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT)
-            ->seeJson([]);
+            ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT);
     }
 }
