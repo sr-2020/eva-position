@@ -8,11 +8,14 @@
 
 - include: build.yml
   tags:
+    - setup
     - deploy
     - build
 
 - include: deploy.yml
-  tags: deploy
+  tags:
+    - setup
+    - deploy
 
 - include: migrate.yml
   tags:
