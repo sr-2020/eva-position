@@ -3,8 +3,11 @@
 
 build_filename: build
 build_format: zip
+build_clear: false
 
 command_composer_install: "composer install"
+command_phpunit: "phpunit"
+phpunit_enabled: true
 
 app_name: lumen.app
 app_directory: "/var/www/{{app_name}}"
