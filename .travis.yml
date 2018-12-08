@@ -22,6 +22,10 @@ jobs:
         - rm builds/*.* || true
         - make deploy env=production
 
+    - stage: sonar
+      script:
+        - sonar-scanner
+
     - stage: test
       script:
         - cd tests
@@ -38,8 +42,12 @@ jobs:
         - make deploy env=production
 
 addons:
+  sonarcloud:
+    organization: "gurkalov-github"
+    token:
+      secure: $SONAR_TOKEN
   ssh_known_hosts:
-  - 85.143.222.113
+    - 85.143.222.113
   apt:
     packages:
-    - sshpass
+      - sshpass
