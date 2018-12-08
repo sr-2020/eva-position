@@ -2,7 +2,7 @@ dist: xenial
 cache:
   directories:
     - $HOME/.composer/cache
-    - build.zip
+    - ansible/builds
 
 phpenv: 7.2
 
@@ -19,6 +19,7 @@ jobs:
       script:
         - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
         - cd ansible
+        - rm builds/*.*
         - make deploy env=production
 
     - stage: test

@@ -5,6 +5,10 @@ app_port: 9000
 app_name: app
 app_src: "../src/"
 
+build_filename: builds/build
+build_format: zip
+build_clear: false
+
 app_extra_parameters: |
   location / {
       try_files $uri $uri/ /index.php?$query_string;

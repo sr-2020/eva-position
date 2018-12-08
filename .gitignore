@@ -11,5 +11,6 @@
 /tests/tests/_support/_generated
 /ansible/build.zip
 /ansible/.vault_pass
-/.idea
+/ansible/builds/*.*
 /ansible/roles/gurkalov.lumen_deploy/molecule/default/src
+/.idea
