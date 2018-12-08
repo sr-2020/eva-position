@@ -10,5 +10,5 @@ def test_authorized_keys_file(host):
     f = host.file('/var/www/lumen.app/current')
 
     assert f.exists
-    assert f.user == 'www-data'
-    assert f.group == 'www-data'
+    assert f.user == 'deploy'
+    assert f.group == 'deploy'

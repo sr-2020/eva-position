@@ -1,9 +1,11 @@
 ---
 # tasks file for lumen_deploy
 - include: struct.yml
+  become: true
   tags: setup
 
 - include: dependency.yml
+  become: true
   tags: setup
 
 - include: build.yml
@@ -13,6 +15,7 @@
     - build
 
 - include: deploy.yml
+  ansible_user: "{{ app_user }}"
   tags:
     - setup
     - deploy
@@ -23,4 +26,5 @@
     - migrate
 
 - include: start.yml
+  become: true
   tags: setup
