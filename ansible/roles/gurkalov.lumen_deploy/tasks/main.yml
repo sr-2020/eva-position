@@ -20,6 +20,12 @@
     - setup
     - deploy
 
+- include: openapi.yml
+  tags:
+    - setup
+    - deploy
+    - openapi
+
 - include: migrate.yml
   tags:
     - setup

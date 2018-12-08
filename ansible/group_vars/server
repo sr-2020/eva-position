@@ -5,6 +5,8 @@ app_port: 9000
 app_name: app
 app_src: "../src/"
 
+app_openapi: true
+
 build_filename: builds/build
 build_format: zip
 build_clear: false
