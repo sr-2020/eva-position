@@ -19,7 +19,7 @@ jobs:
       script:
         - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
         - cd ansible
-        - rm builds/*.*
+        - rm builds/*.* || true
         - make deploy env=production
 
     - stage: test
