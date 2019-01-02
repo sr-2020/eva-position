@@ -32,6 +32,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'shops' => 'ShopController',
         'users' => 'UserController',
         'items' => 'ItemController',
+        'routers' => 'RouterController',
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
         $router->post($path, $controller . '@create');

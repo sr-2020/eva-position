@@ -32,3 +32,10 @@ $factory->define(App\Shop::class, function (Faker\Generator $faker) {
         'name' => $faker->name
     ];
 });
+
+$factory->define(App\Router::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'bssid' => $faker->macAddress,
+    ];
+});
