@@ -39,3 +39,20 @@ $factory->define(App\Router::class, function (Faker\Generator $faker) {
         'bssid' => $faker->macAddress,
     ];
 });
+
+$factory->define(App\Position::class, function (Faker\Generator $faker) {
+    return [
+        'routers' => [
+            [
+                'name' => $faker->name,
+                'bssid' => $faker->macAddress,
+                'level' => -($faker->randomDigit % 100)
+            ],
+            [
+                'name' => $faker->name,
+                'bssid' => $faker->macAddress,
+                'level' => -($faker->randomDigit % 100)
+            ],
+        ],
+    ];
+});
