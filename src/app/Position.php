@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Router;
 
 /**
  * @OA\Schema(schema="NewPosition", required={"name"},
@@ -39,4 +40,19 @@ class Position extends Model
         'id',
         'routers',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model) {
+            foreach ($model->routers as $router) {
+                $routerModel = Router::firstOrNew([
+                    'bssid' => $router['bssid']
+                ]);
+                $routerModel->name = $router['name'];
+                $routerModel->save();
+            }
+        });
+    }
 }
