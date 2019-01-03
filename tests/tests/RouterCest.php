@@ -19,17 +19,17 @@ class RouterCest
         $bssid = '00:0a:95:9d:68:16';
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPOST(self::$route, [
-            'name' => $name,
+            'ssid' => $name,
             'bssid' => $bssid
         ]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'name' => 'string'
+            'ssid' => 'string'
         ]);
         $I->canSeeResponseContainsJson([
-            'name' => $name
+            'ssid' => $name
         ]);
 
         $jsonResponse = json_decode($I->grabResponse());
@@ -43,7 +43,7 @@ class RouterCest
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'name' => 'string'
+            'ssid' => 'string'
         ]);
         $I->canSeeResponseContainsJson([
             'id' => self::$createdId
@@ -54,16 +54,16 @@ class RouterCest
     {
         $name = 'Router Test New';
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPUT(self::$route . '/'  . self::$createdId, ['name' => $name]);
+        $I->sendPUT(self::$route . '/'  . self::$createdId, ['ssid' => $name]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'name' => 'string'
+            'ssid' => 'string'
         ]);
         $I->canSeeResponseContainsJson([
             'id' => self::$createdId,
-            'name' => $name,
+            'ssid' => $name,
         ]);
     }    
 

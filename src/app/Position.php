@@ -47,10 +47,11 @@ class Position extends Model
 
         static::created(function($model) {
             foreach ($model->routers as $router) {
+                $validRouter = array_change_key_case($router, CASE_LOWER);
                 $routerModel = Router::firstOrNew([
-                    'bssid' => $router['bssid']
+                    'bssid' => $validRouter['bssid']
                 ]);
-                $routerModel->name = $router['name'];
+                $routerModel->ssid = $validRouter['ssid'];
                 $routerModel->save();
             }
         });

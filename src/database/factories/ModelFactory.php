@@ -35,7 +35,7 @@ $factory->define(App\Shop::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Router::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'ssid' => $faker->slug,
         'bssid' => $faker->macAddress,
     ];
 });
@@ -44,12 +44,12 @@ $factory->define(App\Position::class, function (Faker\Generator $faker) {
     return [
         'routers' => [
             [
-                'name' => $faker->name,
+                'ssid' => $faker->slug,
                 'bssid' => $faker->macAddress,
                 'level' => -($faker->randomDigit % 100)
             ],
             [
-                'name' => $faker->name,
+                'ssid' => $faker->slug,
                 'bssid' => $faker->macAddress,
                 'level' => -($faker->randomDigit % 100)
             ],

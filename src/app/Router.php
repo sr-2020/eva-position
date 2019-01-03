@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @OA\Schema(schema="NewRouter", required={"name"},
- *     @OA\Property(property="name", format="string", type="string"),
+ *     @OA\Property(property="ssid", format="string", type="string"),
  *     @OA\Property(property="bssid", format="string", type="string"),
  * )
  */
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  *       @OA\Schema(
  *           required={"id"},
  *           @OA\Property(property="id", format="int64", type="integer"),
- *           @OA\Property(property="name", format="string", type="string"),
+ *           @OA\Property(property="ssid", format="string", type="string"),
  *           @OA\Property(property="bssid", format="string", type="string"),
  *       )
  *   }
@@ -29,13 +29,13 @@ use Illuminate\Database\Eloquent\Model;
 class Router extends Model
 {
     protected $fillable = [
-        'name',
+        'ssid',
         'bssid',
     ];
 
     protected $visible = [
         'id',
-        'name',
+        'ssid',
         'bssid',
     ];
 

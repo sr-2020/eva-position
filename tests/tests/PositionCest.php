@@ -17,12 +17,12 @@ class PositionCest
     {
         $routers = [
             [
-                'name' => 'room_a',
+                'ssid' => 'room_a',
                 'bssid' => '00:0a:95:9d:00:0a',
                 'level' => -20
             ],
             [
-                'name' => 'room_b',
+                'ssid' => 'room_b',
                 'bssid' => '00:0a:95:9d:00:0b',
                 'level' => -60
             ]
