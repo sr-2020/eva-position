@@ -14,4 +14,29 @@ class UserShopCest
     
     static protected $before = false;
 
+    public function _before(\ApiTester $I)
+    {
+        if (static::$before) {
+            return ;
+        }
+        $faker = Faker\Factory::create();
+        $data = [
+            'name' => 'User Test',
+            'email' => $faker->email,
+            'password' => 'secret'
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST(self::$route, $data);
+        $jsonResponse = json_decode($I->grabResponse());
+        self::$createdId = $jsonResponse->id;
+
+        for ($i = 0; $i < self::$countItems; $i++) {
+            $name = 'Sub Test' . $i;
+            $I->haveHttpHeader('Content-Type', 'application/json');
+            $I->sendPOST(self::$subroute, ['name' => $name]);
+            $jsonResponse = json_decode($I->grabResponse(), true);
+            self::$createdSubs[] = $jsonResponse;
+        }
+        static::$before = true;
+    }
 }

@@ -39,4 +39,13 @@ class Router extends Model
         'bssid',
     ];
 
+    protected $with = ['users'];
+
+    /**
+     * Get users.
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

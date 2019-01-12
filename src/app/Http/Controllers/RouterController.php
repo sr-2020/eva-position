@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Router;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Get(
@@ -155,4 +156,16 @@ class RouterController extends Controller
     use Traits\CrudTrait;
     
     const MODEL = Router::class;
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function users()
+    {
+        $modelClass = self::MODEL;
+        $list = $modelClass::has('users')->get()->makeVisible('users');
+        return new JsonResponse($list, JsonResponse::HTTP_OK);
+    }
 }

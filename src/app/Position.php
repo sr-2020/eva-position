@@ -29,7 +29,9 @@ use App\Router;
 class Position extends Model
 {
     protected $casts = [
-        'routers' => 'array'
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'routers' => 'array',
     ];
 
     protected $fillable = [
@@ -38,6 +40,7 @@ class Position extends Model
 
     protected $visible = [
         'id',
+        'user_id',
         'routers',
     ];
 

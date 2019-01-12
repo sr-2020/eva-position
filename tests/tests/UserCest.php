@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class UserCest
 {
@@ -15,9 +15,15 @@ class UserCest
 
     public function createTest(ApiTester $I)
     {
-        $name = 'User Test';
+        $faker = Faker\Factory::create();
+        $data = [
+            'name' => 'User Test',
+            'email' => $faker->email,
+            'password' => 'secret'
+        ];
+
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPOST(self::$route, ['name' => $name]);
+        $I->sendPOST(self::$route, $data);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
@@ -25,7 +31,7 @@ class UserCest
             'name' => 'string'
         ]);
         $I->canSeeResponseContainsJson([
-            'name' => $name
+            'name' => $data['name']
         ]);
 
         $jsonResponse = json_decode($I->grabResponse());

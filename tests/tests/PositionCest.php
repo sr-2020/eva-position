@@ -2,8 +2,36 @@
 
 class PositionCest
 {
+    static protected $apiKey = '';
     static protected $createdId = 0;
     static protected $route = '/positions';
+
+    static protected $before = false;
+
+    public function _before(\ApiTester $I)
+    {
+        if (static::$before) {
+            return ;
+        }
+        $data = [
+            'name' => 'User Test',
+            'email' => 'test@email.com',
+            'password' => 'secret'
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST('/users', $data);
+
+        $data = [
+            'email' => 'test@email.com',
+            'password' => 'secret'
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST('/login', $data);
+        $jsonResponse = json_decode($I->grabResponse());
+        self::$apiKey = $jsonResponse->api_key;
+
+        static::$before = true;
+    }
 
     public function indexTest(ApiTester $I)
     {
@@ -28,6 +56,7 @@ class PositionCest
             ]
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
         $I->sendPOST(self::$route, [
             'routers' => $routers
         ]);
@@ -44,30 +73,5 @@ class PositionCest
         $jsonResponse = json_decode($I->grabResponse());
         self::$createdId = $jsonResponse->id;
     }
-    
-    public function readTest(ApiTester $I)
-    {
-        $I->sendGET(self::$route . '/' . self::$createdId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'routers' => 'array'
-        ]);
-        $I->canSeeResponseContainsJson([
-            'id' => self::$createdId
-        ]);
-    }
 
-    public function deleteTest(ApiTester $I)
-    {
-        $I->sendDELETE(self::$route . '/' . self::$createdId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NO_CONTENT);
-    }
-
-    public function tryReadTest(ApiTester $I)
-    {
-        $I->sendGET(self::$route . '/' . self::$createdId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NOT_FOUND);
-    }
 }

@@ -15,6 +15,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->group([
+    'prefix' => 'api/v1',
+    'middleware' => 'auth'
+], function () use ($router) {
+    $router->post('positions', 'PositionController@create');
+});
+
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('version', function () use ($router) {
         $versionPath = base_path() . '/public/version.txt';
@@ -25,6 +32,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         return file_get_contents($versionPath);
     });
 
+    $router->get('positions', 'PositionController@index');
+    $router->get('routers/users', 'RouterController@users');
+
+    /**
+     * Auth Routes
+     */
+    $router->post('login', 'AuthController@login');
+
     /**
      * CRUD Routes
      */
@@ -32,8 +47,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'shops' => 'ShopController',
         'users' => 'UserController',
         'items' => 'ItemController',
-        'routers' => 'RouterController',
-        'positions' => 'PositionController',
+        'routers' => 'RouterController'
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
         $router->post($path, $controller . '@create');

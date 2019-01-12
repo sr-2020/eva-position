@@ -1128,7 +1128,7 @@
                     "name"
                 ],
                 "properties": {
-                    "name": {
+                    "ssid": {
                         "type": "string",
                         "format": "string"
                     },
@@ -1154,7 +1154,7 @@
                                 "type": "integer",
                                 "format": "int64"
                             },
-                            "name": {
+                            "ssid": {
                                 "type": "string",
                                 "format": "string"
                             },

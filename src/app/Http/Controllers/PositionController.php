@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Position;
+use App\Router;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Get(
@@ -152,7 +155,45 @@ use App\Position;
  */
 class PositionController extends Controller
 {
-    use Traits\CrudTrait;
-    
     const MODEL = Position::class;
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $modelClass = self::MODEL;
+        return new JsonResponse($modelClass::all(), JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(Request $request)
+    {
+        $modelClass = self::MODEL;
+        $model= $modelClass::create($request->all());
+
+        $user = $request->user();
+        $model->user_id = $user->id;
+        $model->save();
+
+        $sort = array_column($model->routers, 'level', 'bssid');
+        arsort($sort);
+        if ([] !== $sort) {
+            $bssid = key($sort);
+            $router = Router::where('bssid', $bssid)->first();
+            if (null !== $router) {
+                $user->router_id = $router->id;
+                $user->save();
+            }
+        }
+
+        return new JsonResponse($model, JsonResponse::HTTP_CREATED);
+    }
 }

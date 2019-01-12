@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @OA\Schema(schema="NewUser", required={"name"},
@@ -27,13 +28,31 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
+        'email',
+        'password',
+        'router_id',
+        'api_key'
     ];
 
     protected $visible = [
         'id',
-        'name'
+        'router_id',
+        'name',
+        'email',
+       // 'router',
+        'updated_at'
     ];
+
+  //  protected $with = ['router'];
+
+    /**
+     * Get router.
+     */
+    public function router()
+    {
+        return $this->belongsTo('App\Router');
+    }
 
     /**
      * Get the items for the user.
@@ -49,5 +68,10 @@ class User extends Model
     public function shops()
     {
         return $this->belongsToMany('App\Shop');
-    }    
+    }
+
+    public function setPasswordAttribute($pass)
+    {
+        $this->attributes['password'] = Hash::make($pass);
+    }
 }

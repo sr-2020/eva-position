@@ -14,7 +14,11 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'amount' => $faker->numberBetween(0, 1000)
+        'email' => $faker->email,
+        'password' => $faker->password,
+        'api_key' => $faker->randomAscii,
+        'amount' => $faker->numberBetween(0, 1000),
+        'router_id' => null
     ];
 });
 
