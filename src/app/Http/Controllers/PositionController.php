@@ -183,7 +183,12 @@ class PositionController extends Controller
         $model->user_id = $user->id;
         $model->save();
 
-        $sort = array_column($model->routers, 'level', 'bssid');
+        $routers = [];
+        foreach ($model->routers as $router) {
+            $routers[] = array_change_key_case($router, CASE_LOWER);
+        }
+
+        $sort = array_column($routers, 'level', 'bssid');
         arsort($sort);
         if ([] !== $sort) {
             $bssid = key($sort);
