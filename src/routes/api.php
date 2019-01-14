@@ -39,6 +39,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
      * Auth Routes
      */
     $router->post('login', 'AuthController@login');
+    $router->post('register', 'AuthController@register');
 
     /**
      * CRUD Routes

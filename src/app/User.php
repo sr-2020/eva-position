@@ -40,7 +40,6 @@ class User extends Model
         'router_id',
         'name',
         'email',
-       // 'router',
         'updated_at'
     ];
 

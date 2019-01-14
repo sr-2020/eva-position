@@ -63,4 +63,39 @@ class AuthTest extends TestCase
             ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED)
             ->seeJsonStructure([]);
     }
+
+    /**
+     * A basic test login success.
+     *
+     * @return void
+     */
+    public function testRegisterSuccess()
+    {
+        $model = $this->makeFactory();
+        $this->json('POST', '/api/v1/register', [
+            'email' => $model->email,
+            'password' => 'pass'
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK)
+            ->seeJsonStructure([
+                'id',
+                'api_key'
+            ]);
+    }
+
+    /**
+     * A basic test login failed.
+     *
+     * @return void
+     */
+    public function testRegisterFailed()
+    {
+        $model = $this->makeFactory();
+        $this->json('POST', '/api/v1/register', [
+            'email' => $model->email,
+            'password' => ''
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            ->seeJsonStructure([]);
+    }
 }
