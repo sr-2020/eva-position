@@ -20,6 +20,7 @@ $router->group([
     'middleware' => 'auth'
 ], function () use ($router) {
     $router->post('positions', 'PositionController@create');
+//    $router->post('audios', 'AudioController@create');
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
@@ -34,6 +35,10 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->get('positions', 'PositionController@index');
     $router->get('routers/users', 'RouterController@users');
+
+    $router->get('audios', 'AudioController@index');
+    $router->get('audios/{id}', 'AudioController@read');
+    $router->post('audios', 'AudioController@create');
 
     /**
      * Auth Routes

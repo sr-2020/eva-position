@@ -79,6 +79,7 @@ $app->singleton(
 */
 
 $app->configure('swagger-lume');
+$app->configure('filesystems');
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);

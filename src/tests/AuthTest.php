@@ -81,6 +81,15 @@ class AuthTest extends TestCase
                 'id',
                 'api_key'
             ]);
+
+        $this->json('POST', '/api/v1/login', [
+            'email' => $model->email,
+            'password' => 'pass'
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK)
+            ->seeJsonStructure([
+                'api_key'
+            ]);
     }
 
     /**
