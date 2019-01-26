@@ -32,54 +32,54 @@ class AudioTest extends TestCase
      *
      * @return void
      */
-//    public function testCreateSuccess()
-//    {
-//        $user = factory(App\User::class)->make();
-//        $user->save();
-//
-//        $path = base_path('tests/data/audio20100.wav');
-//        $file = new UploadedFile($path, 'test.wav', null, null, true);
-//
-//        $this->call('POST', static::ROUTE, [], [], [
-//            'audio' => $file
-//        ], [
-//            'HTTP_Authorization' => $user->api_key
-//        ]);
-//
-//        $this->seeStatusCode(JsonResponse::HTTP_CREATED)
-//            ->seeJsonEquals([
-//                'id' => 1,
-//                'filename' => '1.wav',
-//                'frequency' => 20101
-//            ]);
-//    }
-//
-//    /**
-//     * A basic test create.
-//     *
-//     * @return void
-//     */
-//    public function testCreateSecondSuccess()
-//    {
-//        $user = factory(App\User::class)->make();
-//        $user->save();
-//
-//        $path = base_path('tests/data/audio23100.wav');
-//        $file = new UploadedFile($path, 'test.wav', null, null, true);
-//
-//        $this->call('POST', static::ROUTE, [], [], [
-//            'audio' => $file
-//        ], [
-//            'HTTP_Authorization' => $user->api_key
-//        ]);
-//
-//        $this->seeStatusCode(JsonResponse::HTTP_CREATED)
-//            ->seeJsonEquals([
-//                'id' => 1,
-//                'filename' => '1.wav',
-//                'frequency' => 23098
-//            ]);
-//    }
+    public function testCreateSuccess()
+    {
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        $path = base_path('tests/data/audio20100.wav');
+        $file = new UploadedFile($path, 'test.wav', null, null, true);
+
+        $this->call('POST', static::ROUTE, [], [], [
+            'audio' => $file
+        ], [
+            'HTTP_Authorization' => $user->api_key
+        ]);
+
+        $this->seeStatusCode(JsonResponse::HTTP_CREATED)
+            ->seeJsonEquals([
+                'id' => 1,
+                'filename' => '1.wav',
+                'frequency' => 20101
+            ]);
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testCreateSecondSuccess()
+    {
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        $path = base_path('tests/data/audio23100.wav');
+        $file = new UploadedFile($path, 'test.wav', null, null, true);
+
+        $this->call('POST', static::ROUTE, [], [], [
+            'audio' => $file
+        ], [
+            'HTTP_Authorization' => $user->api_key
+        ]);
+
+        $this->seeStatusCode(JsonResponse::HTTP_CREATED)
+            ->seeJsonEquals([
+                'id' => 1,
+                'filename' => '1.wav',
+                'frequency' => 23098
+            ]);
+    }
 
     /**
      * A basic test create.

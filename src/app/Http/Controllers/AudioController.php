@@ -136,7 +136,8 @@ class AudioController extends Controller
         $filePath = storage_path('app/public/' . $file);
 
         $result = shell_exec("sox {$filePath} -n trim 0 0.1 stat -freq -v 2>&1 | cat");
-        $array =[];
+
+        $array = [];
         $lines = explode(PHP_EOL, $result);
 
         if (2 >= count($lines)) {
