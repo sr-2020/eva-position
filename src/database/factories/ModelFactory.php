@@ -64,6 +64,7 @@ $factory->define(App\Position::class, function (Faker\Generator $faker) {
 $factory->define(App\Audio::class, function (Faker\Generator $faker) {
     return [
         'filename' => $faker->slug . '.txt',
-       // 'user_id' => 1,
+        'user_id' => 1,
+        'frequency' => $faker->randomDigit
     ];
 });

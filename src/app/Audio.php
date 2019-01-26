@@ -26,11 +26,13 @@ class Audio extends Model
     protected $fillable = [
         'filename',
         'user_id',
+        'frequency'
     ];
 
     protected $visible = [
         'id',
         'filename',
-        //'user_id',
+        'user_id',
+        'frequency'
     ];
 }

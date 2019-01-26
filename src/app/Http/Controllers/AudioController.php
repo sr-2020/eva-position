@@ -128,6 +128,34 @@ class AudioController extends Controller
     }
 
     /**
+     * @param string $file
+     * @return integer
+     */
+    protected function getFrequency($file)
+    {
+        $filePath = storage_path('app/public/' . $file);
+
+        $result = shell_exec("sox {$filePath} -n trim 0 0.1 stat -freq -v 2>&1 | cat");
+        $array =[];
+        $lines = explode(PHP_EOL, $result);
+
+        if (2 >= count($lines)) {
+            return -1;
+        }
+
+        foreach ($lines as $line) {
+            $pair = explode(' ', $line);
+            if (!empty($pair[2])) {
+                $array[$pair[0]] = $pair[2];
+            }
+        }
+
+        arsort($array);
+        //print_r($array);
+        return round(key($array));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -142,27 +170,12 @@ class AudioController extends Controller
             $file = $request->file('audio');
             $fileName = $model->id . '.' . $file->getClientOriginalExtension();
             Storage::put($fileName, $file->get());
+            $model->filename = $fileName;
+            $model->frequency = self::getFrequency($fileName);
+
         }
 
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function read($id)
-    {
-        $modelClass = self::MODEL;
-        $model= $modelClass::findOrFail($id);
-
-        $contents = Storage::get($model->id . '.txt');
-        var_dump($contents);
-        exit;
-
-        return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 
     /**

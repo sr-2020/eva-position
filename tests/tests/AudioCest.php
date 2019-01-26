@@ -45,13 +45,35 @@ class AudioCest
     {
         $I->haveHttpHeader('Authorization', self::$apiKey);
         $I->sendPOST(self::$route, [], [
-            'audio' => codecept_data_dir('sample.aac')
+            'audio' => codecept_data_dir('audio20100.wav')
         ]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
+            'filename' => 'string',
+            'frequency' => 'integer'
+        ]);
+        $I->seeResponseContainsJson([
+            'frequency' => 20101
         ]);
     }
 
+    public function secondRouterTest(ApiTester $I)
+    {
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [], [
+            'audio' => codecept_data_dir('audio23100.wav')
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'id' => 'integer',
+            'filename' => 'string',
+            'frequency' => 'integer'
+        ]);
+        $I->seeResponseContainsJson([
+            'frequency' => 23098
+        ]);
+    }
 }
