@@ -155,6 +155,14 @@ class AudioController extends Controller
             return $item > 17000;
         }, ARRAY_FILTER_USE_KEY);
 
+        $highArray = array_filter($highArray, function($item) {
+            return $item > 1000;
+        });
+
+        if (0 === count($highArray)) {
+            return 0;
+        }
+
         arsort($highArray);
         return round(key($highArray));
     }
