@@ -14,6 +14,14 @@ class AudioCest
             return ;
         }
         $data = [
+            'name' => 'User Test',
+            'email' => 'test@email.com',
+            'password' => 'secret'
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST('/users', $data);
+
+        $data = [
             'email' => 'test@email.com',
             'password' => 'secret'
         ];

@@ -31,6 +31,8 @@
   with_items:
     - storage
     - storage/app
+    - storage/public
+    - storage/release
     - storage/framework
     - storage/framework/cache
     - storage/framework/sessions

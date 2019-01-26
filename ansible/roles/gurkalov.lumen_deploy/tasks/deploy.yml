@@ -57,6 +57,8 @@
     mode: 0755
   with_items:
     - {src: 'shared/storage', dest: 'releases/{{ build }}/storage'}
+    - {src: 'shared/storage/app/public', dest: 'releases/{{ build }}/public/audios'}
+    - {src: 'shared/storage/app/releases', dest: 'releases/{{ build }}/public/releases'}
 
 - include: sandbox.yml
   when: app_sandbox_enabled

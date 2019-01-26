@@ -135,7 +135,7 @@ class AudioController extends Controller
     {
         $filePath = storage_path('app/public/' . $file);
 
-        $result = shell_exec("sox {$filePath} -n trim 0 0.1 stat -freq -v 2>&1 | cat");
+        $result = shell_exec("sox {$filePath} -n trim 0 1 stat -freq -v 2>&1 | cat");
 
         $array = [];
         $lines = explode(PHP_EOL, $result);
@@ -151,9 +151,24 @@ class AudioController extends Controller
             }
         }
 
-        arsort($array);
-        //print_r($array);
-        return round(key($array));
+        $highArray = array_filter($array, function($item) {
+            return $item > 17000;
+        }, ARRAY_FILTER_USE_KEY);
+
+        arsort($highArray);
+        return round(key($highArray));
+    }
+
+    /**
+     * @param string $file
+     * @return void
+     */
+    protected function saveSpectogram($file)
+    {
+        $filePath = storage_path('app/public/' . $file);
+        $filePathPng = str_replace('.wav', '.png', $filePath);
+
+        shell_exec("sox {$filePath} -n spectrogram -o {$filePathPng}");
     }
 
     /**
@@ -173,7 +188,10 @@ class AudioController extends Controller
             Storage::put($fileName, $file->get());
             $model->filename = $fileName;
             $model->frequency = self::getFrequency($fileName);
-
+            $user = $request->user();
+            $model->user_id = $user->id;
+            $model->save();
+            self::saveSpectogram($fileName);
         }
 
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);

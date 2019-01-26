@@ -50,7 +50,8 @@ class AudioTest extends TestCase
             ->seeJsonEquals([
                 'id' => 1,
                 'filename' => '1.wav',
-                'frequency' => 20101
+                'frequency' => 20101,
+                'user_id' => 1
             ]);
     }
 
@@ -77,7 +78,8 @@ class AudioTest extends TestCase
             ->seeJsonEquals([
                 'id' => 1,
                 'filename' => '1.wav',
-                'frequency' => 23098
+                'frequency' => 23098,
+                'user_id' => 1
             ]);
     }
 
