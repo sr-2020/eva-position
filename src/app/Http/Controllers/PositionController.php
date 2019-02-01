@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Position;
 use App\Router;
+use App\Beacon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -183,22 +184,62 @@ class PositionController extends Controller
         $model->user_id = $user->id;
         $model->save();
 
-        $routers = [];
-        foreach ($model->routers as $router) {
-            $routers[] = array_change_key_case($router, CASE_LOWER);
+        $user->router_id = self::assignRouter($model->routers);
+        $user->beacon_id = self::assignBeacon($model->beacons);
+        $user->save();
+
+        return new JsonResponse($model, JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * @param array $routers
+     * @return integer
+     */
+    protected function assignRouter($routers)
+    {
+        if (!is_array($routers)) {
+            return null;
+        }
+        $lowerRouters = [];
+        foreach ($routers as $router) {
+            $lowerRouters[] = array_change_key_case($router, CASE_LOWER);
         }
 
-        $sort = array_column($routers, 'level', 'bssid');
+        $sort = array_column($lowerRouters, 'level', 'bssid');
         arsort($sort);
         if ([] !== $sort) {
             $bssid = key($sort);
             $router = Router::where('bssid', $bssid)->first();
             if (null !== $router) {
-                $user->router_id = $router->id;
-                $user->save();
+                return $router->id;
             }
         }
+        return null;
+    }
 
-        return new JsonResponse($model, JsonResponse::HTTP_CREATED);
+    /**
+     * @param array $beacons
+     * @return integer
+     */
+    protected function assignBeacon($beacons)
+    {
+        if (!is_array($beacons)) {
+            return null;
+        }
+        $lowerBeacons = [];
+        foreach ($beacons as $router) {
+            $lowerBeacons[] = array_change_key_case($router, CASE_LOWER);
+        }
+
+        $sort = array_column($lowerBeacons, 'level', 'bssid');
+        arsort($sort);
+        if ([] !== $sort) {
+            $bssid = key($sort);
+            $beacon = Beacon::where('bssid', $bssid)->first();
+            if (null !== $beacon) {
+                return $beacon->id;
+            }
+        }
+        return null;
     }
 }

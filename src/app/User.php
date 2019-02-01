@@ -32,12 +32,14 @@ class User extends Model
         'email',
         'password',
         'router_id',
+        'beacon_id',
         'api_key'
     ];
 
     protected $visible = [
         'id',
         'router_id',
+        'beacon_id',
         'name',
         'email',
         'updated_at'

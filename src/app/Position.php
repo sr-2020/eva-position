@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Router;
+use App\Beacon;
 
 /**
  * @OA\Schema(schema="NewPosition", required={"name"},
@@ -32,30 +33,55 @@ class Position extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'routers' => 'array',
+        'beacons' => 'array',
     ];
 
     protected $fillable = [
         'routers',
+        'beacons',
     ];
 
     protected $visible = [
         'id',
         'user_id',
         'routers',
+        'beacons',
     ];
 
     protected static function boot()
     {
         parent::boot();
 
+        static::creating(function($model) {
+            if (!is_array($model->routers)) {
+                $model->routers = [];
+            }
+            if (!is_array($model->beacons)) {
+                $model->beacons = [];
+            }
+        });
+
         static::created(function($model) {
-            foreach ($model->routers as $router) {
-                $validRouter = array_change_key_case($router, CASE_LOWER);
-                $routerModel = Router::firstOrNew([
-                    'bssid' => $validRouter['bssid']
-                ]);
-                $routerModel->ssid = $validRouter['ssid'];
-                $routerModel->save();
+            if (is_array($model->routers)) {
+                foreach ($model->routers as $router) {
+                    $validRouter = array_change_key_case($router, CASE_LOWER);
+                    $routerModel = Router::firstOrNew([
+                        'bssid' => $validRouter['bssid']
+                    ]);
+                    $routerModel->ssid = $validRouter['ssid'];
+                    $routerModel->save();
+                }
+            }
+
+            if (is_array($model->beacons)) {
+                foreach ($model->beacons as $beacon) {
+                    $validBeacon = array_change_key_case($beacon, CASE_LOWER);
+                    $beaconModel = Beacon::firstOrNew([
+                        'bssid' => $validBeacon['bssid']
+                    ]);
+                    $beaconModel->ssid = $validBeacon['ssid'];
+                    $beaconModel->save();
+                }
             }
         });
     }

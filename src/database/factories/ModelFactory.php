@@ -18,7 +18,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $faker->password,
         'api_key' => $faker->randomAscii,
         'amount' => $faker->numberBetween(0, 1000),
-        'router_id' => null
+        'router_id' => null,
+        'beacon_id' => null,
     ];
 });
 
@@ -44,9 +45,28 @@ $factory->define(App\Router::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Beacon::class, function (Faker\Generator $faker) {
+    return [
+        'ssid' => $faker->slug,
+        'bssid' => $faker->macAddress,
+    ];
+});
+
 $factory->define(App\Position::class, function (Faker\Generator $faker) {
     return [
         'routers' => [
+            [
+                'ssid' => $faker->slug,
+                'bssid' => $faker->macAddress,
+                'level' => -($faker->randomDigit % 100)
+            ],
+            [
+                'ssid' => $faker->slug,
+                'bssid' => $faker->macAddress,
+                'level' => -($faker->randomDigit % 100)
+            ],
+        ],
+        'beacons' => [
             [
                 'ssid' => $faker->slug,
                 'bssid' => $faker->macAddress,

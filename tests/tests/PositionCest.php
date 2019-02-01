@@ -115,4 +115,79 @@ class PositionCest
         ]);
     }
 
+    public function firstBeaconTest(ApiTester $I)
+    {
+        $beacons = [
+            [
+                'ssid' => 'broom_a',
+                'bssid' => 'b0:0a:95:9d:00:0a',
+                'level' => -10
+            ],
+            [
+                'ssid' => 'broom_b',
+                'bssid' => 'b0:0a:95:9d:00:0b',
+                'level' => -30
+            ]
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [
+            'beacons' => $beacons
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'id' => 'integer',
+            'routers' => 'array',
+            'beacons' => 'array',
+        ]);
+        $I->canSeeResponseContainsJson([
+            'beacons' => $beacons
+        ]);
+
+        $I->sendGET('/users');
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'beacon_id' => 1
+        ]);
+    }
+
+    public function secondBeaconTest(ApiTester $I)
+    {
+        $beacons = [
+            [
+                'ssid' => 'broom_a',
+                'bssid' => 'b0:0a:95:9d:00:0a',
+                'level' => -50
+            ],
+            [
+                'ssid' => 'broom_b',
+                'bssid' => 'b0:0a:95:9d:00:0b',
+                'level' => -30
+            ]
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [
+            'beacons' => $beacons
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'id' => 'integer',
+            'routers' => 'array',
+            'beacons' => 'array',
+        ]);
+        $I->canSeeResponseContainsJson([
+            'beacons' => $beacons
+        ]);
+
+        $I->sendGET('/users');
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'beacon_id' => 2
+        ]);
+    }
 }
