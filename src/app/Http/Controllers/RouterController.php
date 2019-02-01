@@ -6,148 +6,148 @@ use App\Router;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Router"},
  *     path="/api/v1/routers",
  *     description="Returns all routers",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         name="limit",
  *         in="query",
  *         description="maximum number of results to return",
  *         required=false,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int32"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Router response",
- *         @OA\JsonContent(
+ *         #OA\JsonContent(
  *             type="array",
- *             @OA\Items(ref="#/components/schemas/Router")
+ *             #OA\Items(ref="#/components/schemas/Router")
  *         ),
  *     ),
  * )
  */
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Router"},
  *     path="/api/v1/routers/{id}",
  *     description="Returns a router based on a single ID",
  *     operationId="getRouter",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of router to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Router response",
- *         @OA\JsonContent(ref="#/components/schemas/Router"),
+ *         #OA\JsonContent(ref="#/components/schemas/Router"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=404,
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Post(
+ * #OA\Post(
  *     tags={"Router"},
  *     path="/api/v1/routers",
  *     operationId="createRouter",
  *     description="Creates a new router.",
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Router to add.",
  *         required=true,
- *         @OA\MediaType(
+ *         #OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewRouter")
+ *             #OA\Schema(ref="#/components/schemas/NewRouter")
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Router response",
- *         @OA\JsonContent(ref="#/components/schemas/Router")
+ *         #OA\JsonContent(ref="#/components/schemas/Router")
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  * )
  */
 
 /**
- * @OA\Put(
+ * #OA\Put(
  *     tags={"Router"},
  *     path="/api/v1/routers/{id}",
  *     description="Update a router based on a single ID.",
  *     operationId="updateRouter",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of router to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Router to update.",
  *         required=true,
- *         @OA\MediaType(
+ *         #OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewRouter")
+ *             #OA\Schema(ref="#/components/schemas/NewRouter")
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Router response",
- *         @OA\JsonContent(ref="#/components/schemas/Router"),
+ *         #OA\JsonContent(ref="#/components/schemas/Router"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Delete(
+ * #OA\Delete(
  *     tags={"Router"},
  *     path="/api/v1/routers/{id}",
  *     description="Deletes a single router based on the ID.",
  *     operationId="deleteRouter",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of router to delete",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             format="int64",
  *             type="integer"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=204,
  *         description="Router deleted"
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */

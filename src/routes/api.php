@@ -34,6 +34,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     });
 
     $router->get('positions', 'PositionController@index');
+    $router->get('positions/{id}', 'PositionController@read');
     $router->get('routers/users', 'RouterController@users');
 
     $router->get('audios', 'AudioController@index');

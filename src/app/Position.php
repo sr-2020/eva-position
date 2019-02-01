@@ -8,7 +8,9 @@ use App\Beacon;
 
 /**
  * @OA\Schema(schema="NewPosition", required={"name"},
- *     @OA\Property(property="positions", format="string", type="string"),
+ *     @OA\Property(property="beacons", format="array", type="array",
+ *         @OA\Items(ref="#/components/schemas/BeaconsSignal")
+ *     )
  * )
  */
 
@@ -21,8 +23,7 @@ use App\Beacon;
  *       @OA\Schema(
  *           required={"id"},
  *           @OA\Property(property="id", format="int64", type="integer"),
- *           @OA\Property(property="user_id", format="int64", type="integer"),
- *           @OA\Property(property="routers", format="string", type="string"),
+ *           @OA\Property(property="user_id", format="int64", type="integer")
  *       )
  *   }
  * )

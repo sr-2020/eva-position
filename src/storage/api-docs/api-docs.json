@@ -8,209 +8,31 @@
         "version": "0.0.1"
     },
     "paths": {
-        "/api/v1/audios": {
-            "get": {
-                "tags": [
-                    "Audio"
-                ],
-                "description": "Returns all audios",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "maximum number of results to return",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Audio response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Audio"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+        "/api/v1/login": {
             "post": {
                 "tags": [
-                    "Audio"
+                    "User"
                 ],
-                "description": "Creates a new audio.",
-                "operationId": "createAudio",
+                "description": "Login as user.",
+                "operationId": "loginUser",
                 "requestBody": {
-                    "description": "Audio to add.",
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Audio response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Audio"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/audios/{id}": {
-            "get": {
-                "tags": [
-                    "Audio"
-                ],
-                "description": "Returns a audio based on a single ID",
-                "operationId": "getAudio",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of audio to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Audio response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Audio"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Audio"
-                ],
-                "description": "Deletes a single audio based on the ID.",
-                "operationId": "deleteAudio",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of audio to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Audio deleted"
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/items": {
-            "get": {
-                "tags": [
-                    "Item"
-                ],
-                "description": "Returns all items",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "maximum number of results to return",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Item response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Item"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Item"
-                ],
-                "description": "Creates a new item.",
-                "operationId": "createItem",
-                "requestBody": {
-                    "description": "Item to add.",
+                    "description": "Creds for authorization.",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/NewItem"
+                                "$ref": "#/components/schemas/UserCreds"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Item response",
+                        "description": "Authorize user",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Item"
+                                    "$ref": "#/components/schemas/UserApiKey"
                                 }
                             }
                         }
@@ -228,121 +50,34 @@
                 }
             }
         },
-        "/api/v1/items/{id}": {
-            "get": {
+        "/api/v1/register": {
+            "post": {
                 "tags": [
-                    "Item"
+                    "User"
                 ],
-                "description": "Returns a item based on a single ID",
-                "operationId": "getItem",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Item response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Item"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Item"
-                ],
-                "description": "Update a item based on a single ID.",
-                "operationId": "updateItem",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
+                "description": "Register new user.",
+                "operationId": "registerUser",
                 "requestBody": {
-                    "description": "Item to update.",
+                    "description": "Creds for registeration.",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/NewItem"
+                                "$ref": "#/components/schemas/UserCreds"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Item response",
+                        "description": "Register user",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Item"
+                                    "$ref": "#/components/schemas/UserApiKey"
                                 }
                             }
                         }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Item"
-                ],
-                "description": "Deletes a single item based on the ID.",
-                "operationId": "deleteItem",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of item to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Item deleted"
                     },
                     "default": {
                         "description": "unexpected error",
@@ -429,7 +164,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/api/v1/positions/{id}": {
@@ -463,500 +203,6 @@
                         }
                     },
                     "404": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Position"
-                ],
-                "description": "Update a position based on a single ID.",
-                "operationId": "updatePosition",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of position to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Position to update.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewPosition"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Position response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Position"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Position"
-                ],
-                "description": "Deletes a single position based on the ID.",
-                "operationId": "deletePosition",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of position to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Position deleted"
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/routers": {
-            "get": {
-                "tags": [
-                    "Router"
-                ],
-                "description": "Returns all routers",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "maximum number of results to return",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Router response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Router"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Router"
-                ],
-                "description": "Creates a new router.",
-                "operationId": "createRouter",
-                "requestBody": {
-                    "description": "Router to add.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewRouter"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Router response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Router"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/routers/{id}": {
-            "get": {
-                "tags": [
-                    "Router"
-                ],
-                "description": "Returns a router based on a single ID",
-                "operationId": "getRouter",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of router to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Router response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Router"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Router"
-                ],
-                "description": "Update a router based on a single ID.",
-                "operationId": "updateRouter",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of router to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Router to update.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewRouter"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Router response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Router"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Router"
-                ],
-                "description": "Deletes a single router based on the ID.",
-                "operationId": "deleteRouter",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of router to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Router deleted"
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/shops": {
-            "get": {
-                "tags": [
-                    "Shop"
-                ],
-                "description": "Returns all shops",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "maximum number of results to return",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Shop response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Shop"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Shop"
-                ],
-                "description": "Creates a new shop.",
-                "operationId": "createShop",
-                "requestBody": {
-                    "description": "Shop to add.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewShop"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Shop response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Shop"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/shops/{id}": {
-            "get": {
-                "tags": [
-                    "Shop"
-                ],
-                "description": "Returns a shop based on a single ID",
-                "operationId": "getShop",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of shop to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Shop response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Shop"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Shop"
-                ],
-                "description": "Update a shop based on a single ID.",
-                "operationId": "updateShop",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of shop to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Shop to update.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewShop"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Shop response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Shop"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Shop"
-                ],
-                "description": "Deletes a single shop based on the ID.",
-                "operationId": "deleteShop",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of shop to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Shop deleted"
-                    },
-                    "default": {
                         "description": "unexpected error",
                         "content": {
                             "application/json": {
@@ -1002,46 +248,6 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "description": "Creates a new user.",
-                "operationId": "createUser",
-                "requestBody": {
-                    "description": "User to add.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewUser"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/api/v1/users/{id}": {
@@ -1060,7 +266,8 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
-                        }
+                        },
+                        "example": 1
                     }
                 ],
                 "responses": {
@@ -1085,121 +292,35 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "tags": [
-                    "User"
-                ],
-                "description": "Update a user based on a single ID.",
-                "operationId": "updateUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of user to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "User to update.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/NewUser"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "User"
-                ],
-                "description": "Deletes a single user based on the ID.",
-                "operationId": "deleteUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of user to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "User deleted"
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     },
     "components": {
         "schemas": {
-            "Audio": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "required": [
-                            "id"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "user_id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "filename": {
-                                "type": "string",
-                                "format": "string"
-                            }
-                        },
-                        "type": "object"
+            "BeaconsSignal": {
+                "required": [
+                    "ssid",
+                    "bbsid",
+                    "level"
+                ],
+                "properties": {
+                    "ssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "beacon1"
+                    },
+                    "bssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "b0:0a:95:9d:00:0a"
+                    },
+                    "level": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": -50
                     }
-                ]
+                },
+                "type": "object"
             },
             "ErrorModel": {
                 "required": [
@@ -1217,50 +338,17 @@
                 },
                 "type": "object"
             },
-            "NewItem": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "format": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "Item": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/NewItem"
-                    },
-                    {
-                        "required": [
-                            "id"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "name": {
-                                "type": "string",
-                                "format": "string"
-                            }
-                        },
-                        "type": "object"
-                    }
-                ]
-            },
             "NewPosition": {
                 "required": [
                     "name"
                 ],
                 "properties": {
-                    "positions": {
-                        "type": "string",
-                        "format": "string"
+                    "beacons": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BeaconsSignal"
+                        }
                     }
                 },
                 "type": "object"
@@ -1283,104 +371,46 @@
                             "user_id": {
                                 "type": "integer",
                                 "format": "int64"
-                            },
-                            "routers": {
-                                "type": "string",
-                                "format": "string"
                             }
                         },
                         "type": "object"
                     }
                 ]
             },
-            "NewRouter": {
+            "UserCreds": {
                 "required": [
-                    "name"
+                    "email",
+                    "password"
                 ],
                 "properties": {
-                    "ssid": {
+                    "email": {
                         "type": "string",
-                        "format": "string"
+                        "format": "string",
+                        "example": "test@email.com"
                     },
-                    "bssid": {
+                    "password": {
                         "type": "string",
-                        "format": "string"
+                        "format": "string",
+                        "example": "secret"
                     }
                 },
                 "type": "object"
             },
-            "Router": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/NewRouter"
-                    },
-                    {
-                        "required": [
-                            "id"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "ssid": {
-                                "type": "string",
-                                "format": "string"
-                            },
-                            "bssid": {
-                                "type": "string",
-                                "format": "string"
-                            }
-                        },
-                        "type": "object"
-                    }
-                ]
-            },
-            "NewShop": {
+            "UserApiKey": {
                 "required": [
-                    "name"
+                    "email",
+                    "password"
                 ],
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "format": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "Shop": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/NewShop"
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
                     },
-                    {
-                        "required": [
-                            "id"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "name": {
-                                "type": "string",
-                                "format": "string"
-                            }
-                        },
-                        "type": "object"
-                    }
-                ]
-            },
-            "NewUser": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
+                    "api_key": {
                         "type": "string",
-                        "format": "string"
+                        "format": "string",
+                        "example": "em1JbEVqSnZlR0lPMlozenZ5YmpPUWdKSURiVGpnZmg="
                     }
                 },
                 "type": "object"
@@ -1389,25 +419,51 @@
                 "type": "object",
                 "allOf": [
                     {
-                        "$ref": "#/components/schemas/NewUser"
-                    },
-                    {
                         "required": [
                             "id"
                         ],
                         "properties": {
                             "id": {
                                 "type": "integer",
-                                "format": "int64"
+                                "format": "int64",
+                                "example": 1
+                            },
+                            "router_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "example": 2
+                            },
+                            "beacon_id": {
+                                "type": "integer",
+                                "format": "int64",
+                                "example": 3
                             },
                             "name": {
                                 "type": "string",
-                                "format": "string"
+                                "format": "string",
+                                "example": "User Name"
+                            },
+                            "email": {
+                                "type": "string",
+                                "format": "string",
+                                "example": "test@email.com"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "string",
+                                "example": "2019-01-26 20:00:57"
                             }
                         },
                         "type": "object"
                     }
                 ]
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

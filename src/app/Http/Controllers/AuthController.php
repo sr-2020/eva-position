@@ -7,6 +7,60 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @OA\Post(
+ *     tags={"User"},
+ *     path="/api/v1/login",
+ *     operationId="loginUser",
+ *     description="Login as user.",
+ *     @OA\RequestBody(
+ *         description="Creds for authorization.",
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/UserCreds")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Authorize user",
+ *         @OA\JsonContent(ref="#/components/schemas/UserApiKey")
+ *     ),
+ *     @OA\Response(
+ *         response="default",
+ *         description="unexpected error",
+ *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *     ),
+ * )
+ */
+
+/**
+ * @OA\Post(
+ *     tags={"User"},
+ *     path="/api/v1/register",
+ *     operationId="registerUser",
+ *     description="Register new user.",
+ *     @OA\RequestBody(
+ *         description="Creds for registeration.",
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/UserCreds")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Register user",
+ *         @OA\JsonContent(ref="#/components/schemas/UserApiKey")
+ *     ),
+ *     @OA\Response(
+ *         response="default",
+ *         description="unexpected error",
+ *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *     ),
+ * )
+ */
+
 class AuthController extends Controller
 {
     const MODEL = User::class;

@@ -8,107 +8,107 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Audio"},
  *     path="/api/v1/audios",
  *     description="Returns all audios",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         name="limit",
  *         in="query",
  *         description="maximum number of results to return",
  *         required=false,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int32"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Audio response",
- *         @OA\JsonContent(
+ *         #OA\JsonContent(
  *             type="array",
- *             @OA\Items(ref="#/components/schemas/Audio")
+ *             #OA\Items(ref="#/components/schemas/Audio")
  *         ),
  *     ),
  * )
  */
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Audio"},
  *     path="/api/v1/audios/{id}",
  *     description="Returns a audio based on a single ID",
  *     operationId="getAudio",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of audio to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Audio response",
- *         @OA\JsonContent(ref="#/components/schemas/Audio"),
+ *         #OA\JsonContent(ref="#/components/schemas/Audio"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=404,
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Post(
+ * #OA\Post(
  *     tags={"Audio"},
  *     path="/api/v1/audios",
  *     operationId="createAudio",
  *     description="Creates a new audio.",
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Audio to add.",
  *         required=true,
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Audio response",
- *         @OA\JsonContent(ref="#/components/schemas/Audio")
+ *         #OA\JsonContent(ref="#/components/schemas/Audio")
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  * )
  */
 
 /**
- * @OA\Delete(
+ * #OA\Delete(
  *     tags={"Audio"},
  *     path="/api/v1/audios/{id}",
  *     description="Deletes a single audio based on the ID.",
  *     operationId="deleteAudio",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of audio to delete",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             format="int64",
  *             type="integer"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=204,
  *         description="Audio deleted"
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */

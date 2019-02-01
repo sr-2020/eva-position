@@ -11,6 +11,15 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  */
 
 /**
+ * @OA\SecurityScheme(
+ *   securityScheme="apiKey",
+ *   type="apiKey",
+ *   in="header",
+ *   name="Authorization"
+ * )
+ */
+
+/**
  * @OA\Schema(
  *     schema="ErrorModel",
  *     required={"code", "message"},

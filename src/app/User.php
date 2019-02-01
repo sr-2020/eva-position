@@ -6,8 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @OA\Schema(schema="NewUser", required={"name"},
- *     @OA\Property(property="name", format="string", type="string"),
+ * @OA\Schema(schema="UserCreds", required={"email", "password"},
+ *     @OA\Property(property="email", format="string", type="string", example="test@email.com"),
+ *     @OA\Property(property="password", format="string", type="string", example="secret"),
+ * )
+ */
+
+/**
+ * @OA\Schema(schema="UserApiKey", required={"email", "password"},
+ *     @OA\Property(property="id", format="int64", type="integer", example=1),
+ *     @OA\Property(property="api_key", format="string", type="string", example="em1JbEVqSnZlR0lPMlozenZ5YmpPUWdKSURiVGpnZmg="),
+ * )
+ */
+
+/**
+ * #OA\Schema(schema="NewUser", required={"name"},
+ *     #OA\Property(property="name", format="string", type="string"),
  * )
  */
 
@@ -16,11 +30,14 @@ use Illuminate\Support\Facades\Hash;
  *   schema="User",
  *   type="object",
  *   allOf={
- *       @OA\Schema(ref="#/components/schemas/NewUser"),
  *       @OA\Schema(
  *           required={"id"},
- *           @OA\Property(property="id", format="int64", type="integer"),
- *           @OA\Property(property="name", format="string", type="string"),
+ *           @OA\Property(property="id", format="int64", type="integer", example=1),
+ *           @OA\Property(property="router_id", format="int64", type="integer", example=2),
+ *           @OA\Property(property="beacon_id", format="int64", type="integer", example=3),
+ *           @OA\Property(property="name", format="string", type="string", example="User Name"),
+ *           @OA\Property(property="email", format="string", type="string", example="test@email.com"),
+ *           @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
  *       )
  *   }
  * )

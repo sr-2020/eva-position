@@ -5,148 +5,148 @@ namespace App\Http\Controllers;
 use App\Shop;
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Shop"},
  *     path="/api/v1/shops",
  *     description="Returns all shops",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         name="limit",
  *         in="query",
  *         description="maximum number of results to return",
  *         required=false,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int32"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Shop response",
- *         @OA\JsonContent(
+ *         #OA\JsonContent(
  *             type="array",
- *             @OA\Items(ref="#/components/schemas/Shop")
+ *             #OA\Items(ref="#/components/schemas/Shop")
  *         ),
  *     ),
  * )
  */
 
 /**
- * @OA\Get(
+ * #OA\Get(
  *     tags={"Shop"},
  *     path="/api/v1/shops/{id}",
  *     description="Returns a shop based on a single ID",
  *     operationId="getShop",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of shop to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Shop response",
- *         @OA\JsonContent(ref="#/components/schemas/Shop"),
+ *         #OA\JsonContent(ref="#/components/schemas/Shop"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=404,
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Post(
+ * #OA\Post(
  *     tags={"Shop"},
  *     path="/api/v1/shops",
  *     operationId="createShop",
  *     description="Creates a new shop.",
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Shop to add.",
  *         required=true,
- *         @OA\MediaType(
+ *         #OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewShop")
+ *             #OA\Schema(ref="#/components/schemas/NewShop")
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Shop response",
- *         @OA\JsonContent(ref="#/components/schemas/Shop")
+ *         #OA\JsonContent(ref="#/components/schemas/Shop")
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  * )
  */
 
 /**
- * @OA\Put(
+ * #OA\Put(
  *     tags={"Shop"},
  *     path="/api/v1/shops/{id}",
  *     description="Update a shop based on a single ID.",
  *     operationId="updateShop",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of shop to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Shop to update.",
  *         required=true,
- *         @OA\MediaType(
+ *         #OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewShop")
+ *             #OA\Schema(ref="#/components/schemas/NewShop")
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Shop response",
- *         @OA\JsonContent(ref="#/components/schemas/Shop"),
+ *         #OA\JsonContent(ref="#/components/schemas/Shop"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Delete(
+ * #OA\Delete(
  *     tags={"Shop"},
  *     path="/api/v1/shops/{id}",
  *     description="Deletes a single shop based on the ID.",
  *     operationId="deleteShop",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of shop to delete",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             format="int64",
  *             type="integer"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=204,
  *         description="Shop deleted"
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */

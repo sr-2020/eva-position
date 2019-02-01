@@ -87,70 +87,73 @@ use Illuminate\Http\JsonResponse;
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
+ *      security={
+ *         {"apiKey": {}}
+ *     }
  * )
  */
 
 /**
- * @OA\Put(
+ * #OA\Put(
  *     tags={"Position"},
  *     path="/api/v1/positions/{id}",
  *     description="Update a position based on a single ID.",
  *     operationId="updatePosition",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of position to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             type="integer",
  *             format="int64",
  *         )
  *     ),
- *     @OA\RequestBody(
+ *     #OA\RequestBody(
  *         description="Position to update.",
  *         required=true,
- *         @OA\MediaType(
+ *         #OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewPosition")
+ *             #OA\Schema(ref="#/components/schemas/NewPosition")
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=200,
  *         description="Position response",
- *         @OA\JsonContent(ref="#/components/schemas/Position"),
+ *         #OA\JsonContent(ref="#/components/schemas/Position"),
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
 
 /**
- * @OA\Delete(
+ * #OA\Delete(
  *     tags={"Position"},
  *     path="/api/v1/positions/{id}",
  *     description="Deletes a single position based on the ID.",
  *     operationId="deletePosition",
- *     @OA\Parameter(
+ *     #OA\Parameter(
  *         description="ID of position to delete",
  *         in="path",
  *         name="id",
  *         required=true,
- *         @OA\Schema(
+ *         #OA\Schema(
  *             format="int64",
  *             type="integer"
  *         )
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response=204,
  *         description="Position deleted"
  *     ),
- *     @OA\Response(
+ *     #OA\Response(
  *         response="default",
  *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *         #OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     )
  * )
  */
@@ -189,6 +192,19 @@ class PositionController extends Controller
         $user->save();
 
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function read($id)
+    {
+        $modelClass = self::MODEL;
+        $model= $modelClass::findOrFail($id);
+        return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 
     /**

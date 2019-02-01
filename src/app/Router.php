@@ -5,23 +5,23 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @OA\Schema(schema="NewRouter", required={"name"},
- *     @OA\Property(property="ssid", format="string", type="string"),
- *     @OA\Property(property="bssid", format="string", type="string"),
+ * #OA\Schema(schema="NewRouter", required={"name"},
+ *     #OA\Property(property="ssid", format="string", type="string"),
+ *     #OA\Property(property="bssid", format="string", type="string"),
  * )
  */
 
 /**
- *  @OA\Schema(
+ *  #OA\Schema(
  *   schema="Router",
  *   type="object",
  *   allOf={
- *       @OA\Schema(ref="#/components/schemas/NewRouter"),
- *       @OA\Schema(
+ *       #OA\Schema(ref="#/components/schemas/NewRouter"),
+ *       #OA\Schema(
  *           required={"id"},
- *           @OA\Property(property="id", format="int64", type="integer"),
- *           @OA\Property(property="ssid", format="string", type="string"),
- *           @OA\Property(property="bssid", format="string", type="string"),
+ *           #OA\Property(property="id", format="int64", type="integer"),
+ *           #OA\Property(property="ssid", format="string", type="string"),
+ *           #OA\Property(property="bssid", format="string", type="string"),
  *       )
  *   }
  * )
