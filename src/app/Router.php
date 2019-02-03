@@ -39,8 +39,6 @@ class Router extends Model
         'bssid',
     ];
 
-    protected $with = ['users'];
-
     /**
      * Get users.
      */

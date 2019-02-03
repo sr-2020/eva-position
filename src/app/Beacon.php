@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 /**
- * @OA\Schema(schema="BeaconsSignal", required={"ssid", "bbsid", "level"},
+ * @OA\Schema(schema="BeaconSignal", required={"ssid", "bbsid", "level"},
  *    @OA\Property(property="ssid", format="string", type="string", example="beacon1"),
  *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a"),
  *    @OA\Property(property="level", format="int64", type="integer", example=-50),
@@ -20,20 +20,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 /**
- *  #OA\Schema(
- *   schema="Beacon",
- *   type="object",
- *   allOf={
- *       #OA\Schema(ref="#/components/schemas/NewBeacon"),
- *       #OA\Schema(
- *           required={"id"},
- *           #OA\Property(property="id", format="int64", type="integer"),
- *           #OA\Property(property="ssid", format="string", type="string"),
- *           #OA\Property(property="bssid", format="string", type="string"),
- *       )
- *   }
+ * @OA\Schema(schema="Beacon", required={"ssid", "bbsid", "level"},
+ *    @OA\Property(property="id", format="int64", type="integer", example=1),
+ *    @OA\Property(property="ssid", format="string", type="string", example="beacon1"),
+ *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a"),
+ *    @OA\Property(property="level", format="int64", type="integer", example=-50),
  * )
-*/
+ */
 class Beacon extends Model
 {
     protected $fillable = [
@@ -46,8 +39,6 @@ class Beacon extends Model
         'ssid',
         'bssid',
     ];
-
-    protected $with = ['users'];
 
     /**
      * Get users.

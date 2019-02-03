@@ -3,13 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Router;
-use App\Beacon;
 
 /**
  * @OA\Schema(schema="NewPosition", required={"name"},
  *     @OA\Property(property="beacons", format="array", type="array",
- *         @OA\Items(ref="#/components/schemas/BeaconsSignal")
+ *         @OA\Items(ref="#/components/schemas/BeaconSignal")
  *     )
  * )
  */

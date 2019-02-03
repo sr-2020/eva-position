@@ -6,7 +6,7 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 class UserItemTest extends TestCase
 {
     use DatabaseMigrations;
-    use TestCrudTrait;
+    use TestManyToManyTrait;
 
     const ROUTE = '/api/v1/users';
     const CONTROLLER = UserItemController::class;

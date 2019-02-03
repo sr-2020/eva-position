@@ -297,13 +297,43 @@
     },
     "components": {
         "schemas": {
-            "BeaconsSignal": {
+            "BeaconSignal": {
                 "required": [
                     "ssid",
                     "bbsid",
                     "level"
                 ],
                 "properties": {
+                    "ssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "beacon1"
+                    },
+                    "bssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "b0:0a:95:9d:00:0a"
+                    },
+                    "level": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": -50
+                    }
+                },
+                "type": "object"
+            },
+            "Beacon": {
+                "required": [
+                    "ssid",
+                    "bbsid",
+                    "level"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "ssid": {
                         "type": "string",
                         "format": "string",
@@ -347,7 +377,7 @@
                         "type": "array",
                         "format": "array",
                         "items": {
-                            "$ref": "#/components/schemas/BeaconsSignal"
+                            "$ref": "#/components/schemas/BeaconSignal"
                         }
                     }
                 },
@@ -452,6 +482,11 @@
                                 "type": "string",
                                 "format": "string",
                                 "example": "2019-01-26 20:00:57"
+                            },
+                            "beacons": {
+                                "type": "object",
+                                "format": "object",
+                                "$ref": "#/components/schemas/Beacon"
                             }
                         },
                         "type": "object"

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Get(
@@ -156,4 +157,29 @@ class UserController extends Controller
     use Traits\CrudTrait;
     
     const MODEL = User::class;
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function index()
+    {
+        $modelClass = self::MODEL;
+        $list = $modelClass::with('beacon')->get()->makeVisible('beacon');
+        return new JsonResponse($list, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function read($id)
+    {
+        $modelClass = self::MODEL;
+        $model= $modelClass::with('beacon')->findOrFail($id)->makeVisible('beacon');
+        return new JsonResponse($model, JsonResponse::HTTP_OK);
+    }
 }
