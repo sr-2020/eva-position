@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Hash;
  *           @OA\Property(property="name", format="string", type="string", example="User Name"),
  *           @OA\Property(property="email", format="string", type="string", example="test@email.com"),
  *           @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
- *           @OA\Property(property="beacons", format="object", type="object",
+ *           @OA\Property(property="beacon", format="object", type="object",
  *              ref="#/components/schemas/Beacon"
  *           )
  *       )

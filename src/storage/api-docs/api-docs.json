@@ -343,11 +343,6 @@
                         "type": "string",
                         "format": "string",
                         "example": "b0:0a:95:9d:00:0a"
-                    },
-                    "level": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": -50
                     }
                 },
                 "type": "object"
@@ -483,7 +478,7 @@
                                 "format": "string",
                                 "example": "2019-01-26 20:00:57"
                             },
-                            "beacons": {
+                            "beacon": {
                                 "type": "object",
                                 "format": "object",
                                 "$ref": "#/components/schemas/Beacon"

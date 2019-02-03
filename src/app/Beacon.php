@@ -23,8 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Schema(schema="Beacon", required={"ssid", "bbsid", "level"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
  *    @OA\Property(property="ssid", format="string", type="string", example="beacon1"),
- *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a"),
- *    @OA\Property(property="level", format="int64", type="integer", example=-50),
+ *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a")
  * )
  */
 class Beacon extends Model
