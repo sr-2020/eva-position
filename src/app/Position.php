@@ -47,6 +47,7 @@ class Position extends Model
         'user_id',
         'routers',
         'beacons',
+        'created_at'
     ];
 
     protected static function boot()

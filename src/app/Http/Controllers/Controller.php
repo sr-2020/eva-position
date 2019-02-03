@@ -12,8 +12,9 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 /**
  * @OA\SecurityScheme(
- *   securityScheme="apiKey",
- *   type="apiKey",
+ *   securityScheme="bearerAuth",
+ *   type="http",
+ *   scheme="bearer",
  *   in="header",
  *   name="Authorization"
  * )

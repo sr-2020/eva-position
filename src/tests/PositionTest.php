@@ -38,9 +38,11 @@ class PositionTest extends TestCase
                 'Authorization' => $user->api_key
             ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
-            ->seeJsonEquals($model->toArray() + [
-                'id' => 1,
-                'user_id' => $user->id
+            ->seeJsonStructure([
+                'id',
+                'user_id',
+                'beacons',
+                'created_at',
             ]);
     }
 

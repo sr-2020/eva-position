@@ -107,4 +107,56 @@ class AuthTest extends TestCase
             ->seeStatusCode(JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
             ->seeJsonStructure([]);
     }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testProfileAuthorizationSuccess()
+    {
+        $model = $this->makeFactory();
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        $this->json('GET', '/api/v1/profile', $model->toArray(), [
+            'Authorization' => $user->api_key
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK)
+            ->seeJsonEquals($user->toArray());
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testProfileBearerAuthorizationSuccess()
+    {
+        $model = $this->makeFactory();
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        $this->json('GET', '/api/v1/profile', $model->toArray(), [
+            'Authorization' => 'Bearer ' . $user->api_key
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK)
+            ->seeJsonEquals($user->toArray());
+    }
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testProfileAuthorizationFail()
+    {
+        $model = $this->makeFactory();
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        $this->json('GET', '/api/v1/profile', $model->toArray(), [
+            'Authorization' => 'Bearer test'
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED);
+    }
 }

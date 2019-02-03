@@ -21,6 +21,7 @@ $router->group([
 ], function () use ($router) {
     $router->post('positions', 'PositionController@create');
     $router->post('audios', 'AudioController@create');
+    $router->get('profile', 'AuthController@profile');
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {

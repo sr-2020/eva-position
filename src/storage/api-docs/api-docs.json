@@ -167,7 +167,7 @@
                 },
                 "security": [
                     {
-                        "apiKey": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -460,10 +460,11 @@
             }
         },
         "securitySchemes": {
-            "apiKey": {
-                "type": "apiKey",
+            "bearerAuth": {
+                "type": "http",
                 "name": "Authorization",
-                "in": "header"
+                "in": "header",
+                "scheme": "bearer"
             }
         }
     }

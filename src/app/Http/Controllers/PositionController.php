@@ -88,7 +88,7 @@ use Illuminate\Http\JsonResponse;
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  *      security={
- *         {"apiKey": {}}
+ *         {"bearerAuth": {}}
  *     }
  * )
  */
