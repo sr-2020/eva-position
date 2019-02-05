@@ -189,6 +189,7 @@ class PositionController extends Controller
 
         $user->router_id = self::assignRouter($model->routers);
         $user->beacon_id = self::assignBeacon($model->beacons);
+        $user->touch();
         $user->save();
 
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);

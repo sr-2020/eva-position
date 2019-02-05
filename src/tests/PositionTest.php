@@ -51,6 +51,37 @@ class PositionTest extends TestCase
      *
      * @return void
      */
+    public function testCreateEmptySuccess()
+    {
+        $user = factory(App\User::class)->make();
+        $user->save();
+
+        sleep(1);
+        $this->json('POST', static::ROUTE, [], [
+            'Authorization' => $user->api_key
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_CREATED)
+            ->seeJsonStructure([
+                'id',
+                'user_id',
+                'beacons',
+                'created_at',
+            ]);
+
+        $this->json('GET', '/api/v1/users/' . $user->id, [], [
+            'Authorization' => $user->api_key
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK);
+
+        $json = json_decode($this->response->content());
+        $this->assertTrue(date('Y-m-d H:i:s') <= $json->updated_at);
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
     public function testCreateUnauthorized()
     {
         $model = $this->makeFactory();

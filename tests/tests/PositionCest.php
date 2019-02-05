@@ -29,6 +29,7 @@ class PositionCest
         $I->sendPOST('/login', $data);
         $jsonResponse = json_decode($I->grabResponse());
         self::$apiKey = $jsonResponse->api_key;
+        self::$createdId = $jsonResponse->id;
 
         static::$before = true;
     }
