@@ -71,7 +71,7 @@ class PositionCest
             'routers' => $routers
         ]);
 
-        $I->sendGET('/users');
+        $I->sendGET('/users/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -108,7 +108,7 @@ class PositionCest
             'routers' => $routers
         ]);
 
-        $I->sendGET('/users');
+        $I->sendGET('/users/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -146,11 +146,13 @@ class PositionCest
             'beacons' => $beacons
         ]);
 
-        $I->sendGET('/users');
+        $I->sendGET('/users/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'beacon_id' => 1
+            'beacon' => [
+                'bssid' => 'b0:0a:95:9d:00:0a'
+            ]
         ]);
     }
 
@@ -184,11 +186,13 @@ class PositionCest
             'beacons' => $beacons
         ]);
 
-        $I->sendGET('/users');
+        $I->sendGET('/users/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'beacon_id' => 2
+            'beacon' => [
+                'bssid' => 'b0:0a:95:9d:00:0b'
+            ]
         ]);
     }
 }

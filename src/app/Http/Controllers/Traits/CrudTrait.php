@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,14 +14,88 @@ use Illuminate\Http\Request;
 trait CrudTrait
 {
     /**
+     * Apply select
+     *
+     * @param Request $request
+     * @param Model $query
+     */
+    protected function applySelect($request, $query)
+    {
+        $select = $request->get('select', null);
+        if (null === $select) {
+            return ;
+        }
+
+        $query->select(explode(',', $select));
+    }
+
+    /**
+     * Apply limit and offset
+     *
+     * @param Request $request
+     * @param Model $query
+     */
+    protected function applyLimit($request, $query)
+    {
+        $limit = $request->get('limit', 100);
+        $offset = $request->get('offset', 0);
+        $query->limit($limit);
+        $query->offset($offset);
+    }
+
+    /**
+     * Apply order
+     *
+     * @param Request $request
+     * @param Model $query
+     */
+    protected function applyOrder($request, $query)
+    {
+        $sort = $request->get('sort', null);
+        if (null === $sort) {
+            return ;
+        }
+
+        $direction = 'asc';
+        $field = $sort;
+        if ('-' === $sort[0]) {
+            $field = substr($sort, 1);
+            $direction = 'desc';
+        }
+
+        $query->orderBy($field, $direction);
+    }
+
+    /**
+     * Apply order
+     *
+     * @param Request $request
+     * @param Model $query
+     */
+    protected function applyFilter($request, $query)
+    {
+        $filter = $request->get('filter', []);
+        foreach ($filter as $field => $value) {
+            $query->where($field, '=', $value);
+        }
+    }
+
+    /**
      * Display a listing of the resource.
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         $modelClass = self::MODEL;
-        return new JsonResponse($modelClass::all(), JsonResponse::HTTP_OK);
+        $query = $modelClass::query();
+        self::applySelect($request, $query);
+        self::applyLimit($request, $query);
+        self::applyOrder($request, $query);
+        self::applyFilter($request, $query);
+
+        return new JsonResponse($query->get(), JsonResponse::HTTP_OK);
     }
 
     /**

@@ -159,18 +159,9 @@ use Illuminate\Http\JsonResponse;
  */
 class PositionController extends Controller
 {
-    const MODEL = Position::class;
+    use Traits\CrudTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-        $modelClass = self::MODEL;
-        return new JsonResponse($modelClass::all(), JsonResponse::HTTP_OK);
-    }
+    const MODEL = Position::class;
 
     /**
      * Store a newly created resource in storage.
