@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
  * @OA\Schema(schema="UserCreds", required={"email", "password"},
  *     @OA\Property(property="email", format="string", type="string", example="test@email.com"),
  *     @OA\Property(property="password", format="string", type="string", example="secret"),
+ *     @OA\Property(property="name", format="string", type="string", example="Tom Sand"),
  * )
  */
 

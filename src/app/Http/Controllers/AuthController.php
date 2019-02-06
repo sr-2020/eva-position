@@ -61,6 +61,28 @@ use Illuminate\Http\JsonResponse;
  * )
  */
 
+/**
+ * @OA\Get(
+ *     tags={"User"},
+ *     path="/api/v1/profile",
+ *     description="Returns a user info which auth for token",
+ *     operationId="profileUser",
+ *     @OA\Response(
+ *         response=200,
+ *         description="User response",
+ *         @OA\JsonContent(ref="#/components/schemas/User"),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="unexpected error",
+ *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
+ *     ),
+ *     security={
+ *         {"bearerAuth": {}}
+ *     }
+ * )
+ */
+
 class AuthController extends Controller
 {
     const MODEL = User::class;
@@ -119,6 +141,7 @@ class AuthController extends Controller
             $user = User::create([
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
+                'name' => $request->input('name', ''),
                 'api_key' => self::generationApiKey(),
             ]);
         } catch (\Exception $e) {
@@ -137,6 +160,7 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
-        return new JsonResponse($user->toArray(), JsonResponse::HTTP_OK);
+        $model= User::with('beacon')->findOrFail($user->id)->makeVisible('beacon');
+        return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 }

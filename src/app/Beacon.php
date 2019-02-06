@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * #OA\Schema(schema="NewBeacon", required={"name"},
- *     #OA\Property(property="label", format="string", type="string", example="Hall Room"),
- *     #OA\Property(property="ssid", format="string", type="string"),
- *     #OA\Property(property="bssid", format="string", type="string"),
+ * @OA\Schema(schema="NewBeacon", required={"name"},
+ *     @OA\Property(property="label", format="string", type="string", example="Hall Room"),
+ *     @OA\Property(property="ssid", format="string", type="string"),
+ *     @OA\Property(property="bssid", format="string", type="string"),
  * )
  */
 

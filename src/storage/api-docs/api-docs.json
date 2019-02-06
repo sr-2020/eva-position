@@ -92,6 +92,246 @@
                 }
             }
         },
+        "/api/v1/profile": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Returns a user info which auth for token",
+                "operationId": "profileUser",
+                "responses": {
+                    "200": {
+                        "description": "User response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/beacons": {
+            "get": {
+                "tags": [
+                    "Beacon"
+                ],
+                "description": "Returns all beacons",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "maximum number of results to return",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Beacon response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Beacon"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Beacon"
+                ],
+                "description": "Creates a new beacon.",
+                "operationId": "createBeacon",
+                "requestBody": {
+                    "description": "Beacon to add.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewBeacon"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Beacon response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Beacon"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/beacons/{id}": {
+            "get": {
+                "tags": [
+                    "Beacon"
+                ],
+                "description": "Returns a beacon based on a single ID",
+                "operationId": "getBeacon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of beacon to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Beacon response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Beacon"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Beacon"
+                ],
+                "description": "Update a beacon based on a single ID.",
+                "operationId": "updateBeacon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of beacon to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Beacon to update.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewBeacon"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Beacon response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Beacon"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Beacon"
+                ],
+                "description": "Deletes a single beacon based on the ID.",
+                "operationId": "deleteBeacon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of beacon to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Beacon deleted"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/positions": {
             "get": {
                 "tags": [
@@ -297,6 +537,27 @@
     },
     "components": {
         "schemas": {
+            "NewBeacon": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "label": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Hall Room"
+                    },
+                    "ssid": {
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "bssid": {
+                        "type": "string",
+                        "format": "string"
+                    }
+                },
+                "type": "object"
+            },
             "BeaconSignal": {
                 "required": [
                     "ssid",
@@ -333,6 +594,11 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 1
+                    },
+                    "label": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Hall Room"
                     },
                     "ssid": {
                         "type": "string",
@@ -417,6 +683,11 @@
                         "type": "string",
                         "format": "string",
                         "example": "secret"
+                    },
+                    "name": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Tom Sand"
                     }
                 },
                 "type": "object"
