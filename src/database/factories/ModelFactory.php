@@ -47,6 +47,7 @@ $factory->define(App\Router::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Beacon::class, function (Faker\Generator $faker) {
     return [
+        'label' => $faker->streetName,
         'ssid' => $faker->slug,
         'bssid' => $faker->macAddress,
     ];
