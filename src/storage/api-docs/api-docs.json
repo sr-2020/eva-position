@@ -566,7 +566,7 @@
             "BeaconSignal": {
                 "required": [
                     "ssid",
-                    "bbsid",
+                    "bssid",
                     "level"
                 ],
                 "properties": {
@@ -591,8 +591,7 @@
             "Beacon": {
                 "required": [
                     "ssid",
-                    "bbsid",
-                    "level"
+                    "bssid"
                 ],
                 "properties": {
                     "id": {
