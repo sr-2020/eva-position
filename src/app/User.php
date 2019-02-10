@@ -80,6 +80,17 @@ class User extends Model
         'updated_at'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (null === $model->api_key) {
+                $model->api_key = self::generationApiKey();
+            }
+        });
+    }
+
     /**
      * Get router.
      */
@@ -115,5 +126,23 @@ class User extends Model
     public function setPasswordAttribute($pass)
     {
         $this->attributes['password'] = Hash::make($pass);
+    }
+
+    /**
+     * Generate new api key
+     * @return string
+     */
+    protected static function generationApiKey()
+    {
+        return substr(base64_encode(str_random(64)), 0, 32);
+    }
+
+    /**
+     * Generate new api key
+     * @return string
+     */
+    public function resetApiKey()
+    {
+        $this->api_key = self::generationApiKey();
     }
 }

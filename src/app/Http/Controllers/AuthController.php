@@ -68,16 +68,6 @@ class AuthController extends Controller
     const MODEL = User::class;
 
     /**
-     * Generate new api key
-     * @return string
-     */
-    protected static function generationApiKey()
-    {
-        $apiKey = substr(base64_encode(str_random(64)), 0, 32);
-        return $apiKey;
-    }
-
-    /**
      * Login method
      *
      * @return JsonResponse
@@ -98,7 +88,7 @@ class AuthController extends Controller
             return new JsonResponse([], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        $user->api_key = self::generationApiKey();
+        $user->resetApiKey();
         $user->save();
 
         $user->setVisible(['id', 'api_key']);
@@ -121,8 +111,7 @@ class AuthController extends Controller
             $user = User::create([
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
-                'name' => $request->input('name', ''),
-                'api_key' => self::generationApiKey(),
+                'name' => $request->input('name', '')
             ]);
         } catch (\Exception $e) {
             return new JsonResponse([], JsonResponse::HTTP_BAD_REQUEST);

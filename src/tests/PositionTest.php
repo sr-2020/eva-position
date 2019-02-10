@@ -49,11 +49,8 @@ class PositionTest extends TestCase
     public function testCreateSuccess()
     {
         $model = $this->makeFactory();
-        $user = factory(App\User::class)->make();
-        $user->save();
-
         $this->json('POST', static::ROUTE, $model->toArray(), [
-                'Authorization' => $user->api_key
+                'Authorization' => self::$apiKey
             ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJsonStructure([
@@ -71,12 +68,9 @@ class PositionTest extends TestCase
      */
     public function testCreateEmptySuccess()
     {
-        $user = factory(App\User::class)->make();
-        $user->save();
-
-        sleep(1);
+        $user = App\User::find(1);
         $this->json('POST', static::ROUTE, [], [
-            'Authorization' => $user->api_key
+            'Authorization' => self::$apiKey
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJsonStructure([
@@ -103,9 +97,6 @@ class PositionTest extends TestCase
     public function testCreateUnauthorized()
     {
         $model = $this->makeFactory();
-        $user = factory(App\User::class)->make();
-        $user->save();
-
         $this->json('POST', static::ROUTE, $model->toArray(), [
             'Authorization' => 'token'
         ])

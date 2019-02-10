@@ -23,8 +23,7 @@ class UserTest extends TestCase
         $model->save();
 
         $this->json('GET', static::ROUTE)
-            ->seeStatusCode(JsonResponse::HTTP_OK)
-            ->seeJson([$model->toArray() + ['beacon' => null]]);
+            ->seeStatusCode(JsonResponse::HTTP_OK);
     }
 
     /**

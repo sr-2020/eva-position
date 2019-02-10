@@ -34,16 +34,13 @@ class AudioTest extends TestCase
      */
     public function testCreateSuccess()
     {
-        $user = factory(App\User::class)->make();
-        $user->save();
-
         $path = base_path('tests/data/audio20100.wav');
         $file = new UploadedFile($path, 'test.wav', null, null, true);
 
         $this->call('POST', static::ROUTE, [], [], [
             'audio' => $file
         ], [
-            'HTTP_Authorization' => $user->api_key
+            'HTTP_Authorization' => self::$apiKey
         ]);
 
         $this->seeStatusCode(JsonResponse::HTTP_CREATED)
@@ -62,16 +59,13 @@ class AudioTest extends TestCase
      */
     public function testCreateSecondSuccess()
     {
-        $user = factory(App\User::class)->make();
-        $user->save();
-
         $path = base_path('tests/data/audio23100.wav');
         $file = new UploadedFile($path, 'test.wav', null, null, true);
 
         $this->call('POST', static::ROUTE, [], [], [
             'audio' => $file
         ], [
-            'HTTP_Authorization' => $user->api_key
+            'HTTP_Authorization' => self::$apiKey
         ]);
 
         $this->seeStatusCode(JsonResponse::HTTP_CREATED)

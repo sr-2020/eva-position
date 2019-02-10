@@ -16,7 +16,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->email,
         'password' => $faker->password,
-        'api_key' => $faker->randomAscii,
         'amount' => $faker->numberBetween(0, 1000),
         'status' => $faker->safeColorName,
         'sex' => $faker->randomElement(['female', 'male', 'unknown']),
