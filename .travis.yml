@@ -1,54 +1,49 @@
 dist: xenial
 cache:
   directories:
-    - $HOME/.composer/cache
-    - ansible/builds
-
+  - "$HOME/.composer/cache"
+  - ansible/builds
 phpenv: 7.2
-
 language: python
-
 python:
-  - "2.7"
-
+- '2.7'
 jobs:
   include:
-    - stage: deploy stage
-      install:
-        - pip install ansible
-      script:
-        - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
-        - cd ansible
-        - rm builds/*.* || true
-        - make deploy env=production
-
-    - stage: sonar
-      script:
-        - sonar-scanner
-
-    - stage: test
-      script:
-        - cd tests
-        - composer install --no-interaction
-        - cd ../ansible
-        - make codecept env=production
-
-    - stage: deploy production
-      install:
-        - pip install ansible
-      script:
-        - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
-        - cd ansible
-        - make deploy env=production
-
+  - stage: deploy stage
+    install:
+    - pip install ansible
+    script:
+    - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+    - cd ansible
+    - rm builds/*.* || true
+    - make deploy env=production
+  - stage: sonar
+    script:
+    - sonar-scanner
+  - stage: test
+    script:
+    - cd tests
+    - composer install --no-interaction
+    - cd ../ansible
+    - make codecept env=production
+  - stage: deploy production
+    install:
+    - pip install ansible
+    script:
+    - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+    - cd ansible
+    - make deploy env=production
 addons:
   sonarcloud:
-    organization: "gurkalov-github"
+    organization: gurkalov-github
     token:
-      secure: $SONAR_TOKEN
+      secure: "$SONAR_TOKEN"
   ssh_known_hosts:
-    - 85.143.222.113
+  - 85.143.222.113
   apt:
     packages:
-      - sshpass
-      - sox
+    - sshpass
+    - sox
+notifications:
+  slack:
+    secure: Vn6l6GrvKvdLtX0w1YtJGvtX2fROP3jFzJrJClXiRu9IpkjtYgUVmyN91QUZkFIkq7aWK6NH8pghVS/7F/v+9EMtJmjlTQ4sOAYp1uMrPWVIboGtGkDtBNqbhgjhC4Sj+4dtYn4LlMKgTVUlkCPVj0OMj/Vhiht/FUjt/EdYvIG4Uzo3EvVrxUqvcf4rpI9UuxeT9sO8XwrsQ6Zij0jiY0B0CGOSU8JZ1EpAqvhS6gZQ8Sji8wA3fInADxytu2CFJr9Ah/3Y2MDAHsYg+rieNycVEI9BIYKX/Vm5fKMwbJ8Hu3e4idxgkSa3IIBKBEOMotsiwVAJ2cE15EzYC9hwBdO+cuq4a2m9R9mwoBqAKDgs2ocvZZ2f/jaMMhzQvNLXe7HSvkO7Gy5i41Kep26onK5y/SQfm1uZuMwvt8RolN6gQ9lWSj5MqEdg9wDtWQdj7QYX9y3sJ7d9oUO0TIBdkzoVJsGuQ3vtVvwUxQqI/DMxeRP9m2CzPaX/esV6pZpG3I/iNRphwFLVqtfP8iTlKUcG5sINKjQiY9oARSOy44B1t+I8zNiR0nLhqlWcky1lqqurEJAuECYoG0HMrdVDPhk0ZVfYHAKAguwg3lCSkogyvV0o/gzPMVOQ5tca5Ml87tlYLEV5hAxAs+6mI6QiaM95QnKR3c3cfQlkjKdeE6o=
