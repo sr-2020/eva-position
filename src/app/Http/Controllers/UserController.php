@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
  *         in="query",
  *         description="maximum number of results to return",
  *         required=false,
+ *         example="10",
  *         @OA\Schema(
  *             type="integer",
  *             format="int32"

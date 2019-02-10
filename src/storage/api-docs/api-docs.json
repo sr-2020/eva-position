@@ -5,9 +5,12 @@
         "contact": {
             "email": "gurkalov.dev@gmail.com"
         },
-        "version": "0.0.1"
+        "version": "0.0.2"
     },
     "servers": [
+        {
+            "url": "http://localhost:5050"
+        },
         {
             "url": "http://85.143.222.113"
         }
@@ -26,7 +29,11 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UserCreds"
+                                "$ref": "#/components/schemas/LoginCreds"
+                            },
+                            "example": {
+                                "email": "test@email.com",
+                                "password": "secret"
                             }
                         }
                     }
@@ -68,7 +75,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UserCreds"
+                                "$ref": "#/components/schemas/RegisterCreds"
+                            },
+                            "example": {
+                                "email": "test@email.com",
+                                "password": "secret",
+                                "name": "Tim Cook"
                             }
                         }
                     }
@@ -147,8 +159,10 @@
                         "required": false,
                         "schema": {
                             "type": "integer",
-                            "format": "int32"
-                        }
+                            "format": "int32",
+                            "default": "100"
+                        },
+                        "example": "10"
                     }
                 ],
                 "responses": {
@@ -180,12 +194,17 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/NewBeacon"
+                            },
+                            "example": {
+                                "label": "room1",
+                                "ssid": "beacon1",
+                                "bssid": "c0:0a:95:9d:00:0c"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Beacon response",
                         "content": {
                             "application/json": {
@@ -223,8 +242,10 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "format": "int64"
-                        }
+                            "format": "int64",
+                            "default": "1"
+                        },
+                        "example": "1"
                     }
                 ],
                 "responses": {
@@ -264,8 +285,10 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "format": "int64"
-                        }
+                            "format": "int64",
+                            "default": "1"
+                        },
+                        "example": "1"
                     }
                 ],
                 "requestBody": {
@@ -316,8 +339,10 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "format": "int64"
-                        }
+                            "format": "int64",
+                            "default": "1"
+                        },
+                        "example": "1"
                     }
                 ],
                 "responses": {
@@ -352,7 +377,8 @@
                         "schema": {
                             "type": "integer",
                             "format": "int32"
-                        }
+                        },
+                        "example": "10"
                     }
                 ],
                 "responses": {
@@ -433,7 +459,8 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
-                        }
+                        },
+                        "example": 1
                     }
                 ],
                 "responses": {
@@ -475,7 +502,8 @@
                         "schema": {
                             "type": "integer",
                             "format": "int32"
-                        }
+                        },
+                        "example": "10"
                     }
                 ],
                 "responses": {
@@ -544,21 +572,26 @@
         "schemas": {
             "NewBeacon": {
                 "required": [
-                    "name"
+                    "bssid"
                 ],
                 "properties": {
                     "label": {
                         "type": "string",
                         "format": "string",
+                        "default": "Hall Room",
                         "example": "Hall Room"
                     },
                     "ssid": {
                         "type": "string",
-                        "format": "string"
+                        "format": "string",
+                        "default": "hall2",
+                        "example": "hall2"
                     },
                     "bssid": {
                         "type": "string",
-                        "format": "string"
+                        "format": "string",
+                        "default": "c0:0a:95:9d:00:0c",
+                        "example": "c0:0a:95:9d:00:0c"
                     }
                 },
                 "type": "object"
@@ -672,7 +705,26 @@
                     }
                 ]
             },
-            "UserCreds": {
+            "LoginCreds": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "test@email.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "secret"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterCreds": {
                 "required": [
                     "email",
                     "password"

@@ -18,6 +18,7 @@ use Illuminate\Http\JsonResponse;
  *         in="query",
  *         description="maximum number of results to return",
  *         required=false,
+ *         example="10",
  *         @OA\Schema(
  *             type="integer",
  *             format="int32"
@@ -45,6 +46,7 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
+ *         example=1,
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",

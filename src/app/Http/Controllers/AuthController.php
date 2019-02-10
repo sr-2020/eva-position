@@ -18,7 +18,8 @@ use Illuminate\Http\JsonResponse;
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/UserCreds")
+ *             @OA\Schema(ref="#/components/schemas/LoginCreds"),
+ *             example={"email": "test@email.com", "password": "secret"}
  *         )
  *     ),
  *     @OA\Response(
@@ -45,7 +46,8 @@ use Illuminate\Http\JsonResponse;
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/UserCreds")
+ *             @OA\Schema(ref="#/components/schemas/RegisterCreds"),
+ *             example={"email": "test@email.com", "password": "secret", "name": "Tim Cook"}
  *         )
  *     ),
  *     @OA\Response(

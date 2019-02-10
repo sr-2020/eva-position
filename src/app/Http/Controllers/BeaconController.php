@@ -13,11 +13,13 @@ use Illuminate\Http\JsonResponse;
  *     @OA\Parameter(
  *         name="limit",
  *         in="query",
+ *         example="10",
  *         description="maximum number of results to return",
  *         required=false,
  *         @OA\Schema(
  *             type="integer",
- *             format="int32"
+ *             format="int32",
+ *             default="100"
  *         )
  *     ),
  *     @OA\Response(
@@ -42,9 +44,11 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
+ *         example="1",
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",
+ *             default="1"
  *         )
  *     ),
  *     @OA\Response(
@@ -71,11 +75,12 @@ use Illuminate\Http\JsonResponse;
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewBeacon")
+ *             @OA\Schema(ref="#/components/schemas/NewBeacon"),
+ *             example={"label": "room1", "ssid": "beacon1", "bssid":"c0:0a:95:9d:00:0c"}
  *         )
  *     ),
  *     @OA\Response(
- *         response=200,
+ *         response=201,
  *         description="Beacon response",
  *         @OA\JsonContent(ref="#/components/schemas/Beacon")
  *     ),
@@ -98,9 +103,11 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
+ *         example="1",
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",
+ *             default="1"
  *         )
  *     ),
  *     @OA\RequestBody(
@@ -135,9 +142,11 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
+ *         example="1",
  *         @OA\Schema(
  *             format="int64",
- *             type="integer"
+ *             type="integer",
+ *             default="1"
  *         )
  *     ),
  *     @OA\Response(

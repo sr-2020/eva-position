@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 /**
- * @OA\Info(title="EVA API", version="0.0.1", contact={
+ * @OA\Info(title="EVA API", version="0.0.2", contact={
  *     "email": "gurkalov.dev@gmail.com"
  *   })
  */
 
  /**
- * @OA\Server(url="http://85.143.222.113")
+ * @OA\Server(url="http://localhost:5050"),
+ * @OA\Server(url="http://85.143.222.113"),
  */
 
 /**
