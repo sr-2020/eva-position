@@ -40,6 +40,13 @@ $factory->define(App\Shop::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Path::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => 1,
+        'beacon_id' => 1,
+    ];
+});
+
 $factory->define(App\Router::class, function (Faker\Generator $faker) {
     return [
         'ssid' => $faker->slug,

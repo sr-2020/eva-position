@@ -35,6 +35,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         return file_get_contents($versionPath);
     });
 
+    $router->get('paths', 'PathController@index');
+
     $router->get('positions', 'PositionController@index');
     $router->get('positions/{id}', 'PositionController@read');
     $router->get('routers/users', 'RouterController@users');

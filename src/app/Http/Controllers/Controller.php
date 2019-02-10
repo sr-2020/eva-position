@@ -10,8 +10,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  *   })
  */
 
- /**
- * @OA\Server(url="http://localhost:5050"),
+/**
  * @OA\Server(url="http://85.143.222.113"),
  */
 

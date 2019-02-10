@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Position;
 use App\Router;
 use App\Beacon;
+use App\User;
+use App\Path;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -181,7 +183,10 @@ class PositionController extends Controller
         $model->save();
 
         $user->router_id = self::assignRouter($model->routers);
-        $user->beacon_id = self::assignBeacon($model->beacons);
+        $beaconId = self::assignBeacon($model->beacons);
+        self::createPath($user, $beaconId);
+
+        $user->beacon_id = $beaconId;
         $user->touch();
         $user->save();
 
@@ -199,6 +204,36 @@ class PositionController extends Controller
         $modelClass = self::MODEL;
         $model= $modelClass::findOrFail($id);
         return new JsonResponse($model, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * @param User $user
+     * @param integer $beaconId
+     * @return void
+     */
+    protected function createPath(User $user, $beaconId)
+    {
+        $iBeaconId = (int)$beaconId;
+
+        $lastPath = Path::where('user_id', $user->id)->latest()->first();
+        if (null === $lastPath) {
+            Path::create([
+                'user_id' => $user->id,
+                'beacon_id' => $iBeaconId,
+            ]);
+            return ;
+        }
+
+        if ($lastPath->beacon_id === $iBeaconId) {
+            $lastPath->touch();
+            return ;
+        }
+
+        Path::create([
+            'user_id' => $user->id,
+            'beacon_id' => $iBeaconId,
+        ]);
+        return ;
     }
 
     /**
