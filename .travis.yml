@@ -37,7 +37,4 @@ addons:
     - sox
 notifications:
   slack:
-    template:
-      - "%{repository_slug} (%{commit}) : %{message} %{foo} Test message"
-      - "Test Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}"
     secure: "Vn6l6GrvKvdLtX0w1YtJGvtX2fROP3jFzJrJClXiRu9IpkjtYgUVmyN91QUZkFIkq7aWK6NH8pghVS/7F/v+9EMtJmjlTQ4sOAYp1uMrPWVIboGtGkDtBNqbhgjhC4Sj+4dtYn4LlMKgTVUlkCPVj0OMj/Vhiht/FUjt/EdYvIG4Uzo3EvVrxUqvcf4rpI9UuxeT9sO8XwrsQ6Zij0jiY0B0CGOSU8JZ1EpAqvhS6gZQ8Sji8wA3fInADxytu2CFJr9Ah/3Y2MDAHsYg+rieNycVEI9BIYKX/Vm5fKMwbJ8Hu3e4idxgkSa3IIBKBEOMotsiwVAJ2cE15EzYC9hwBdO+cuq4a2m9R9mwoBqAKDgs2ocvZZ2f/jaMMhzQvNLXe7HSvkO7Gy5i41Kep26onK5y/SQfm1uZuMwvt8RolN6gQ9lWSj5MqEdg9wDtWQdj7QYX9y3sJ7d9oUO0TIBdkzoVJsGuQ3vtVvwUxQqI/DMxeRP9m2CzPaX/esV6pZpG3I/iNRphwFLVqtfP8iTlKUcG5sINKjQiY9oARSOy44B1t+I8zNiR0nLhqlWcky1lqqurEJAuECYoG0HMrdVDPhk0ZVfYHAKAguwg3lCSkogyvV0o/gzPMVOQ5tca5Ml87tlYLEV5hAxAs+6mI6QiaM95QnKR3c3cfQlkjKdeE6o="
