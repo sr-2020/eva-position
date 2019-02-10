@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Post(
- *     tags={"User"},
+ *     tags={"Auth"},
  *     path="/api/v1/login",
  *     operationId="loginUser",
  *     description="Login as user.",
@@ -37,7 +37,7 @@ use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Post(
- *     tags={"User"},
+ *     tags={"Auth"},
  *     path="/api/v1/register",
  *     operationId="registerUser",
  *     description="Register new user.",
@@ -60,28 +60,6 @@ use Illuminate\Http\JsonResponse;
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
- * )
- */
-
-/**
- * @OA\Get(
- *     tags={"User"},
- *     path="/api/v1/profile",
- *     description="Returns a user info which auth for token",
- *     operationId="profileUser",
- *     @OA\Response(
- *         response=200,
- *         description="User response",
- *         @OA\JsonContent(ref="#/components/schemas/User"),
- *     ),
- *     @OA\Response(
- *         response=401,
- *         description="unexpected error",
- *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
- *     ),
- *     security={
- *         {"bearerAuth": {}}
- *     }
  * )
  */
 
@@ -152,17 +130,5 @@ class AuthController extends Controller
 
         $user->setVisible(['id', 'api_key']);
         return new JsonResponse($user->toArray(), JsonResponse::HTTP_OK);
-    }
-
-    /**
-     * Get user auth info
-     *
-     * @return JsonResponse
-     */
-    public function profile(Request $request)
-    {
-        $user = $request->user();
-        $model= User::with('beacon')->findOrFail($user->id)->makeVisible('beacon');
-        return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 }

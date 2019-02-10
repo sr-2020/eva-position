@@ -18,6 +18,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $faker->password,
         'api_key' => $faker->randomAscii,
         'amount' => $faker->numberBetween(0, 1000),
+        'status' => $faker->safeColorName,
+        'sex' => $faker->randomElement(['female', 'male', 'unknown']),
         'router_id' => null,
         'beacon_id' => null,
     ];

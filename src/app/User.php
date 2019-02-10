@@ -45,6 +45,8 @@ use Illuminate\Support\Facades\Hash;
  *           @OA\Property(property="beacon_id", format="int64", type="integer", example=3),
  *           @OA\Property(property="name", format="string", type="string", example="User Name"),
  *           @OA\Property(property="email", format="string", type="string", example="test@email.com"),
+ *           @OA\Property(property="status", format="string", type="string", example="thebest"),
+ *           @OA\Property(property="sex", format="string", type="enum", enum={"female", "male", "unknown"}, example="male"),
  *           @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
  *           @OA\Property(property="beacon", format="object", type="object",
  *              ref="#/components/schemas/Beacon"
@@ -62,7 +64,9 @@ class User extends Model
         'password',
         'router_id',
         'beacon_id',
-        'api_key'
+        'api_key',
+        'status',
+        'sex'
     ];
 
     protected $visible = [
@@ -71,6 +75,8 @@ class User extends Model
         'beacon_id',
         'name',
         'email',
+        'status',
+        'sex',
         'updated_at'
     ];
 

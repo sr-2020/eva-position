@@ -19,7 +19,7 @@
         "/api/v1/login": {
             "post": {
                 "tags": [
-                    "User"
+                    "Auth"
                 ],
                 "description": "Login as user.",
                 "operationId": "loginUser",
@@ -65,7 +65,7 @@
         "/api/v1/register": {
             "post": {
                 "tags": [
-                    "User"
+                    "Auth"
                 ],
                 "description": "Register new user.",
                 "operationId": "registerUser",
@@ -107,42 +107,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/v1/profile": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "description": "Returns a user info which auth for token",
-                "operationId": "profileUser",
-                "responses": {
-                    "200": {
-                        "description": "User response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
             }
         },
         "/api/v1/beacons": {
@@ -487,6 +451,92 @@
                 }
             }
         },
+        "/api/v1/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "description": "Returns a user info which auth for token",
+                "operationId": "profileUser",
+                "responses": {
+                    "200": {
+                        "description": "User response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "description": "Register new user.",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "description": "Creds for registeration.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "example": {
+                                "email": "test@email.com",
+                                "password": "secret",
+                                "name": "Tim Cook"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -799,6 +849,21 @@
                                 "type": "string",
                                 "format": "string",
                                 "example": "test@email.com"
+                            },
+                            "status": {
+                                "type": "string",
+                                "format": "string",
+                                "example": "thebest"
+                            },
+                            "sex": {
+                                "type": "enum",
+                                "format": "string",
+                                "enum": [
+                                    "female",
+                                    "male",
+                                    "unknown"
+                                ],
+                                "example": "male"
                             },
                             "updated_at": {
                                 "type": "string",
