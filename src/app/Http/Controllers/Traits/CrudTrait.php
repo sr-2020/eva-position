@@ -81,6 +81,20 @@ trait CrudTrait
     }
 
     /**
+     * Apply order
+     *
+     * @param Request $request
+     * @param Model $query
+     */
+    protected function applyQuery($request, $query)
+    {
+        self::applySelect($request, $query);
+        self::applyLimit($request, $query);
+        self::applyOrder($request, $query);
+        self::applyFilter($request, $query);
+    }
+
+    /**
      * Display a listing of the resource.
      * @param Request $request
      *
@@ -90,11 +104,7 @@ trait CrudTrait
     {
         $modelClass = self::MODEL;
         $query = $modelClass::query();
-        self::applySelect($request, $query);
-        self::applyLimit($request, $query);
-        self::applyOrder($request, $query);
-        self::applyFilter($request, $query);
-
+        self::applyQuery($request, $query);
         return new JsonResponse($query->get(), JsonResponse::HTTP_OK);
     }
 

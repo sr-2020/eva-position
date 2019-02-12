@@ -793,6 +793,11 @@
                         "format": "int64",
                         "default": 1,
                         "example": 1
+                    },
+                    "beacon": {
+                        "type": "object",
+                        "format": "object",
+                        "$ref": "#/components/schemas/Beacon"
                     }
                 },
                 "type": "object"

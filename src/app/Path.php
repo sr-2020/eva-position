@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Hash;
  *     @OA\Property(property="id", format="int64", type="integer", default=1, example=1),
  *     @OA\Property(property="user_id", format="int64", type="integer", default=1, example=1),
  *     @OA\Property(property="beacon_id", format="int64", type="integer", default=1, example=1),
+ *     @OA\Property(property="beacon", format="object", type="object",
+ *         ref="#/components/schemas/Beacon"
+ *     )
  * )
  */
 

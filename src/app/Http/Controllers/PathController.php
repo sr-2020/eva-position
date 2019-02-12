@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Path;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
@@ -41,13 +42,16 @@ class PathController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function users()
+    public function index(Request $request)
     {
         $modelClass = self::MODEL;
-        $list = $modelClass::has('users')->get()->makeVisible('users');
+        $query = $modelClass::with('beacon');
+        self::applyQuery($request, $query);
+        $list = $query->get()->makeVisible('beacon');
         return new JsonResponse($list, JsonResponse::HTTP_OK);
     }
 }
