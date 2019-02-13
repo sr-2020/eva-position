@@ -215,7 +215,7 @@ class PositionController extends Controller
     {
         $iBeaconId = (int)$beaconId;
 
-        $lastPath = Path::where('user_id', $user->id)->latest()->first();
+        $lastPath = Path::where('user_id', $user->id)->latest('id')->first();
         if (null === $lastPath) {
             Path::create([
                 'user_id' => $user->id,
