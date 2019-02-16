@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 /**
- * @OA\Schema(schema="Beacon", required={"ssid", "bssid"},
+ * @OA\Schema(schema="Beacon", required={"id", "bssid"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
  *    @OA\Property(property="label", format="string", type="string", example="Hall Room"),
  *    @OA\Property(property="ssid", format="string", type="string", example="beacon1"),
