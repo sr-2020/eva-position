@@ -354,20 +354,5 @@ class PositionCest
         $I->sendGET('/paths?limit=2&sort=-id');
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            [
-                'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
-                ]
-            ],
-            [
-                'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
-                ]
-            ]
-        ]);
     }
-
 }
