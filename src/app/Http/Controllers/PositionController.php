@@ -9,6 +9,8 @@ use App\User;
 use App\Path;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @OA\Get(
@@ -175,6 +177,8 @@ class PositionController extends Controller
      */
     public function create(Request $request)
     {
+        DB::connection()->enableQueryLog();
+
         $modelClass = self::MODEL;
         $model= $modelClass::create($request->all());
 
@@ -189,6 +193,11 @@ class PositionController extends Controller
         $user->beacon_id = $beaconId;
         $user->touch();
         $user->save();
+
+        Log::info('Query Log:', array_map(function ($item) {
+            unset($item['bindings']);
+            return $item;
+        }, DB::getQueryLog()));
 
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
     }
@@ -215,25 +224,17 @@ class PositionController extends Controller
     {
         $iBeaconId = (int)$beaconId;
 
-        $lastPath = Path::where('user_id', $user->id)->latest('id')->first();
-        if (null === $lastPath) {
+        if (null === $user->beacon_id || $user->beacon_id !== $iBeaconId) {
             Path::create([
                 'user_id' => $user->id,
                 'beacon_id' => $iBeaconId,
             ]);
-            return ;
+            return;
         }
 
-        if ($lastPath->beacon_id === $iBeaconId) {
-            $lastPath->touch();
-            return ;
-        }
-
-        Path::create([
-            'user_id' => $user->id,
-            'beacon_id' => $iBeaconId,
-        ]);
-        return ;
+        $lastPath = Path::where('user_id', $user->id)->latest('id')->first();
+        $lastPath->touch();
+        return;
     }
 
     /**
