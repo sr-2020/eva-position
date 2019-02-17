@@ -12,20 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 /**
- *  #OA\Schema(
- *   schema="Router",
- *   type="object",
- *   allOf={
- *       #OA\Schema(ref="#/components/schemas/NewRouter"),
- *       #OA\Schema(
- *           required={"id"},
- *           #OA\Property(property="id", format="int64", type="integer"),
- *           #OA\Property(property="ssid", format="string", type="string"),
- *           #OA\Property(property="bssid", format="string", type="string"),
- *       )
- *   }
+ * @OA\Schema(schema="RouterSignal", required={"ssid", "bssid", "level"},
+ *    @OA\Property(property="ssid", format="string", type="string", example="router1"),
+ *    @OA\Property(property="bssid", format="string", type="string", example="b0:dd:dd:dd:00:0a"),
+ *    @OA\Property(property="level", format="int64", type="integer", example=-50),
  * )
-*/
+ */
+
 class Router extends Model
 {
     protected $fillable = [

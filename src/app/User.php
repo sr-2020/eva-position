@@ -38,8 +38,8 @@ use Illuminate\Support\Facades\Hash;
  *    schema="User",
  *    required={"id"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
- *    @OA\Property(property="router_id", format="int64", type="integer", example=2),
- *    @OA\Property(property="beacon_id", format="int64", type="integer", example=3),
+ *    @OA\Property(property="router_id", format="int64", type="integer", nullable=true, example=2),
+ *    @OA\Property(property="beacon_id", format="int64", type="integer", nullable=true, example=3),
  *    @OA\Property(property="name", format="string", type="string", example="User Name"),
  *    @OA\Property(property="email", format="string", type="string", example="test@email.com"),
  *    @OA\Property(property="status", format="string", type="string", example="thebest"),
@@ -119,6 +119,9 @@ class User extends Model
         return $this->belongsToMany('App\Shop');
     }
 
+    /**
+     * @param string $pass
+     */
     public function setPasswordAttribute($pass)
     {
         $this->attributes['password'] = Hash::make($pass);

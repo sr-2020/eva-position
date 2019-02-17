@@ -13,19 +13,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 /**
- *  @OA\Schema(
- *   schema="Position",
- *   type="object",
- *   allOf={
- *       @OA\Schema(ref="#/components/schemas/NewPosition"),
- *       @OA\Schema(
- *           required={"id"},
- *           @OA\Property(property="id", format="int64", type="integer"),
- *           @OA\Property(property="user_id", format="int64", type="integer")
- *       )
- *   }
+ * @OA\Schema(schema="Position", type="object", required={"id", "user_id"},
+ *    @OA\Property(property="id", format="int64", type="integer", example=1),
+ *    @OA\Property(property="user_id", format="int64", type="integer", example=1),
+ *    @OA\Property(property="created_at", format="string", type="string", example="2019-01-26 20:00:57"),
+ *    @OA\Property(property="beacons", format="array", type="array", nullable=true,
+ *        @OA\Items(ref="#/components/schemas/BeaconSignal")
+ *    ),
+ *    @OA\Property(property="routers", format="array", type="array", nullable=true,
+ *        @OA\Items(ref="#/components/schemas/RouterSignal")
+ *    )
  * )
-*/
+ */
+
 class Position extends Model
 {
     protected $casts = [

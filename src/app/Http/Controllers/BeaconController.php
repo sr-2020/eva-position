@@ -44,7 +44,7 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
- *         example="1",
+ *         example=3,
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",
@@ -103,7 +103,7 @@ use Illuminate\Http\JsonResponse;
  *         in="path",
  *         name="id",
  *         required=true,
- *         example="1",
+ *         example=3,
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",

@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Log;
  *         in="path",
  *         name="id",
  *         required=true,
- *         example=1,
+ *         example=100000,
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",
@@ -84,7 +84,7 @@ use Illuminate\Support\Facades\Log;
  *         )
  *     ),
  *     @OA\Response(
- *         response=200,
+ *         response=201,
  *         description="Position response",
  *         @OA\JsonContent(ref="#/components/schemas/Position")
  *     ),

@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a")
  * )
  */
+
 class Beacon extends Model
 {
     protected $fillable = [

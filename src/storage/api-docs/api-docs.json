@@ -206,7 +206,7 @@
                             "format": "int64",
                             "default": "1"
                         },
-                        "example": "1"
+                        "example": 3
                     }
                 ],
                 "responses": {
@@ -249,7 +249,7 @@
                             "format": "int64",
                             "default": "1"
                         },
-                        "example": "1"
+                        "example": 3
                     }
                 ],
                 "requestBody": {
@@ -413,7 +413,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Position response",
                         "content": {
                             "application/json": {
@@ -458,7 +458,7 @@
                             "type": "integer",
                             "format": "int64"
                         },
-                        "example": 1
+                        "example": 100000
                     }
                 ],
                 "responses": {
@@ -797,7 +797,15 @@
                     "beacon": {
                         "type": "object",
                         "format": "object",
-                        "$ref": "#/components/schemas/Beacon"
+                        "nullable": true,
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/Beacon"
+                            },
+                            {
+                                "nullable": true
+                            }
+                        ]
                     }
                 },
                 "type": "object"
@@ -818,28 +826,69 @@
                 "type": "object"
             },
             "Position": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/NewPosition"
+                "required": [
+                    "id",
+                    "user_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
                     },
-                    {
-                        "required": [
-                            "id"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "integer",
-                                "format": "int64"
-                            },
-                            "user_id": {
-                                "type": "integer",
-                                "format": "int64"
-                            }
+                    "user_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "2019-01-26 20:00:57"
+                    },
+                    "beacons": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BeaconSignal"
                         },
-                        "type": "object"
+                        "nullable": true
+                    },
+                    "routers": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RouterSignal"
+                        },
+                        "nullable": true
                     }
-                ]
+                },
+                "type": "object"
+            },
+            "RouterSignal": {
+                "required": [
+                    "ssid",
+                    "bssid",
+                    "level"
+                ],
+                "properties": {
+                    "ssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "router1"
+                    },
+                    "bssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "b0:dd:dd:dd:00:0a"
+                    },
+                    "level": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": -50
+                    }
+                },
+                "type": "object"
             },
             "LoginCreds": {
                 "required": [
@@ -916,12 +965,14 @@
                     "router_id": {
                         "type": "integer",
                         "format": "int64",
-                        "example": 2
+                        "example": 2,
+                        "nullable": true
                     },
                     "beacon_id": {
                         "type": "integer",
                         "format": "int64",
-                        "example": 3
+                        "example": 3,
+                        "nullable": true
                     },
                     "name": {
                         "type": "string",
