@@ -174,7 +174,7 @@ class PositionCest
             ]
         ]);
 
-        $I->sendGET('/paths?limit=1&sort=-id');
+        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -218,7 +218,7 @@ class PositionCest
             ]
         ]);
 
-        $I->sendGET('/paths?limit=1&sort=-id');
+        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -251,7 +251,7 @@ class PositionCest
         ]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
 
-        $I->sendGET('/paths?limit=2&sort=-id');
+        $I->sendGET('/paths?limit=2&sort=-id&filter[user_id]=' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -265,6 +265,42 @@ class PositionCest
                 'user_id' => self::$userId,
                 'beacon' => [
                     'bssid' => self::$beacons['B']['bssid']
+                ]
+            ]
+        ]);
+    }
+
+    public function doubleEmptyBeaconTest(ApiTester $I)
+    {
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [
+            'beacons' => [
+                self::$beacons['A'] + ['level' => -10],
+                self::$beacons['B'] + ['level' => -30]
+            ]
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+
+        for ($i = 0; $i < 3; $i++) {
+            $I->sendPOST(self::$route, [
+                'beacons' => []
+            ]);
+            $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        }
+
+        $I->sendGET('/paths?limit=2&sort=-id&filter[user_id]=' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            [
+                'user_id' => self::$userId,
+                'beacon' => null
+            ],
+            [
+                'user_id' => self::$userId,
+                'beacon' => [
+                    'bssid' => self::$beacons['A']['bssid']
                 ]
             ]
         ]);
@@ -292,7 +328,7 @@ class PositionCest
             $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         }
 
-        $I->sendGET('/paths?limit=2&sort=-id');
+        $I->sendGET('/paths?limit=2&sort=-id&filter[user_id]=' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -351,7 +387,7 @@ class PositionCest
         $promise = $pool->promise();
         $promise->wait();
 
-        $I->sendGET('/paths?limit=2&sort=-id');
+        $I->sendGET('/paths?limit=2&sort=-id&filter[user_id]=' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
     }

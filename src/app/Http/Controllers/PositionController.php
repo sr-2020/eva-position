@@ -224,7 +224,7 @@ class PositionController extends Controller
     {
         $iBeaconId = (int)$beaconId;
 
-        if (null === $user->beacon_id || $user->beacon_id !== $iBeaconId) {
+        if ($user->beacon_id !== $beaconId) {
             Path::create([
                 'user_id' => $user->id,
                 'beacon_id' => $iBeaconId,
@@ -233,7 +233,10 @@ class PositionController extends Controller
         }
 
         $lastPath = Path::where('user_id', $user->id)->latest('id')->first();
-        $lastPath->touch();
+        if (null !== $lastPath) {
+            $lastPath->touch();
+        }
+
         return;
     }
 
