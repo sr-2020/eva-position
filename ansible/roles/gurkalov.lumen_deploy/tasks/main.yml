@@ -26,6 +26,11 @@
     - deploy
     - openapi
 
+- include: cron.yml
+  tags:
+    - setup
+    - cron
+
 - include: migrate.yml
   tags:
     - setup

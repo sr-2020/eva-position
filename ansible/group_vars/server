@@ -59,6 +59,8 @@ app_mysql_username: app_user
 app_mysql_database: eva
 app_mysql_password: "{{vault_app_mysql_password}}"
 
+app_cron: true
+
 app_aws_access_key_id: "{{vault_app_aws_access_key_id}}"
 app_secret_access_key: "{{vault_app_secret_access_key}}"
 app_aws_default_region: eu-central-1
