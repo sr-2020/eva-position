@@ -12,6 +12,19 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = factory(App\User::class)->make();
+        $user->email = 'api-test@email.com';
+        $user->password = 'TERSQTNQRHF';
+        $user->api_key = 'TkRVem4yTERSQTNQRHFxcmo4SUozNWZp';
+        $user->save();
+
+        $user = factory(App\User::class)->make();
+        $user->email = 'test@email.com';
+        $user->password = 'secret';
+        $user->save();
+
+        $user = factory(App\User::class)->make();
+        $user->email = 'user-for-delete-test@email.com';
+        $user->password = 'secret';
         $user->save();
     }
 }

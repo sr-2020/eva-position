@@ -15,7 +15,7 @@ suites:
       modules:
         enabled:
         - REST:
-            url: http://172.37.0.77/api/v1
+            url: http://localhost:5001/api/v1
             depends: PhpBrowser
 
     production:

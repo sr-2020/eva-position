@@ -14,3 +14,4 @@
 /ansible/builds/*.*
 /ansible/roles/gurkalov.lumen_deploy/molecule/default/src
 /.idea
+.env

@@ -6,9 +6,9 @@ use GuzzleHttp\Pool;
 
 class PositionCest
 {
-    static protected $userId = 1;
-    static protected $apiKey = '';
-    static protected $createdId = 0;
+    static protected $userId;
+    static protected $apiKey;
+
     static protected $url = '';
     static protected $route = '/positions';
 
@@ -40,10 +40,6 @@ class PositionCest
             ];
             $I->haveHttpHeader('Content-Type', 'application/json');
             $I->sendPOST('/login', $data);
-
-            $jsonResponse = json_decode($I->grabResponse());
-            self::$apiKey = $jsonResponse->api_key;
-            self::$createdId = $jsonResponse->id;
         } catch (Exception $e) {
             $data = [
                 'name' => 'User Test',
@@ -52,11 +48,10 @@ class PositionCest
             ];
             $I->haveHttpHeader('Content-Type', 'application/json');
             $I->sendPOST('/users', $data);
-
-            $jsonResponse = json_decode($I->grabResponse());
-            self::$apiKey = $jsonResponse->api_key;
-            self::$createdId = $jsonResponse->id;
         }
+        $jsonResponse = json_decode($I->grabResponse());
+        self::$userId = $jsonResponse->id;
+        self::$apiKey = $jsonResponse->api_key;
 
         static::$before = true;
     }
@@ -98,7 +93,7 @@ class PositionCest
             'routers' => $routers
         ]);
 
-        $I->sendGET('/users/' . self::$createdId);
+        $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -135,7 +130,7 @@ class PositionCest
             'routers' => $routers
         ]);
 
-        $I->sendGET('/users/' . self::$createdId);
+        $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -165,7 +160,7 @@ class PositionCest
             'beacons' => $beacons
         ]);
 
-        $I->sendGET('/users/' . self::$createdId);
+        $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
@@ -209,7 +204,7 @@ class PositionCest
             'beacons' => $beacons
         ]);
 
-        $I->sendGET('/users/' . self::$createdId);
+        $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
