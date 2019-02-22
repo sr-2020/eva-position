@@ -1,0 +1,8 @@
+[server]
+94.103.84.219
+
+[storage]
+94.103.84.219
+
+[localhost]
+127.0.0.1 ansible_connection=local
