@@ -9,7 +9,7 @@
     },
     "servers": [
         {
-            "url": "http://85.143.222.113"
+            "url": "http://94.103.84.219"
         }
     ],
     "paths": {
@@ -75,7 +75,7 @@
                                 "$ref": "#/components/schemas/RegisterCreds"
                             },
                             "example": {
-                                "email": "test@email.com",
+                                "email": "new-user-test@email.com",
                                 "password": "secret",
                                 "name": "Tim Cook"
                             }
@@ -206,7 +206,7 @@
                             "format": "int64",
                             "default": "1"
                         },
-                        "example": 3
+                        "example": 1
                     }
                 ],
                 "responses": {
@@ -249,7 +249,7 @@
                             "format": "int64",
                             "default": "1"
                         },
-                        "example": 3
+                        "example": 1
                     }
                 ],
                 "requestBody": {
@@ -301,9 +301,9 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64",
-                            "default": "1"
+                            "default": 2
                         },
-                        "example": "1"
+                        "example": 2
                     }
                 ],
                 "responses": {
@@ -988,16 +988,6 @@
                         "type": "string",
                         "format": "string",
                         "example": "thebest"
-                    },
-                    "sex": {
-                        "type": "enum",
-                        "format": "string",
-                        "enum": [
-                            "female",
-                            "male",
-                            "unknown"
-                        ],
-                        "example": "male"
                     },
                     "updated_at": {
                         "type": "string",

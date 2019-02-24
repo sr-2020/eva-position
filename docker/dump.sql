@@ -57,7 +57,7 @@ CREATE TABLE `beacons` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `label` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `beacons` (
 
 LOCK TABLES `beacons` WRITE;
 /*!40000 ALTER TABLE `beacons` DISABLE KEYS */;
+INSERT INTO `beacons` VALUES (1,'voluptatem-ex-velit-eos','00:00:00:00:00:0a','2019-02-24 07:38:04','2019-02-24 07:38:04','Runte Mountain'),(2,'sapiente-natus-neque-facilis-recusandae-porro-dolores-est-minus','00:00:00:00:00:0b','2019-02-24 07:38:04','2019-02-24 07:38:04','Madelyn Gateway'),(3,'necessitatibus-aut-nesciunt-quia-illo-quae','3E:BB:EA:B3:FF:51','2019-02-24 07:38:04','2019-02-24 07:38:04',NULL),(4,'vero-enim-dicta-repellat-earum-quia-est-eius','AD:4D:80:B0:DA:70','2019-02-24 07:38:04','2019-02-24 07:38:04',NULL);
 /*!40000 ALTER TABLE `beacons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +154,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +163,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (81,'2018_10_14_000000_create_items_table',1),(82,'2018_10_14_000000_create_shops_table',1),(83,'2018_10_14_000000_create_users_table',1),(84,'2018_10_14_195110_create_item_user_table',1),(85,'2018_10_14_195112_create_item_shop_table',1),(86,'2018_10_14_195115_create_shop_user_table',1),(87,'2019_01_02_181032_create_routers_table',1),(88,'2019_01_03_053129_create_positions_table',1),(89,'2019_01_20_101812_create_audios_table',1),(90,'2019_01_26_092838_add_frequency_to_audios',1),(91,'2019_01_30_175738_create_beacons_table',1),(92,'2019_02_01_061731_add_beacon_id_to_users',1),(93,'2019_02_01_065517_add_beacons_id_to_positions',1),(94,'2019_02_06_054944_add_label_to_beacons',1),(95,'2019_02_10_110008_add_status_to_users',1),(96,'2019_02_10_132148_create_paths_table',1);
+INSERT INTO `migrations` VALUES (113,'2018_10_14_000000_create_items_table',1),(114,'2018_10_14_000000_create_shops_table',1),(115,'2018_10_14_000000_create_users_table',1),(116,'2018_10_14_195110_create_item_user_table',1),(117,'2018_10_14_195112_create_item_shop_table',1),(118,'2018_10_14_195115_create_shop_user_table',1),(119,'2019_01_02_181032_create_routers_table',1),(120,'2019_01_03_053129_create_positions_table',1),(121,'2019_01_20_101812_create_audios_table',1),(122,'2019_01_26_092838_add_frequency_to_audios',1),(123,'2019_01_30_175738_create_beacons_table',1),(124,'2019_02_01_061731_add_beacon_id_to_users',1),(125,'2019_02_01_065517_add_beacons_id_to_positions',1),(126,'2019_02_06_054944_add_label_to_beacons',1),(127,'2019_02_10_110008_add_status_to_users',1),(128,'2019_02_10_132148_create_paths_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +208,7 @@ CREATE TABLE `positions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,6 +217,7 @@ CREATE TABLE `positions` (
 
 LOCK TABLES `positions` WRITE;
 /*!40000 ALTER TABLE `positions` DISABLE KEYS */;
+INSERT INTO `positions` VALUES (1,NULL,'[{\"ssid\": \"nemo-cum-a-velit-ducimus-assumenda-non-provident\", \"bssid\": \"A4:F8:62:DE:78:14\", \"level\": -3}, {\"ssid\": \"aspernatur-expedita-ut-dolorem-magni\", \"bssid\": \"CB:C5:B9:8E:FE:42\", \"level\": -6}]','[{\"ssid\": \"necessitatibus-aut-nesciunt-quia-illo-quae\", \"bssid\": \"3E:BB:EA:B3:FF:51\", \"level\": -3}, {\"ssid\": \"vero-enim-dicta-repellat-earum-quia-est-eius\", \"bssid\": \"AD:4D:80:B0:DA:70\", \"level\": 0}]','2019-02-24 07:38:04','2019-02-24 07:38:04');
 /*!40000 ALTER TABLE `positions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +235,7 @@ CREATE TABLE `routers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +244,7 @@ CREATE TABLE `routers` (
 
 LOCK TABLES `routers` WRITE;
 /*!40000 ALTER TABLE `routers` DISABLE KEYS */;
+INSERT INTO `routers` VALUES (1,'nemo-cum-a-velit-ducimus-assumenda-non-provident','A4:F8:62:DE:78:14','2019-02-24 07:38:04','2019-02-24 07:38:04'),(2,'aspernatur-expedita-ut-dolorem-magni','CB:C5:B9:8E:FE:42','2019-02-24 07:38:04','2019-02-24 07:38:04');
 /*!40000 ALTER TABLE `routers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +326,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,NULL,'Dolly Stiedemann','api-test@email.com','$2y$10$jM7v8b3xvzfqqtpOkK1DMetp6FvkHIu9A9LBoGFN.3JrKe6wnaHqC','TkRVem4yTERSQTNQRHFxcmo4SUozNWZp',107,'green','unknown','2019-02-21 07:24:36','2019-02-21 07:24:36'),(2,NULL,NULL,'Meda Jacobs V','test@email.com','$2y$10$jsTSQfUAUrQphi7hn.D3lekTgyZCBhT/ZZdC/WYLs43XJQ3GpkSEa','cnFUdzhjSW5KUGZ1MEdwUHVKa1oxVm1Z',648,'blue','unknown','2019-02-21 07:24:36','2019-02-21 07:24:36'),(3,NULL,NULL,'Mr. Bailey Wolf','user-for-delete-test@email.com','$2y$10$mYpvfXlyf/1O9kl1EQm7CeQCxgLgSbTTUCCIFewcYOOckRe52rNSS','VE1CWXFqOUE4Y2M3YzdySHlQMjNxaUdo',351,'silver','male','2019-02-21 07:24:36','2019-02-21 07:24:36');
+INSERT INTO `users` VALUES (1,NULL,NULL,'Rogelio Toy','api-test@email.com','$2y$10$DBCIcnJfrHCsI8DFLfMekunbu32WDZbEGkvzmgveB4Tm9gNq.oAf.','TkRVem4yTERSQTNQRHFxcmo4SUozNWZp',513,'aqua','unknown','2019-02-24 07:38:04','2019-02-24 07:38:04'),(2,NULL,NULL,'Hudson Kreiger PhD','test@email.com','$2y$10$YRUbXHjmDFR3DeR3zWeeau0d0Xt6xa9UPSdEgERkgZoiWXfOc5sGu','ZXBFSGpKdVkzZzA2TG9WZ0NuckR6OWY1',381,'yellow','female','2019-02-24 07:38:04','2019-02-24 07:38:04'),(3,NULL,NULL,'Kenneth Roob','user-for-delete-test@email.com','$2y$10$UmyA4enL2PXq5jZxClOsLu4XENlMiJuFMBQai12Uo47KTcQdKyOjq','YTZxcUVkOHJ4WEhUWW94emNaYm9BTVR2',349,'blue','male','2019-02-24 07:38:04','2019-02-24 07:38:04');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -336,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-21 10:24:46
+-- Dump completed on 2019-02-24 10:38:25

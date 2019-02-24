@@ -29,6 +29,9 @@ down:
 deploy:
 	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=deploy
 
+docker-deploy:
+	ansible-playbook -i $(INVENTORY) -u deploy docker-deploy.yml --tags=deploy
+
 migrate:
 	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=migrate
 
@@ -42,6 +45,12 @@ setup:
 	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=nginx
 	ansible-playbook -i $(INVENTORY) -u root mysql.yml
 	make app
+
+docker-setup:
+	ansible-playbook -i $(INVENTORY) -u root bootstrap.yml
+	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=user
+	ansible-playbook -i $(INVENTORY) -u root docker.yml
+	ansible-playbook -i $(INVENTORY) -u root docker-deploy.yml
 
 reboot:
 	make down

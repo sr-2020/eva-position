@@ -5,6 +5,8 @@ app_port: 9000
 app_name: app
 app_src: "../src/"
 
+docker_users: ["{{ app_user }}"]
+
 app_build_directory: ../ansible/builds
 app_openapi: true
 command_phpunit: "phpunit --coverage-clover {{ app_build_directory }}/phpunit.coverage.xml --log-junit {{ app_build_directory }}/phpunit.report.xml"

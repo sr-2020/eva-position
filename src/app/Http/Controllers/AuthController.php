@@ -47,7 +47,7 @@ use Illuminate\Http\JsonResponse;
  *         @OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(ref="#/components/schemas/RegisterCreds"),
- *             example={"email": "test@email.com", "password": "secret", "name": "Tim Cook"}
+ *             example={"email": "new-user-test@email.com", "password": "secret", "name": "Tim Cook"}
  *         )
  *     ),
  *     @OA\Response(
