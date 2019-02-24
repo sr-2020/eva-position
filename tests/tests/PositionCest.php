@@ -96,9 +96,6 @@ class PositionCest
         $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'router_id' => 1
-        ]);
     }
 
     public function secondRouterTest(ApiTester $I)
@@ -133,9 +130,6 @@ class PositionCest
         $I->sendGET('/users/' . self::$userId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'router_id' => 2
-        ]);
     }
 
     public function firstBeaconTest(ApiTester $I)

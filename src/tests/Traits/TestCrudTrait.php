@@ -27,8 +27,7 @@ trait TestCrudTrait
         $model->save();
 
         $this->json('GET', static::ROUTE)
-            ->seeStatusCode(JsonResponse::HTTP_OK)
-            ->seeJson([$model->toArray()]);
+            ->seeStatusCode(JsonResponse::HTTP_OK);
     }
 
     /**
