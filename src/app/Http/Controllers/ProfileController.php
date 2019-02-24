@@ -33,14 +33,14 @@ use Illuminate\Http\Request;
  *     tags={"Profile"},
  *     path="/api/v1/profile",
  *     operationId="updateProfile",
- *     description="Register new user.",
+ *     description="Update user profile.",
  *     @OA\RequestBody(
  *         description="Creds for registeration.",
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(ref="#/components/schemas/User"),
- *             example={"email": "test@email.com", "password": "secret", "name": "Tim Cook"}
+ *             example={"email": "api-test@email.com", "password": "secret", "name": "Api Tim Cook", "status": "free"}
  *         )
  *     ),
  *     @OA\Response(
@@ -83,10 +83,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $modelClass = self::MODEL;
         $user = $request->user();
 
-        $model= $modelClass::findOrFail($user->id);
+        $model= User::with('beacon')->findOrFail($user->id)->makeVisible('beacon');
         $model->fill($request->all());
         $model->save();
         return new JsonResponse($model, JsonResponse::HTTP_OK);

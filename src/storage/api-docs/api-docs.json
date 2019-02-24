@@ -7,11 +7,6 @@
         },
         "version": "0.0.2"
     },
-    "servers": [
-        {
-            "url": "http://94.103.84.219"
-        }
-    ],
     "paths": {
         "/api/v1/login": {
             "post": {
@@ -524,7 +519,7 @@
                 "tags": [
                     "Profile"
                 ],
-                "description": "Register new user.",
+                "description": "Update user profile.",
                 "operationId": "updateProfile",
                 "requestBody": {
                     "description": "Creds for registeration.",
@@ -535,9 +530,10 @@
                                 "$ref": "#/components/schemas/User"
                             },
                             "example": {
-                                "email": "test@email.com",
+                                "email": "api-test@email.com",
                                 "password": "secret",
-                                "name": "Tim Cook"
+                                "name": "Api Tim Cook",
+                                "status": "free"
                             }
                         }
                     }
