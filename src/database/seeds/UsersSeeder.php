@@ -15,11 +15,13 @@ class UsersSeeder extends Seeder
         $user->email = 'api-test@email.com';
         $user->password = 'TERSQTNQRHF';
         $user->api_key = 'TkRVem4yTERSQTNQRHFxcmo4SUozNWZp';
+        $user->beacon_id = 1;
         $user->save();
 
         $user = factory(App\User::class)->make();
         $user->email = 'test@email.com';
         $user->password = 'secret';
+        $user->beacon_id = 1;
         $user->save();
 
         $user = factory(App\User::class)->make();
