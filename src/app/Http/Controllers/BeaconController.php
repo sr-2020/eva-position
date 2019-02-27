@@ -151,7 +151,10 @@ use Illuminate\Http\JsonResponse;
  *     ),
  *     @OA\Response(
  *         response=204,
- *         description="Beacon deleted"
+ *         description="Beacon deleted",
+ *         @OA\Schema(
+ *             type=null
+ *         )
  *     ),
  *     @OA\Response(
  *         response="default",

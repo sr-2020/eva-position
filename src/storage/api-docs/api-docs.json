@@ -7,6 +7,11 @@
         },
         "version": "0.0.2"
     },
+    "servers": [
+        {
+            "url": "http://demo.evarun.ru"
+        }
+    ],
     "paths": {
         "/api/v1/login": {
             "post": {
@@ -431,7 +436,9 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearerAuth": [
+                            "TkRVem4yTERSQTNQRHFxcmo4SUozNWZp"
+                        ]
                     }
                 ]
             }
@@ -453,7 +460,7 @@
                             "type": "integer",
                             "format": "int64"
                         },
-                        "example": 100000
+                        "example": 1
                     }
                 ],
                 "responses": {

@@ -11,7 +11,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  */
 
 /**
- * @OA\Server(url="http://94.103.84.219"),
+ * @OA\Server(url="http://demo.evarun.ru"),
  */
 
 /**
@@ -20,7 +20,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  *   type="http",
  *   scheme="bearer",
  *   in="header",
- *   name="Authorization"
+ *   name="Authorization",
  * )
  */
 

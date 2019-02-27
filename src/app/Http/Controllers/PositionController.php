@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Log;
  *         in="path",
  *         name="id",
  *         required=true,
- *         example=100000,
+ *         example=1,
  *         @OA\Schema(
  *             type="integer",
  *             format="int64",
@@ -94,7 +94,7 @@ use Illuminate\Support\Facades\Log;
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  *      security={
- *         {"bearerAuth": {}}
+ *         {"bearerAuth": {"TkRVem4yTERSQTNQRHFxcmo4SUozNWZp"}}
  *     }
  * )
  */
