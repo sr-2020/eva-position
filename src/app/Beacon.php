@@ -62,4 +62,12 @@ class Beacon extends Model
     {
         return (string)$value;
     }
+
+    /**
+     * @param string $bssid
+     */
+    public function setBssidAttribute($bssid)
+    {
+        $this->attributes['bssid'] = strtoupper($bssid);
+    }
 }

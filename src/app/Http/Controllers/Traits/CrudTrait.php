@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 /**
  * Description of CrudTrait
@@ -117,7 +118,14 @@ trait CrudTrait
     public function create(Request $request)
     {
         $modelClass = self::MODEL;
-        $model= $modelClass::create($request->all());
+        try {
+            $model = $modelClass::create($request->all());
+        } catch (QueryException $e) {
+            return new JsonResponse([
+                'error' => $e->getMessage()
+            ], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         return new JsonResponse($model, JsonResponse::HTTP_CREATED);
     }
 

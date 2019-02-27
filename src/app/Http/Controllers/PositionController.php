@@ -283,7 +283,7 @@ class PositionController extends Controller
         $sort = array_column($lowerBeacons, 'level', 'bssid');
         arsort($sort);
         if ([] !== $sort) {
-            $bssid = key($sort);
+            $bssid = strtoupper(key($sort));
             $beacon = Beacon::where('bssid', $bssid)->first();
             if (null !== $beacon) {
                 return $beacon->id;

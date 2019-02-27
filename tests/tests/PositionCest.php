@@ -17,11 +17,11 @@ class PositionCest
     static protected $beacons = [
         'A' => [
             'ssid' => 'broom_a',
-            'bssid' => 'b0:0a:95:9d:00:0a'
+            'bssid' => 'B0:0A:95:9D:00:0A'
         ],
         'B' => [
             'ssid' => 'broom_b',
-            'bssid' => 'b0:0a:95:9d:00:0b'
+            'bssid' => 'B0:0A:95:9D:00:0B'
         ]
     ];
 
@@ -181,6 +181,55 @@ class PositionCest
         $beacons = [
             self::$beacons['A'] + ['level' => -50],
             self::$beacons['B'] + ['level' => -30]
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [
+            'beacons' => $beacons
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'id' => 'integer',
+            'routers' => 'array',
+            'beacons' => 'array',
+        ]);
+        $I->canSeeResponseContainsJson([
+            'beacons' => $beacons
+        ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'beacon' => [
+                'bssid' => self::$beacons['B']['bssid']
+            ]
+        ]);
+
+        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            [
+                'user_id' => self::$userId,
+                'beacon' => [
+                    'bssid' => self::$beacons['B']['bssid']
+                ]
+            ]
+        ]);
+    }
+
+    public function thirdBeaconLowerBssidTest(ApiTester $I)
+    {
+        $lowerBeaconA = self::$beacons['A'];
+        $lowerBeaconA['bssid'] = strtolower($lowerBeaconA['bssid']);
+        $lowerBeaconB = self::$beacons['B'];
+        $lowerBeaconB['bssid'] = strtolower($lowerBeaconB['bssid']);
+
+        $beacons = [
+            $lowerBeaconA + ['level' => -50],
+            $lowerBeaconB + ['level' => -30]
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('Authorization', self::$apiKey);
