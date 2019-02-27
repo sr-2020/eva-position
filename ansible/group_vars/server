@@ -35,6 +35,12 @@ nginx_user: "{{app_user}}"
 nginx_remove_default_vhost: true
 nginx_vhosts:
   - listen: 80
+    server_name: default
+    root: /var/www/{{app_name}}/current/public
+    index: "index.php"
+    extra_parameters: "{{app_extra_parameters}}"
+
+  - listen: 80
     server_name: demo.evarun.ru
     root: /var/www/{{app_name}}/current/public
     index: "index.php"
