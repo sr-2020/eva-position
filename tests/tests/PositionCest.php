@@ -47,7 +47,7 @@ class PositionCest
                 'password' => 'secret'
             ];
             $I->haveHttpHeader('Content-Type', 'application/json');
-            $I->sendPOST('/users', $data);
+            $I->sendPOST('/register', $data);
         }
         $jsonResponse = json_decode($I->grabResponse());
         self::$userId = $jsonResponse->id;
