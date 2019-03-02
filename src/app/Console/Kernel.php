@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\HotCache;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        HotCache::class
     ];
 
     /**
@@ -26,5 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('backup:clean')->daily()->at('00:30');
         $schedule->command('backup:run')->hourly();
+
+        $schedule->command('hotcache:run')->everyMinute();
     }
 }

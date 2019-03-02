@@ -5,3 +5,4 @@
     - { role: gurkalov.deploy_user, tags: user }
     - { role: gurkalov.php_fpm, tags: php }
     - { role: geerlingguy.nginx, tags: nginx }
+    - { role: geerlingguy.redis, tags: redis }

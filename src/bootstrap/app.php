@@ -103,6 +103,7 @@ $app->register(\SwaggerLume\ServiceProvider::class);
 $app->register(App\Providers\BackupServiceProvider::class);
 $app->register(Illuminate\Notifications\NotificationServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->register(Illuminate\Redis\RedisServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

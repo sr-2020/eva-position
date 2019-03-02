@@ -16,6 +16,13 @@ build_format: zip
 build_clear: false
 
 app_extra_parameters: |
+  location /api/v1/users {
+     if ($request_method ~* GET) {
+        content_by_lua_file /var/www/{{app_name}}/current/app/Lua/app.lua;
+     }
+     try_files $uri $uri/ /index.php?$query_string;
+  }
+
   location / {
       try_files $uri $uri/ /index.php?$query_string;
   }
@@ -30,6 +37,14 @@ app_extra_parameters: |
 app_sandbox_enabled: true
 
 user_password: "{{ vault_user_password | default('') }}"
+
+app_nginx_extensions:
+ - lua-nginx-redis
+
+nginx_package_name: nginx-extras
+nginx_extra_conf_options: |
+  include /etc/nginx/modules-enabled/10-mod-http-ndk.conf;
+  include /etc/nginx/modules-enabled/50-mod-http-lua.conf;
 
 nginx_user: "{{app_user}}"
 nginx_remove_default_vhost: true

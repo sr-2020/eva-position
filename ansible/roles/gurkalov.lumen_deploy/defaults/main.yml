@@ -49,6 +49,8 @@ laravel_php_extensions:
 app_php_extensions:
   - php-mysql
 
+app_nginx_extensions: []
+
 nginx_log_format: |
   '$remote_addr - $remote_user [$time_local] "$request" '
   '$status $body_bytes_sent "$http_referer" '

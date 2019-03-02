@@ -13,6 +13,11 @@
     name: "{{ app_php_extensions }}"
   notify: reload php-fpm
 
+- name: Install App nginx extensions
+  apt:
+    name: "{{ app_nginx_extensions }}"
+  notify: reload nginx
+
 - name: Install Composer
   command: bash -c 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
   when: true

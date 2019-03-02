@@ -43,6 +43,7 @@ setup:
 	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=user
 	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=php
 	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=nginx
+	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=redis
 	ansible-playbook -i $(INVENTORY) -u root mysql.yml
 	make app
 
