@@ -41,7 +41,11 @@ class HotCache extends Command
     protected function cache()
     {
         $key = 'page:/api/v1/users';
-        $list = User::with('beacon')->get()->makeVisible('beacon');
+        $list = User::with('beacon')
+            ->with('location')
+            ->get()
+            ->makeVisible(['beacon', 'location']);
+
         app('redis')->set($key, $list->toJson());
         app('redis')->expire($key, $this->timeout);
     }
