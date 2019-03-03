@@ -17,6 +17,7 @@ jobs:
     - cd ansible
     - rm builds/*.* || true
     - make deploy env=stage
+
   - stage: test stage
     script:
     - sonar-scanner
@@ -24,6 +25,7 @@ jobs:
     - composer install --no-interaction
     - cd ../ansible
     - make codecept env=stage
+
   - stage: deploy production
     install:
       - pip install ansible
@@ -31,6 +33,7 @@ jobs:
       - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
       - cd ansible
       - make deploy env=production
+
   - stage: test production
     script:
       - cd tests

@@ -6,7 +6,9 @@
 
 - include: dependency.yml
   become: true
-  tags: setup
+  tags:
+   - setup
+   - dependency
 
 - include: build.yml
   tags:
