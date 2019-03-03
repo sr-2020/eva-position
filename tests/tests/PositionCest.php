@@ -16,13 +16,28 @@ class PositionCest
 
     static protected $beacons = [
         'A' => [
-            'ssid' => 'broom_a',
-            'bssid' => 'B0:0A:95:9D:00:0A'
+            'ssid' => 'room_a',
+            'bssid' => '00:00:00:00:00:0A'
         ],
         'B' => [
-            'ssid' => 'broom_b',
-            'bssid' => 'B0:0A:95:9D:00:0B'
+            'ssid' => 'room_b',
+            'bssid' => '00:00:00:00:00:0B'
+        ],
+        'C' => [
+            'ssid' => 'room_c',
+            'bssid' => '00:00:00:00:00:0C'
+        ],
+        'D' => [
+            'ssid' => 'room_d',
+            'bssid' => '00:00:00:00:00:0D'
         ]
+    ];
+
+    static protected $location = [
+        'A' => 1,
+        'B' => 2,
+        'C' => 2,
+        'D' => null,
     ];
 
     public function _before(\ApiTester $I)
@@ -174,6 +189,16 @@ class PositionCest
                 ]
             ]
         ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'location_id' => self::$location['A'],
+            'location' => [
+                'id' => self::$location['A']
+            ]
+        ]);
     }
 
     public function secondBeaconTest(ApiTester $I)
@@ -216,6 +241,16 @@ class PositionCest
                 'beacon' => [
                     'bssid' => self::$beacons['B']['bssid']
                 ]
+            ]
+        ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'location_id' => self::$location['B'],
+            'location' => [
+                'id' => self::$location['B']
             ]
         ]);
     }
@@ -266,6 +301,67 @@ class PositionCest
                     'bssid' => self::$beacons['B']['bssid']
                 ]
             ]
+        ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'location_id' => self::$location['B'],
+            'location' => [
+                'id' => self::$location['B']
+            ]
+        ]);
+    }
+
+    public function emptyLocationTest(ApiTester $I)
+    {
+        $beacons = [
+            self::$beacons['D'] + ['level' => -50]
+        ];
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->sendPOST(self::$route, [
+            'beacons' => $beacons
+        ]);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
+        $I->seeResponseIsJson();
+        $I->seeResponseMatchesJsonType([
+            'id' => 'integer',
+            'routers' => 'array',
+            'beacons' => 'array',
+        ]);
+        $I->canSeeResponseContainsJson([
+            'beacons' => $beacons
+        ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'beacon' => [
+                'bssid' => self::$beacons['D']['bssid']
+            ]
+        ]);
+
+        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            [
+                'user_id' => self::$userId,
+                'beacon' => [
+                    'bssid' => self::$beacons['D']['bssid']
+                ]
+            ]
+        ]);
+
+        $I->sendGET('/users/' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            'location_id' => self::$location['D'],
+            'location' => null
         ]);
     }
 

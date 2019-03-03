@@ -59,6 +59,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'items' => 'ItemController',
         'routers' => 'RouterController',
         'beacons' => 'BeaconController',
+        'locations' => 'LocationController',
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
         $router->post($path, $controller . '@create');

@@ -21,6 +21,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'sex' => $faker->randomElement(['female', 'male', 'unknown']),
         'router_id' => null,
         'beacon_id' => null,
+        'location_id' => null,
     ];
 });
 
@@ -58,6 +59,12 @@ $factory->define(App\Beacon::class, function (Faker\Generator $faker) {
         'label' => $faker->streetName,
         'ssid' => $faker->slug,
         'bssid' => $faker->macAddress,
+    ];
+});
+
+$factory->define(App\Location::class, function (Faker\Generator $faker) {
+    return [
+        'label' => $faker->streetName,
     ];
 });
 

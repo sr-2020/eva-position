@@ -71,7 +71,10 @@ class ProfileController extends Controller
     public function read(Request $request)
     {
         $user = $request->user();
-        $model= User::with('beacon')->findOrFail($user->id)->makeVisible('beacon');
+        $model= User::with('beacon')
+            ->with('location')
+            ->findOrFail($user->id)
+            ->makeVisible(['beacon', 'location']);
         return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 
@@ -85,7 +88,10 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $model= User::with('beacon')->findOrFail($user->id)->makeVisible('beacon');
+        $model= User::with('beacon')
+            ->with('location')
+            ->findOrFail($user->id)
+            ->makeVisible(['beacon', 'location']);
         $model->fill($request->all());
         $model->save();
         return new JsonResponse($model, JsonResponse::HTTP_OK);

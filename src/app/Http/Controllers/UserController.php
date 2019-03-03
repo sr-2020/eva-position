@@ -167,7 +167,10 @@ class UserController extends Controller
     public function index()
     {
         $modelClass = self::MODEL;
-        $list = $modelClass::with('beacon')->get()->makeVisible('beacon');
+        $list = $modelClass::with('beacon')
+            ->with('location')
+            ->get()
+            ->makeVisible(['beacon', 'location']);
         return new JsonResponse($list, JsonResponse::HTTP_OK);
     }
 
@@ -180,7 +183,10 @@ class UserController extends Controller
     public function read($id)
     {
         $modelClass = self::MODEL;
-        $model= $modelClass::with('beacon')->findOrFail($id)->makeVisible('beacon');
+        $model= $modelClass::with('beacon')
+            ->with('location')
+            ->findOrFail($id)
+            ->makeVisible(['beacon', 'location']);
         return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 }

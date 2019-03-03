@@ -187,7 +187,12 @@ class PositionController extends Controller
         $model->save();
 
         $user->router_id = self::assignRouter($model->routers);
-        $beaconId = self::assignBeacon($model->beacons);
+        $assignBeacon = self::assignBeacon($model->beacons);
+        $beaconId = null;
+        if (null !== $assignBeacon) {
+            $beaconId = $assignBeacon->id;
+            $user->location_id = $assignBeacon->location_id;
+        }
         self::createPath($user, $beaconId);
 
         $user->beacon_id = $beaconId;
@@ -268,7 +273,7 @@ class PositionController extends Controller
 
     /**
      * @param array $beacons
-     * @return integer
+     * @return Beacon
      */
     protected function assignBeacon($beacons)
     {
@@ -286,7 +291,7 @@ class PositionController extends Controller
             $bssid = strtoupper(key($sort));
             $beacon = Beacon::where('bssid', $bssid)->first();
             if (null !== $beacon) {
-                return $beacon->id;
+                return $beacon;
             }
         }
         return null;

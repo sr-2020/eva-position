@@ -59,6 +59,7 @@ class User extends Model
         'password',
         'router_id',
         'beacon_id',
+        'location_id',
         'api_key',
         'status'
     ];
@@ -67,6 +68,7 @@ class User extends Model
         'id',
         'router_id',
         'beacon_id',
+        'location_id',
         'name',
         'email',
         'status',
@@ -98,6 +100,14 @@ class User extends Model
     public function beacon()
     {
         return $this->belongsTo('App\Beacon');
+    }
+
+    /**
+     * Get the location where user is.
+     */
+    public function location()
+    {
+        return $this->belongsTo('App\Location');
     }
 
     /**

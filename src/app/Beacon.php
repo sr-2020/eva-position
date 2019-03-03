@@ -35,6 +35,7 @@ class Beacon extends Model
         'label',
         'ssid',
         'bssid',
+        'location_id'
     ];
 
     protected $visible = [
@@ -42,6 +43,7 @@ class Beacon extends Model
         'label',
         'ssid',
         'bssid',
+        'location_id'
     ];
 
     /**
