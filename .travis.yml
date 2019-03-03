@@ -43,6 +43,7 @@ addons:
     token:
       secure: "$SONAR_TOKEN"
   ssh_known_hosts:
+  - 94.103.85.103
   - 85.143.222.113
   apt:
     packages:
