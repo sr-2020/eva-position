@@ -9,21 +9,34 @@ python:
 - '2.7'
 jobs:
   include:
-  - stage: deploy
+  - stage: deploy stage
     install:
     - pip install ansible
     script:
     - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
     - cd ansible
     - rm builds/*.* || true
-    - make deploy env=production
-  - stage: test
+    - make deploy env=stage
+  - stage: test stage
     script:
     - sonar-scanner
     - cd tests
     - composer install --no-interaction
     - cd ../ansible
-    - make codecept env=production
+    - make codecept env=stage
+  - stage: deploy production
+    install:
+      - pip install ansible
+    script:
+      - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+      - cd ansible
+      - make deploy env=production
+  - stage: test production
+    script:
+      - cd tests
+      - composer install --no-interaction
+      - cd ../ansible
+      - make codecept env=production
 addons:
   sonarcloud:
     organization: gurkalov-github
