@@ -89,6 +89,7 @@ $app->configure('swagger-lume');
 $app->configure('filesystems');
 $app->configure('backup');
 $app->configure('mail');
+$app->configure('services');
 
 $app->alias('mailer', Illuminate\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);

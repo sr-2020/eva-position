@@ -72,6 +72,7 @@ class AuthTest extends TestCase
     public function testRegisterSuccess()
     {
         $model = $this->makeFactory();
+        $model->email = 'ognestraz@gmail.com';
         $this->json('POST', '/api/v1/register', [
             'email' => $model->email,
             'password' => 'pass'

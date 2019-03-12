@@ -57,7 +57,7 @@ class PositionCest
             $I->sendPOST('/login', $data);
         } catch (Exception $e) {
             $data = [
-                'name' => 'User Test',
+                'name' => 'Мистер X',
                 'email' => 'test@email.com',
                 'password' => 'secret'
             ];

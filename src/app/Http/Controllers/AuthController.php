@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegistration;
 
 /**
  * @OA\Post(
@@ -116,6 +118,8 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return new JsonResponse([], JsonResponse::HTTP_BAD_REQUEST);
         }
+
+        Mail::to($user)->send(new UserRegistration($request->all()));
 
         $user->setVisible(['id', 'api_key']);
         return new JsonResponse($user->toArray(), JsonResponse::HTTP_OK);

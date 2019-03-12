@@ -88,3 +88,7 @@ app_aws_access_key_id: "{{vault_app_aws_access_key_id}}"
 app_secret_access_key: "{{vault_app_secret_access_key}}"
 app_aws_default_region: eu-central-1
 app_aws_bucket: eva2020
+
+app_mail_driver: log
+app_mailgun_domain: mg.evarun.ru
+app_mailgun_secret: "{{vault_app_mailgun_secret}}"
