@@ -1,0 +1,6 @@
+---
+- name: Run seed
+  command: "php {{ app_directory }}/current/artisan db:seed"
+  when: app_db
+  tags:
+    - seed

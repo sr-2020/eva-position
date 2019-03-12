@@ -11,16 +11,31 @@ class LocationsSeeder extends Seeder
      */
     public function run()
     {
-        $location = factory(App\Location::class)->make();
-        $location->label = 'Room #1';
-        $location->save();
+        $locations = [
+            'Холл 1 этажа Зал Барселона, 1 этаж',
+            'Концертный зал Москва, 1 этаж',
+            'Спортивный зал, 1 этаж',
+            'Столовая, 1 этаж',
+            'Зал Пекин, 1 этаж',
+            'Танц-фойе Рим, 2 этаж',
+            'Зал Рио, 2 этаж',
+            'Зал Стокгольм, 2 этаж',
+            'Зал Атланта, 2 этаж',
+            'Зал Афины. Ауд. 301, 2 этаж',
+            'Зал Афины. Ауд. 302, 2 этаж',
+            'Зал Афины. Ауд. 304, 2 этаж',
+            'Зал Афины. Ауд. 305, 2 этаж',
+            'Зал Афины. Ауд. 307, 2 этаж',
+            'Холл 2 этажа левая сторона, 2 этаж',
+            'Холл 2 этажа правая сторона, 2 этаж',
+            'Смотровая площадка, Улица',
+            'Футбольное поле, Улица',
+        ];
 
-        $location = factory(App\Location::class)->make();
-        $location->label = 'Room #2';
-        $location->save();
-
-        $location = factory(App\Location::class)->make();
-        $location->label = 'Room #3';
-        $location->save();
+        foreach ($locations as $label) {
+            $location = factory(App\Location::class)->make();
+            $location->label = $label;
+            $location->save();
+        }
     }
 }

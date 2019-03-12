@@ -35,6 +35,9 @@ docker-deploy:
 migrate:
 	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=migrate
 
+seed:
+	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=seed
+
 app:
 	ansible-playbook -i $(INVENTORY) -u root deploy.yml --tags=setup
 

@@ -38,6 +38,11 @@
     - setup
     - migrate
 
+- include: seed.yml
+  tags:
+    - seed
+    - migrate
+
 - include: start.yml
   become: true
   tags: setup
