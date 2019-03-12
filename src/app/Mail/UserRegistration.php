@@ -31,8 +31,8 @@ class UserRegistration extends Mailable
     public function build()
     {
         return $this
-            ->from('admin@evarun.ru')
-            ->subject('Shadowrun: Россия')
+            ->from('admin@evarun.ru', 'Shadowrun: Россия')
+            ->subject('Регистрация чаммера')
             ->view('emails.user-registration')
             ->with($this->data);
     }

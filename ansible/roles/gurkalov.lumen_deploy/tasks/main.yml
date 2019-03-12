@@ -40,8 +40,8 @@
 
 - include: seed.yml
   tags:
+    - setup
     - seed
-    - migrate
 
 - include: start.yml
   become: true
