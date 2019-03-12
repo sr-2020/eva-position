@@ -17,12 +17,33 @@ $router->get('/', function () use ($router) {
 
 $router->group([
     'prefix' => 'api/v1',
-    'middleware' => 'auth'
+    'middleware' => ['auth']
 ], function () use ($router) {
     $router->post('positions', 'PositionController@create');
     $router->post('audios', 'AudioController@create');
     $router->get('profile', 'ProfileController@read');
     $router->put('profile', 'ProfileController@update');
+});
+
+$router->group([
+    'prefix' => 'api/v1',
+    'middleware' => ['auth', 'admin']
+], function () use ($router) {
+    /**
+     * CRUD Routes
+     */
+    foreach ([
+        'shops' => 'ShopController',
+        'users' => 'UserController',
+        'items' => 'ItemController',
+        'routers' => 'RouterController',
+        'beacons' => 'BeaconController',
+        'locations' => 'LocationController',
+    ] as $path => $controller) {
+        $router->post($path, $controller . '@create');
+        $router->put($path . '/{id}', $controller . '@update');
+        $router->delete($path . '/{id}', $controller . '@delete');
+    }
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
@@ -62,10 +83,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'locations' => 'LocationController',
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
-        $router->post($path, $controller . '@create');
         $router->get($path . '/{id}', $controller . '@read');
-        $router->put($path . '/{id}', $controller . '@update');
-        $router->delete($path . '/{id}', $controller . '@delete');
     }
 
     /**

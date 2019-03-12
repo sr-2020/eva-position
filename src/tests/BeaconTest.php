@@ -27,7 +27,9 @@ class BeaconTest extends TestCase
             'bssid' => $lowerBssid
         ]);
 
-        $this->json('POST', static::ROUTE, $dataSend, [])
+        $this->json('POST', static::ROUTE, $dataSend, [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJson($model->toArray());
 
@@ -43,11 +45,15 @@ class BeaconTest extends TestCase
     public function testCreateDoubleBssidFail()
     {
         $model = $this->makeFactory();
-        $this->json('POST', static::ROUTE, $model->toArray(), [])
+        $this->json('POST', static::ROUTE, $model->toArray(), [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJson($model->toArray());
 
-        $this->json('POST', static::ROUTE, $model->toArray(), [])
+        $this->json('POST', static::ROUTE, $model->toArray(), [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_BAD_REQUEST);
     }
 }

@@ -1,9 +1,20 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
+use App\User;
 
 trait TestCrudTrait
 {
+    /**
+     * Get admin token
+     *
+     * @return \Laravel\Lumen\Application
+     */
+    protected static function getToken()
+    {
+        return User::find(1)->api_key;
+    }
+
     /**
      * Create factory.
      *
@@ -31,6 +42,19 @@ trait TestCrudTrait
     }
 
     /**
+     * A basic test create Unauthorized.
+     *
+     * @return void
+     */
+    public function testCreateUnauthorized()
+    {
+        $model = $this->makeFactory();
+
+        $this->json('POST', static::ROUTE, $model->toArray(), [])
+            ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED);
+    }
+
+    /**
      * A basic test create.
      *
      * @return void
@@ -39,7 +63,9 @@ trait TestCrudTrait
     {
         $model = $this->makeFactory();
  
-        $this->json('POST', static::ROUTE, $model->toArray())
+        $this->json('POST', static::ROUTE, $model->toArray(), [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)   
             ->seeJson($model->toArray());
     }
@@ -60,6 +86,22 @@ trait TestCrudTrait
     }
 
     /**
+     * A basic test update Unauthorized.
+     *
+     * @return void
+     */
+    public function testUpdateUnauthorized()
+    {
+        $model = $this->makeFactory();
+        $model->save();
+
+        $newModel = $this->makeFactory();
+
+        $this->json('PUT', static::ROUTE . '/' . $model->id, $newModel->toArray(), [])
+            ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED);
+    }
+
+    /**
      * A basic test update.
      *
      * @return void
@@ -71,9 +113,25 @@ trait TestCrudTrait
 
         $newModel = $this->makeFactory();
 
-        $this->json('PUT', static::ROUTE . '/' . $model->id, $newModel->toArray())
+        $this->json('PUT', static::ROUTE . '/' . $model->id, $newModel->toArray(), [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_OK)   
             ->seeJson($newModel->toArray());
+    }
+
+    /**
+     * A basic test delete Unauthorized.
+     *
+     * @return void
+     */
+    public function testDeleteUnauthorized()
+    {
+        $model = $this->makeFactory();
+        $model->save();
+
+        $this->json('DELETE', static::ROUTE . '/' . $model->id, [], [])
+            ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -86,7 +144,9 @@ trait TestCrudTrait
         $model = $this->makeFactory();
         $model->save();
 
-        $this->json('DELETE', static::ROUTE . '/' . $model->id)
+        $this->json('DELETE', static::ROUTE . '/' . $model->id, [], [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
             ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT);
     }
 }

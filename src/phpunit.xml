@@ -10,7 +10,13 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <file>tests/AuthTest.php</file>
+            <file>tests/BeaconTest.php</file>
+            <file>tests/LocationTest.php</file>
+            <file>tests/PathTest.php</file>
+            <file>tests/PositionTest.php</file>
+            <file>tests/ProfileTest.php</file>
+            <file>tests/UserTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

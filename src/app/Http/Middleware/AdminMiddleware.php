@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ExampleMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,10 @@ class ExampleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if (1 !== $request->user()->id) {
+            return response('Forbidden', 403);
+        }
+
         return $next($request);
     }
 }
