@@ -1,5 +1,5 @@
 [server]
-188.246.233.117
+188.246.233.117 app_mail_driver=mailgun
 
 [storage]
 188.246.233.117
