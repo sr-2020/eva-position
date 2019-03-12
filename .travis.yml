@@ -39,7 +39,7 @@ jobs:
       - cd tests
       - composer install --no-interaction
       - cd ../ansible
-      - make codecept env=production
+      - make codecept-production env=production
 addons:
   sonarcloud:
     organization: gurkalov-github

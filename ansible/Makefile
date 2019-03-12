@@ -65,7 +65,7 @@ codecept:
 	cd ../tests && php vendor/bin/codecept run $(ENV)
 
 codecept-production:
-	cd ../tests && codecept run production
+	cd ../tests && php vendor/bin/codecept run $(ENV) PositionCest
 
 test:
 	make down

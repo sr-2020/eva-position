@@ -16,6 +16,7 @@ trait ManyToManyTrait
         }
         $name = 'Test';
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPOST(self::$route, ['name' => $name]);
         $jsonResponse = json_decode($I->grabResponse());
         self::$createdId = $jsonResponse->id;
@@ -23,6 +24,7 @@ trait ManyToManyTrait
         for ($i = 0; $i < self::$countItems; $i++) {
             $name = 'Sub Test' . $i;
             $I->haveHttpHeader('Content-Type', 'application/json');
+            $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
             $I->sendPOST(self::$subroute, ['name' => $name]);
             $jsonResponse = json_decode($I->grabResponse(), true);
             self::$createdSubs[] = $jsonResponse;            
@@ -41,6 +43,7 @@ trait ManyToManyTrait
     public function createTest(\ApiTester $I)
     {
         foreach (self::$createdSubs as $sub) {
+            $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
             $I->sendPOST(self::$route . '/' . self::$createdId . self::$subroute . '/' . $sub['id']);
         }
 
@@ -54,6 +57,7 @@ trait ManyToManyTrait
     public function deleteTest(\ApiTester $I)
     {
         foreach (self::$createdSubs as $sub) {
+            $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
             $I->sendDELETE(self::$route . '/' . self::$createdId . self::$subroute . '/' . $sub['id']);
         }
 
@@ -63,8 +67,10 @@ trait ManyToManyTrait
 
         $I->seeResponseContainsJson([]);
 
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendDELETE(self::$route . '/' . self::$createdId);
         foreach (self::$createdSubs as $sub) {
+            $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
             $I->sendDELETE(self::$subroute . '/' . $sub['id']);
         }
     }

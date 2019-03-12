@@ -18,6 +18,7 @@ class RouterCest
         $name = 'Router Test';
         $bssid = '00:0a:95:9d:68:16';
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPOST(self::$route, [
             'ssid' => $name,
             'bssid' => $bssid
@@ -54,6 +55,7 @@ class RouterCest
     {
         $name = 'Router Test New';
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPUT(self::$route . '/'  . self::$createdId, ['ssid' => $name]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
@@ -69,6 +71,7 @@ class RouterCest
 
     public function deleteTest(ApiTester $I)
     {
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendDELETE(self::$route . '/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NO_CONTENT);
     }

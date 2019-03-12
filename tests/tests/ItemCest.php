@@ -17,6 +17,7 @@ class ItemCest
     {
         $name = 'User Test';
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPOST(self::$route, ['name' => $name]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
@@ -50,6 +51,7 @@ class ItemCest
     {
         $name = 'User Test New';
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPUT(self::$route . '/'  . self::$createdId, ['name' => $name]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
@@ -65,6 +67,7 @@ class ItemCest
 
     public function deleteTest(ApiTester $I)
     {
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendDELETE(self::$route . '/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NO_CONTENT);
     }

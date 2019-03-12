@@ -26,6 +26,7 @@ class UserShopCest
             'password' => 'secret'
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
         $I->sendPOST(self::$route, $data);
         $jsonResponse = json_decode($I->grabResponse());
         self::$createdId = $jsonResponse->id;
@@ -33,6 +34,7 @@ class UserShopCest
         for ($i = 0; $i < self::$countItems; $i++) {
             $name = 'Sub Test' . $i;
             $I->haveHttpHeader('Content-Type', 'application/json');
+            $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
             $I->sendPOST(self::$subroute, ['name' => $name]);
             $jsonResponse = json_decode($I->grabResponse(), true);
             self::$createdSubs[] = $jsonResponse;

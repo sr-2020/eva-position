@@ -13,8 +13,9 @@ class UsersSeeder extends Seeder
     {
         $user = factory(App\User::class)->make();
         $user->name = 'Мистер X';
-        $user->email = 'test@email.com';
+        $user->email = 'admin@evarun.ru';
         $user->password = 'secret';
+        $user->api_key = 'TkRVem4yTERSQTNQRHFxcmo4SUozNWZp';
         $user->save();
     }
 }

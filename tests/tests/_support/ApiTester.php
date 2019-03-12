@@ -28,4 +28,13 @@ class ApiTester extends \Codeception\Actor
    {
        return $this->getScenario();
    }
+
+    /**
+     * Get admin token
+     */
+
+    public function getAdminToken()
+    {
+        return 'TkRVem4yTERSQTNQRHFxcmo4SUozNWZp';
+    }
 }

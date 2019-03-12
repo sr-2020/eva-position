@@ -45,15 +45,18 @@ class PositionCest
 
         try {
             $data = [
-                'email' => 'test@email.com',
+                'email' => 'test@evarun.ru',
                 'password' => 'secret'
             ];
             $I->haveHttpHeader('Content-Type', 'application/json');
             $I->sendPOST('/login', $data);
+            $jsonResponse = json_decode($I->grabResponse());
+            self::$userId = $jsonResponse->id;
+            self::$apiKey = $jsonResponse->api_key;
         } catch (Exception $e) {
             $data = [
-                'name' => 'Мистер X',
-                'email' => 'test@email.com',
+                'name' => 'Мистер T',
+                'email' => 'test@evarun.ru',
                 'password' => 'secret'
             ];
             $I->haveHttpHeader('Content-Type', 'application/json');
