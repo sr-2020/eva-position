@@ -72,17 +72,6 @@ class Position extends Model
                     $routerModel->save();
                 }
             }
-
-            if (is_array($model->beacons)) {
-                foreach ($model->beacons as $beacon) {
-                    $validBeacon = array_change_key_case($beacon, CASE_LOWER);
-                    $beaconModel = Beacon::firstOrNew([
-                        'bssid' => $validBeacon['bssid']
-                    ]);
-                    $beaconModel->ssid = $validBeacon['ssid'];
-                    $beaconModel->save();
-                }
-            }
         });
     }
 }
