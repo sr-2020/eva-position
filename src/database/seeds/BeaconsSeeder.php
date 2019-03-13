@@ -64,6 +64,7 @@ class BeaconsSeeder extends Seeder
             $beacon->id = $item[0];
             $beacon->label = '#' . $item[0];
             $beacon->bssid = $item[1];
+            $beacon->ssid = $item[1];
             $beacon->location_id = $item[2];
             $beacon->save();
         }
