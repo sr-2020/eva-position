@@ -62,6 +62,7 @@ class BeaconsSeeder extends Seeder
         foreach ($beacons as $item) {
             $beacon = factory(App\Beacon::class)->make();
             $beacon->id = $item[0];
+            $beacon->label = '#' . $item[0];
             $beacon->bssid = $item[1];
             $beacon->location_id = $item[2];
             $beacon->save();
