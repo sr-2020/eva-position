@@ -174,19 +174,22 @@ class PositionController extends Controller
      *
      * @param  User  $user
      * @param  array $beacons
-     * @return void
+     * @return bool
      */
     protected function applySimpleStrategy(User $user, array $beacons)
     {
         $assignBeacon = self::assignBeacon($beacons);
         $beaconId = null;
-        if (null !== $assignBeacon) {
-            $beaconId = $assignBeacon->id;
-            $user->location_id = $assignBeacon->location_id;
+        if (null === $assignBeacon) {
+            return false;
         }
-        self::createPath($user, $beaconId);
 
+        $beaconId = $assignBeacon->id;
+        $user->location_id = $assignBeacon->location_id;
+        self::createPath($user, $beaconId);
         $user->beacon_id = $beaconId;
+
+        return true;
     }
 
     /**
@@ -256,14 +259,17 @@ class PositionController extends Controller
         $user->router_id = self::assignRouter($model->routers);
 
         $strategy = env('APP_STRATEGY', 1);
+        $save = true;
         if ($strategy > 1) {
             $this->applyFlowStrategy($user, $strategy);
         } else {
-            $this->applySimpleStrategy($user, $model->beacons);
+            $save = $this->applySimpleStrategy($user, $model->beacons);
         }
 
-        $user->touch();
-        $user->save();
+        if ($save) {
+            $user->touch();
+            $user->save();
+        }
 
         Log::info('Query Log:', array_map(function ($item) {
             unset($item['bindings']);

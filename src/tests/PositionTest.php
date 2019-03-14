@@ -263,6 +263,43 @@ class PositionTest extends TestCase
      *
      * @return void
      */
+    public function testKeepBeaconBeaconSuccess()
+    {
+        $beacons = [
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [],
+            [],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [],
+            [],
+            [],
+        ];
+        $setBeacons = [1, 1, 1, 5, 5, 5, 5];
+
+        foreach ($beacons as $index => $item) {
+            $this->json('POST', static::ROUTE, [
+                'beacons' => $item
+            ], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+            $this->json('GET', '/api/v1/users/1', [], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_OK);
+
+            $json = json_decode($this->response->content());
+            $this->assertEquals($setBeacons[$index], $json->beacon_id);
+        }
+    }
+
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
     public function testPositionsThreeSuccess()
     {
         $beacons = [

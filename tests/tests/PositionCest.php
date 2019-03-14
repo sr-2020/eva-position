@@ -357,10 +357,6 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => null
-            ],
-            [
-                'user_id' => self::$userId,
                 'beacon' => [
                     'bssid' => self::$beacons['A']['bssid']
                 ]
