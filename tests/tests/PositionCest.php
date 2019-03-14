@@ -21,11 +21,11 @@ class PositionCest
         ],
         'B' => [
             'ssid' => 'room_b',
-            'bssid' => 'EA:93:BA:E7:99:82'
+            'bssid' => 'C0:DA:B3:09:A9:FB'
         ],
         'C' => [
-            'ssid' => 'room_c',
-            'bssid' => 'C0:DA:B3:09:A9:FB'
+            'ssid' => 'room_b',
+            'bssid' => 'F6:A3:B4:E1:D1:15'
         ]
     ];
 
