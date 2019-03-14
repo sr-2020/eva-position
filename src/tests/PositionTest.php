@@ -35,6 +35,10 @@ class PositionTest extends TestCase
         'L3-1' => [
             'ssid' => 'B9',
             'bssid' => 'F3:8F:DE:2F:66:C9'
+        ],
+        'W' => [
+            'ssid' => 'B9',
+            'bssid' => 'F3:8F:00:2F:00:C9'
         ]
     ];
 
@@ -229,6 +233,29 @@ class PositionTest extends TestCase
 
         $json = json_decode($this->response->content());
         $this->assertEquals(3, $json->location_id);
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testWrongBeaconSuccess()
+    {
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => -50],
+            self::$beacons['W'] + ['level' => -30],
+        ];
+
+        $this->json('POST', static::ROUTE, [
+            'beacons' => $beacons
+        ], [
+            'Authorization' => self::$apiKey
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+        $json = json_decode($this->response->content());
+        $this->assertEquals(1, $json->location_id);
     }
 
     /**
