@@ -2,17 +2,17 @@
   "beacons": [
     {
       "ssid": "beacon1",
-      "bssid": "F6:DF:76:03:32:2F",
+      "bssid": "E9:DC:0E:20:E3:DC",
       "level": -50
     },
     {
       "ssid": "beacon1",
-      "bssid": "B0:0A:95:9D:00:0A",
+      "bssid": "C0:DA:B3:09:A9:FB",
       "level": -60
     },
     {
       "ssid": "beacon1",
-      "bssid": "B0:0A:95:9D:00:0B",
+      "bssid": "C1:22:25:79:BF:01",
       "level": -70
     }
   ]
