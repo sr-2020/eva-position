@@ -193,20 +193,47 @@ class PositionController extends Controller
      * Sum strategy method
      *
      * @param  User  $user
-     * @param  array $beacons
+     * @param  integer $strategy
      * @return void
      */
-    protected function applySecondStrategy(User $user, array $beacons)
+    protected function applyFlowStrategy(User $user, $strategy)
     {
-        $assignBeacon = self::assignBeacon($beacons);
-        $beaconId = null;
-        if (null !== $assignBeacon) {
-            $beaconId = $assignBeacon->id;
-            $user->location_id = $assignBeacon->location_id;
-        }
-        self::createPath($user, $beaconId);
+        $lastPositions = Position::where('user_id', $user->id)->orderBy('id', 'desc')->limit($strategy)->get();
+        $countLastPositions = $lastPositions->count();
 
-        $user->beacon_id = $beaconId;
+        if ($countLastPositions < $strategy - 1) {
+            return ;
+        }
+
+        $beacons = [];
+        foreach ($lastPositions as $position) {
+            $beacon = self::assignBeacon($position->beacons);
+            $beaconId = 0;
+            if (null !== $beacon) {
+                $beaconId = $beacon->id;
+            }
+            $beacons[] = $beaconId;
+        }
+
+        $countBeacons = array_count_values($beacons);
+        arsort($countBeacons);
+        $realBeaconId = key($countBeacons);
+
+        if (0 === $realBeaconId && $countBeacons[0] > $strategy - 1) {
+            self::createPath($user, $realBeaconId);
+            $user->beacon_id = $realBeaconId;
+            return ;
+        }
+
+        $realBeacon = Beacon::find($realBeaconId);
+        if (null === $realBeacon) {
+            return ;
+        }
+
+        $user->location_id = $realBeacon->location_id;
+
+        self::createPath($user, $realBeaconId);
+        $user->beacon_id = $realBeaconId;
     }
 
     /**
@@ -228,19 +255,11 @@ class PositionController extends Controller
 
         $user->router_id = self::assignRouter($model->routers);
 
-        $strategy = env('APP_STRATEGY', 'simple');
-        switch ($strategy) {
-            case 'simple': {
-                $this->applySimpleStrategy($user, $model->beacons);
-                break;
-            }
-            case 'second': {
-                $this->applySecondStrategy($user, $model->beacons);
-                break;
-            }
-            default: {
-
-            }
+        $strategy = env('APP_STRATEGY', 1);
+        if ($strategy > 1) {
+            $this->applyFlowStrategy($user, $strategy);
+        } else {
+            $this->applySimpleStrategy($user, $model->beacons);
         }
 
         $user->touch();

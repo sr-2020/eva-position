@@ -230,4 +230,121 @@ class PositionTest extends TestCase
         $json = json_decode($this->response->content());
         $this->assertEquals(3, $json->location_id);
     }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testPositionsThreeSuccess()
+    {
+        $beacons = [
+            [self::$beacons['L1-1'] + ['level' => -20], self::$beacons['L2-1'] + ['level' => -30]],
+            [self::$beacons['L1-1'] + ['level' => -30], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -40], self::$beacons['L2-1'] + ['level' => -50]],
+        ];
+        $setBeacons = [1, 1, 1];
+
+        foreach ($beacons as $index => $item) {
+            $this->json('POST', static::ROUTE, [
+                'beacons' => $item
+            ], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+            $this->json('GET', '/api/v1/users/1', [], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_OK);
+
+            $json = json_decode($this->response->content());
+            $this->assertEquals($setBeacons[$index], $json->beacon_id);
+        }
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testPositionsFlowSuccess()
+    {
+        putenv("APP_STRATEGY=3");
+        $beacons = [
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+        ];
+        $setBeacons = [null, 5, 5, 5, 5, 5, 5, 5, 1, 1, 5];
+
+        foreach ($beacons as $index => $item) {
+            $this->json('POST', static::ROUTE, [
+                'beacons' => $item
+            ], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+            $this->json('GET', '/api/v1/users/1', [], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_OK);
+
+            $json = json_decode($this->response->content());
+            $this->assertEquals($setBeacons[$index], $json->beacon_id);
+        }
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testPositionsFlowLostSuccess()
+    {
+        putenv("APP_STRATEGY=3");
+        $beacons = [
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
+            [],
+            [],
+            [],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [],
+            [],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+            [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
+        ];
+        $setBeacons = [null, 1, 1, 1, 1, 1, 1, 0, 0, 5, 5, 5, 5, 5];
+
+        foreach ($beacons as $index => $item) {
+            $this->json('POST', static::ROUTE, [
+                'beacons' => $item
+            ], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+            $this->json('GET', '/api/v1/users/1', [], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_OK);
+
+            $json = json_decode($this->response->content());
+            $this->assertEquals($setBeacons[$index], $json->beacon_id);
+        }
+    }
 }

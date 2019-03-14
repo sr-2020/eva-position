@@ -11,8 +11,6 @@ class PositionsSeeder extends Seeder
      */
     public function run()
     {
-        $position = factory(App\Position::class)->make();
-        $position->user_id = 1;
-        $position->save();
+
     }
 }
