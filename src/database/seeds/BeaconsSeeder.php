@@ -77,7 +77,7 @@ class BeaconsSeeder extends Seeder
             $beacon->id = $item[0];
             $location = App\Location::find($item[2]);
 
-            $beacon->label = $location->label. ' #' . $item[0];
+            $beacon->label = $location->label. ', #' . $item[0];
             $beacon->bssid = $item[1];
             $beacon->ssid = $item[1];
             $beacon->location_id = $item[2];

@@ -100,10 +100,6 @@ class PositionCest
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'routers' => 'array'
-        ]);
-        $I->canSeeResponseContainsJson([
-            'routers' => $routers
         ]);
 
         $I->sendGET('/users/' . self::$userId);
@@ -133,11 +129,7 @@ class PositionCest
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-            'routers' => 'array'
-        ]);
-        $I->canSeeResponseContainsJson([
-            'routers' => $routers
+            'id' => 'integer'
         ]);
 
         $I->sendGET('/users/' . self::$userId);
@@ -156,15 +148,12 @@ class PositionCest
         $I->sendPOST(self::$route, [
             'beacons' => $beacons
         ]);
+
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'routers' => 'array',
-            'beacons' => 'array',
-        ]);
-        $I->canSeeResponseContainsJson([
-            'beacons' => $beacons
+            'location_id' => 'integer',
         ]);
 
         $I->sendGET('/users/' . self::$userId);
@@ -172,7 +161,7 @@ class PositionCest
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
             'beacon' => [
-                'bssid' => self::$beacons['A']['bssid']
+                'id' => self::$location['A']
             ]
         ]);
 
@@ -193,7 +182,7 @@ class PositionCest
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
             'location_id' => self::$location['A'],
-            'location' => [
+            'beacon' => [
                 'id' => self::$location['A']
             ]
         ]);
@@ -214,11 +203,7 @@ class PositionCest
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'routers' => 'array',
-            'beacons' => 'array',
-        ]);
-        $I->canSeeResponseContainsJson([
-            'beacons' => $beacons
+            'location_id' => 'integer',
         ]);
 
         $I->sendGET('/users/' . self::$userId);
@@ -273,11 +258,7 @@ class PositionCest
         $I->seeResponseIsJson();
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
-            'routers' => 'array',
-            'beacons' => 'array',
-        ]);
-        $I->canSeeResponseContainsJson([
-            'beacons' => $beacons
+            'location_id' => 'integer',
         ]);
 
         $I->sendGET('/users/' . self::$userId);

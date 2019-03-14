@@ -170,6 +170,46 @@ class PositionController extends Controller
     const MODEL = Position::class;
 
     /**
+     * Simple strategy method
+     *
+     * @param  User  $user
+     * @param  array $beacons
+     * @return void
+     */
+    protected function applySimpleStrategy(User $user, array $beacons)
+    {
+        $assignBeacon = self::assignBeacon($beacons);
+        $beaconId = null;
+        if (null !== $assignBeacon) {
+            $beaconId = $assignBeacon->id;
+            $user->location_id = $assignBeacon->location_id;
+        }
+        self::createPath($user, $beaconId);
+
+        $user->beacon_id = $beaconId;
+    }
+
+    /**
+     * Sum strategy method
+     *
+     * @param  User  $user
+     * @param  array $beacons
+     * @return void
+     */
+    protected function applySecondStrategy(User $user, array $beacons)
+    {
+        $assignBeacon = self::assignBeacon($beacons);
+        $beaconId = null;
+        if (null !== $assignBeacon) {
+            $beaconId = $assignBeacon->id;
+            $user->location_id = $assignBeacon->location_id;
+        }
+        self::createPath($user, $beaconId);
+
+        $user->beacon_id = $beaconId;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -187,15 +227,22 @@ class PositionController extends Controller
         $model->save();
 
         $user->router_id = self::assignRouter($model->routers);
-        $assignBeacon = self::assignBeacon($model->beacons);
-        $beaconId = null;
-        if (null !== $assignBeacon) {
-            $beaconId = $assignBeacon->id;
-            $user->location_id = $assignBeacon->location_id;
-        }
-        self::createPath($user, $beaconId);
 
-        $user->beacon_id = $beaconId;
+        $strategy = env('APP_STRATEGY', 'simple');
+        switch ($strategy) {
+            case 'simple': {
+                $this->applySimpleStrategy($user, $model->beacons);
+                break;
+            }
+            case 'second': {
+                $this->applySecondStrategy($user, $model->beacons);
+                break;
+            }
+            default: {
+
+            }
+        }
+
         $user->touch();
         $user->save();
 
@@ -204,7 +251,12 @@ class PositionController extends Controller
             return $item;
         }, DB::getQueryLog()));
 
-        return new JsonResponse($model, JsonResponse::HTTP_CREATED);
+        $response = $model->toArray();
+        unset($response['routers']);
+        unset($response['beacons']);
+        $response['location_id'] = $user->location_id;
+
+        return new JsonResponse($response, JsonResponse::HTTP_CREATED);
     }
 
     /**
