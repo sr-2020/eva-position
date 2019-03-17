@@ -47,6 +47,10 @@ $router->group([
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
+    $router->get('check', function () use ($router) {
+        return 'check';
+    });
+
     $router->get('version', function () use ($router) {
         $versionPath = base_path() . '/public/version.txt';
         if (!file_exists($versionPath)) {
