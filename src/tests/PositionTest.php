@@ -25,19 +25,19 @@ class PositionTest extends TestCase
             'bssid' => 'F3:86:35:4C:6E:03'
         ],
         'L2-1' => [
-            'ssid' => 'B5',
+            'ssid' => 'B4',
             'bssid' => 'C0:DA:B3:09:A9:FB'
         ],
         'L2-2' => [
-            'ssid' => 'B6',
+            'ssid' => 'B5',
             'bssid' => 'F6:A3:B4:E1:D1:15'
         ],
         'L3-1' => [
-            'ssid' => 'B9',
+            'ssid' => 'B6',
             'bssid' => 'F3:8F:DE:2F:66:C9'
         ],
         'W' => [
-            'ssid' => 'B9',
+            'ssid' => 'B7',
             'bssid' => 'F3:8F:00:2F:00:C9'
         ]
     ];
@@ -126,7 +126,7 @@ class PositionTest extends TestCase
             ->seeStatusCode(JsonResponse::HTTP_OK);
 
         $json = json_decode($this->response->content());
-        $this->assertTrue(date('Y-m-d H:i:s') <= $json->updated_at);
+        $this->assertTrue(date('Y-m-d H:i:s') >= $json->updated_at);
     }
 
     /**
@@ -274,7 +274,7 @@ class PositionTest extends TestCase
             [],
             [],
         ];
-        $setBeacons = [1, 1, 1, 5, 5, 5, 5];
+        $setBeacons = [1, 1, 1, 4, 4, 4, 4];
 
         foreach ($beacons as $index => $item) {
             $this->json('POST', static::ROUTE, [
@@ -348,7 +348,7 @@ class PositionTest extends TestCase
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
         ];
-        $setBeacons = [null, 5, 5, 5, 5, 5, 5, 5, 1, 1, 5];
+        $setBeacons = [null, 4, 4, 4, 4, 4, 4, 4, 1, 1, 4];
 
         foreach ($beacons as $index => $item) {
             $this->json('POST', static::ROUTE, [
@@ -392,7 +392,7 @@ class PositionTest extends TestCase
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
         ];
-        $setBeacons = [null, 1, 1, 1, 1, 1, 1, 0, 0, 5, 5, 5, 5, 5];
+        $setBeacons = [null, 1, 1, 1, 1, 1, 1, 0, 0, 4, 4, 4, 4, 4];
 
         foreach ($beacons as $index => $item) {
             $this->json('POST', static::ROUTE, [

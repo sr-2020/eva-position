@@ -87,14 +87,6 @@ class User extends Model
     }
 
     /**
-     * Get router.
-     */
-    public function router()
-    {
-        return $this->belongsTo('App\Router');
-    }
-
-    /**
      * Get the post that owns the comment.
      */
     public function beacon()
@@ -108,22 +100,6 @@ class User extends Model
     public function location()
     {
         return $this->belongsTo('App\Location');
-    }
-
-    /**
-     * Get the items for the user.
-     */
-    public function items()
-    {
-        return $this->belongsToMany('App\Item');
-    }
-
-    /**
-     * Get the shops for the user.
-     */
-    public function shops()
-    {
-        return $this->belongsToMany('App\Shop');
     }
 
     /**

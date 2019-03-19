@@ -16,7 +16,7 @@ class CreatePositionsTable extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
-            $table->json('routers');
+            $table->json('beacons')->nullable();
             $table->timestamps();
         });
     }

@@ -1106,39 +1106,6 @@
                             "$ref": "#/components/schemas/BeaconSignal"
                         },
                         "nullable": true
-                    },
-                    "routers": {
-                        "type": "array",
-                        "format": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/RouterSignal"
-                        },
-                        "nullable": true
-                    }
-                },
-                "type": "object"
-            },
-            "RouterSignal": {
-                "required": [
-                    "ssid",
-                    "bssid",
-                    "level"
-                ],
-                "properties": {
-                    "ssid": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "router1"
-                    },
-                    "bssid": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "b0:dd:dd:dd:00:0a"
-                    },
-                    "level": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": -50
                     }
                 },
                 "type": "object"

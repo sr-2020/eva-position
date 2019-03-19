@@ -17,7 +17,11 @@ class CreateBeaconsTable extends Migration
             $table->increments('id');
             $table->string('ssid');
             $table->string('bssid');
+            $table->integer('location_id')->nullable()->index();
+            $table->string('label')->nullable();
             $table->timestamps();
+
+            $table->unique('bssid');
         });
     }
 

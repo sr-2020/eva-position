@@ -247,16 +247,12 @@ class PositionController extends Controller
      */
     public function create(Request $request)
     {
-        DB::connection()->enableQueryLog();
-
         $modelClass = self::MODEL;
         $model= $modelClass::create($request->all());
 
         $user = $request->user();
         $model->user_id = $user->id;
         $model->save();
-
-        $user->router_id = self::assignRouter($model->routers);
 
         $strategy = env('APP_STRATEGY', 1);
         $save = true;
@@ -271,13 +267,7 @@ class PositionController extends Controller
             $user->save();
         }
 
-        Log::info('Query Log:', array_map(function ($item) {
-            unset($item['bindings']);
-            return $item;
-        }, DB::getQueryLog()));
-
         $response = $model->toArray();
-        unset($response['routers']);
         unset($response['beacons']);
         $response['location_id'] = $user->location_id;
 
@@ -320,32 +310,6 @@ class PositionController extends Controller
         }
 
         return;
-    }
-
-    /**
-     * @param array $routers
-     * @return integer
-     */
-    protected function assignRouter($routers)
-    {
-        if (!is_array($routers)) {
-            return null;
-        }
-        $lowerRouters = [];
-        foreach ($routers as $router) {
-            $lowerRouters[] = array_change_key_case($router, CASE_LOWER);
-        }
-
-        $sort = array_column($lowerRouters, 'level', 'bssid');
-        arsort($sort);
-        if ([] !== $sort) {
-            $bssid = key($sort);
-            $router = Router::where('bssid', $bssid)->first();
-            if (null !== $router) {
-                return $router->id;
-            }
-        }
-        return null;
     }
 
     /**
