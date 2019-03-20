@@ -6,7 +6,7 @@ suites:
         modules:
             enabled:
                 - REST:
-                    url: http://eva.loc:5050/api/v1
+                    url: http://position.evarun.loc:5070/api/v1
                     depends: PhpBrowser
 
     local:
