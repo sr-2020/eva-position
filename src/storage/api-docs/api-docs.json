@@ -1219,10 +1219,10 @@
                         "format": "string",
                         "example": "2019-01-26 20:00:57"
                     },
-                    "beacon": {
+                    "location": {
                         "type": "object",
                         "format": "object",
-                        "$ref": "#/components/schemas/Beacon"
+                        "$ref": "#/components/schemas/Location"
                     }
                 },
                 "type": "object"
