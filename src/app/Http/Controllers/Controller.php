@@ -11,7 +11,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  */
 
 /**
- * @OA\Server(url="http://demo.evarun.ru"),
+ * @OA\Server(url="http://position.evarun.ru"),
  */
 
 /**
