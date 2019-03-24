@@ -14,6 +14,7 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
+        'admin' => false,
         'email' => $faker->email,
         'password' => $faker->password,
         'amount' => $faker->numberBetween(0, 1000),

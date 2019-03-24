@@ -1182,6 +1182,11 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "admin": {
+                        "type": "boolean",
+                        "format": "boolean",
+                        "example": false
+                    },
                     "router_id": {
                         "type": "integer",
                         "format": "int64",

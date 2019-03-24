@@ -12,6 +12,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $user = factory(App\User::class)->make();
+        $user->admin = true;
         $user->name = 'Мистер X';
         $user->email = 'admin@evarun.ru';
         $user->password = 'secret';

@@ -86,6 +86,7 @@ $app->singleton(
 |
 */
 
+$app->configure('app');
 $app->configure('swagger-lume');
 $app->configure('filesystems');
 $app->configure('backup');

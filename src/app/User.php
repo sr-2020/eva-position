@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Hash;
  *    schema="User",
  *    required={"id"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
+ *    @OA\Property(property="admin", format="boolean", type="boolean", example=false),
  *    @OA\Property(property="router_id", format="int64", type="integer", nullable=true, example=2),
  *    @OA\Property(property="beacon_id", format="int64", type="integer", nullable=true, example=3),
  *    @OA\Property(property="name", format="string", type="string", example="User Name"),
@@ -53,7 +54,12 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
+    protected $casts = [
+        'admin' => 'boolean'
+    ];
+
     protected $fillable = [
+        'admin',
         'name',
         'email',
         'password',
@@ -66,6 +72,7 @@ class User extends Model
 
     protected $visible = [
         'id',
+        'admin',
         'router_id',
         'beacon_id',
         'location_id',
