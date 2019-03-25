@@ -18,6 +18,8 @@ build_clear: false
 
 app_extra_parameters: |
   location /api/v1/users {
+     add_header Access-Control-Allow-Origin *;
+
      if ($request_method ~* GET) {
         content_by_lua_file /var/www/{{app_name}}/current/app/Lua/app.lua;
      }
@@ -28,6 +30,8 @@ app_extra_parameters: |
       try_files $uri $uri/ /index.php?$query_string;
   }
   location ~ \.php$ {
+      add_header Access-Control-Allow-Origin *;
+
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
       fastcgi_pass 127.0.0.1:{{app_port}};
       fastcgi_index index.php;
