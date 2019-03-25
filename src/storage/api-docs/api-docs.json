@@ -1204,11 +1204,6 @@
                         "format": "string",
                         "example": "User Name"
                     },
-                    "email": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "test@email.com"
-                    },
                     "status": {
                         "type": "string",
                         "format": "string",

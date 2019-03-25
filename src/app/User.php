@@ -42,7 +42,6 @@ use Illuminate\Support\Facades\Hash;
  *    @OA\Property(property="router_id", format="int64", type="integer", nullable=true, example=2),
  *    @OA\Property(property="beacon_id", format="int64", type="integer", nullable=true, example=3),
  *    @OA\Property(property="name", format="string", type="string", example="User Name"),
- *    @OA\Property(property="email", format="string", type="string", example="test@email.com"),
  *    @OA\Property(property="status", format="string", type="string", example="thebest"),
  *    @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
  *    @OA\Property(property="location", format="object", type="object",
@@ -77,7 +76,6 @@ class User extends Model
         'beacon_id',
         'location_id',
         'name',
-        'email',
         'status',
         'updated_at'
     ];

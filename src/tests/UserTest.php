@@ -27,6 +27,23 @@ class UserTest extends TestCase
     }
 
     /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testCreate()
+    {
+        $model = $this->makeFactory();
+        $model->makeVisible('email');
+
+        $this->json('POST', static::ROUTE, $model->toArray(), [
+            'Authorization' => 'Token ' . self::getToken()
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_CREATED)
+            ->seeJson($model->makeHidden('email')->toArray());
+    }
+
+    /**
      * A basic test read.
      *
      * @return void
