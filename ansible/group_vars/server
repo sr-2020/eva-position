@@ -18,7 +18,16 @@ build_clear: false
 
 app_extra_parameters: |
   location /api/v1/users {
-     add_header Access-Control-Allow-Origin *;
+      if ($request_method ~* "(GET|POST)") {
+         add_header "Access-Control-Allow-Origin"  *;
+      }
+
+      if ($request_method = OPTIONS ) {
+         add_header "Access-Control-Allow-Origin"  *;
+         add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+         add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+         return 200;
+      }
 
      if ($request_method ~* GET) {
         content_by_lua_file /var/www/{{app_name}}/current/app/Lua/app.lua;
@@ -29,8 +38,19 @@ app_extra_parameters: |
   location / {
       try_files $uri $uri/ /index.php?$query_string;
   }
+
   location ~ \.php$ {
-      add_header Access-Control-Allow-Origin *;
+
+      if ($request_method ~* "(GET|POST)") {
+         add_header "Access-Control-Allow-Origin"  *;
+      }
+
+      if ($request_method = OPTIONS ) {
+         add_header "Access-Control-Allow-Origin"  *;
+         add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+         add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+         return 200;
+      }
 
       fastcgi_split_path_info ^(.+\.php)(/.+)$;
       fastcgi_pass 127.0.0.1:{{app_port}};
