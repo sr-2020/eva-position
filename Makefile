@@ -1,15 +1,17 @@
 baseRepo=gurkalov
 buildImage=${image}
 buildContainer=build-$(buildImage)
-#server=46.161.54.169
-#server=85.143.222.113
-IMAGE := $(or ${image},${image},eva)
+IMAGE := $(or ${image},${image},eva-position)
+TAG := ":$(or ${tag},${tag},"latest")"
+
+tag:
+	docker tag $(baseRepo)/${IMAGE} $(baseRepo)/${IMAGE}${TAG}
 
 build:
 	docker build -t $(baseRepo)/${IMAGE} .
 
 push:
-	docker tag $(baseRepo)/${IMAGE} $(baseRepo)/${IMAGE}
+	make tag
 	docker push $(baseRepo)/${IMAGE}
 
 down:

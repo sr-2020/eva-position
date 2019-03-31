@@ -8,3 +8,5 @@ ADD docker/php-fpm/php.ini /usr/local/etc/php/php.ini
 ADD docker/php-fpm/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 ADD ./src /var/www/
+
+RUN chmod -R 777 /var/www/storage/
