@@ -34,7 +34,8 @@ class UserTest extends TestCase
     public function testCreate()
     {
         $model = $this->makeFactory();
-        $model->makeVisible('email');
+        $model->makeVisible('email')
+            ->makeHidden('location_updated_at');
 
         $this->json('POST', static::ROUTE, $model->toArray(), [
             'Authorization' => 'Token ' . self::getToken()

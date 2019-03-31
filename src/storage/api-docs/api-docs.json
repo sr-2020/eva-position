@@ -1208,6 +1208,11 @@
                         "format": "string",
                         "example": "2019-01-26 20:00:57"
                     },
+                    "location_updated_at": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "2019-01-26 20:00:57"
+                    },
                     "location": {
                         "type": "object",
                         "format": "object",

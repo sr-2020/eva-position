@@ -19,6 +19,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $faker->password,
         'status' => $faker->safeColorName,
         'location_id' => null,
+        'location_updated_at' => null
     ];
 });
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\PositionController;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Illuminate\Http\JsonResponse;
+use App\User;
 
 class PositionTest extends TestCase
 {
@@ -49,6 +50,15 @@ class PositionTest extends TestCase
         'L2-1' => 2,
         'L2-2' => 2,
         'L3-1' => 3,
+    ];
+
+    static protected $locationId = [
+        1 => 1,
+        2 => 1,
+        3 => 1,
+        4 => 2,
+        5 => 2,
+        6 => 3,
     ];
 
     /**
@@ -289,11 +299,10 @@ class PositionTest extends TestCase
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
-            //$json = json_decode($this->response->content());
-            //$this->assertEquals($setBeacons[$index], $json->beacon_id);
+            $json = json_decode($this->response->content());
+            $this->assertEquals(self::$locationId[$setBeacons[$index]], $json->location_id);
         }
     }
-
 
     /**
      * A basic test create.
@@ -322,8 +331,52 @@ class PositionTest extends TestCase
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
-            //$json = json_decode($this->response->content());
-            //$this->assertEquals($setBeacons[$index], $json->beacon_id);
+            $json = json_decode($this->response->content());
+            $this->assertEquals(self::$locationId[$setBeacons[$index]], $json->location_id);
+        }
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testOneBeaconUpdateLocationSuccess()
+    {
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => -10]
+        ];
+
+        $this->json('GET', '/api/v1/users/1', [], [
+            'Authorization' => self::$apiKey
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_OK);
+
+        $json = json_decode($this->response->content());
+        $this->assertEquals(null, $json->location_updated_at);
+
+        for ($i = 0; $i < 2; $i++) {
+            $this->json('POST', static::ROUTE, [
+                'beacons' => $beacons
+            ], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+            $json = json_decode($this->response->content());
+            $this->assertEquals(1, $json->location_id);
+            $postionCreatedAt = $json->created_at;
+
+            $this->json('GET', '/api/v1/users/1', [], [
+                'Authorization' => self::$apiKey
+            ])
+                ->seeStatusCode(JsonResponse::HTTP_OK);
+
+            $json = json_decode($this->response->content());
+            $this->assertNotEquals(null, $json->location_updated_at);
+            $this->assertEquals($postionCreatedAt, $json->location_updated_at);
+
+            sleep(1);
         }
     }
 
@@ -363,8 +416,10 @@ class PositionTest extends TestCase
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
-            //$json = json_decode($this->response->content());
-            //$this->assertEquals($setBeacons[$index], $json->beacon_id);
+            if (null !== $setBeacons[$index]) {
+                $json = json_decode($this->response->content());
+                $this->assertEquals(self::$locationId[$setBeacons[$index]], $json->location_id);
+            }
         }
     }
 
@@ -407,8 +462,10 @@ class PositionTest extends TestCase
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
-            //$json = json_decode($this->response->content());
-            //$this->assertEquals($setBeacons[$index], $json->beacon_id);
+            if (!empty($setBeacons[$index])) {
+                $json = json_decode($this->response->content());
+                $this->assertEquals(self::$locationId[$setBeacons[$index]], $json->location_id);
+            }
         }
     }
 }

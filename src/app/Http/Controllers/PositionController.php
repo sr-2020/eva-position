@@ -179,7 +179,6 @@ class PositionController extends Controller
     protected function applySimpleStrategy(User $user, array $beacons)
     {
         $assignBeacon = self::assignBeacon($beacons);
-        $beaconId = null;
         if (null === $assignBeacon) {
             return false;
         }
@@ -261,6 +260,7 @@ class PositionController extends Controller
         }
 
         if ($save) {
+            $user->location_updated_at = $model->created_at;
             $user->touch();
             $user->save();
         }

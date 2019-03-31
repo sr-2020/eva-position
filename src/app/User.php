@@ -43,6 +43,7 @@ use Illuminate\Support\Facades\Hash;
  *    @OA\Property(property="name", format="string", type="string", example="User Name"),
  *    @OA\Property(property="status", format="string", type="string", example="thebest"),
  *    @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
+ *    @OA\Property(property="location_updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
  *    @OA\Property(property="location", format="object", type="object",
  *        ref="#/components/schemas/Location"
  *    )
@@ -73,7 +74,8 @@ class User extends Model
         'location_id',
         'name',
         'status',
-        'updated_at'
+        'updated_at',
+        'location_updated_at'
     ];
 
     protected static function boot()

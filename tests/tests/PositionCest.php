@@ -10,7 +10,7 @@ class PositionCest
     static protected $apiKey;
 
     static protected $url = '';
-    static protected $route = '/positions?XDEBUG_SESSION_START=1';
+    static protected $route = '/positions';
 
     static protected $before = false;
 
@@ -75,66 +75,6 @@ class PositionCest
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([]);
-    }
-
-    public function firstRouterTest(ApiTester $I)
-    {
-        $routers = [
-            [
-                'ssid' => 'room_a',
-                'bssid' => '00:0a:95:9d:00:0a',
-                'level' => -10
-            ],
-            [
-                'ssid' => 'room_b',
-                'bssid' => '00:0a:95:9d:00:0b',
-                'level' => -30
-            ]
-        ];
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
-        $I->sendPOST(self::$route, [
-            'routers' => $routers
-        ]);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer',
-        ]);
-
-        $I->sendGET('/users/' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-    }
-
-    public function secondRouterTest(ApiTester $I)
-    {
-        $routers = [
-            [
-                'ssid' => 'room_a',
-                'BSSID' => '00:0a:95:9d:00:0a',
-                'level' => -50
-            ],
-            [
-                'ssid' => 'room_b',
-                'BSSID' => '00:0a:95:9d:00:0b',
-                'level' => -30
-            ]
-        ];
-        $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
-        $I->sendPOST(self::$route, [
-            'routers' => $routers
-        ]);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
-        $I->seeResponseIsJson();
-        $I->seeResponseMatchesJsonType([
-            'id' => 'integer'
-        ]);
-
-        $I->sendGET('/users/' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
     }
 
     public function firstBeaconTest(ApiTester $I)
