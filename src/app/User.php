@@ -39,8 +39,7 @@ use Illuminate\Support\Facades\Hash;
  *    required={"id"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
  *    @OA\Property(property="admin", format="boolean", type="boolean", example=false),
- *    @OA\Property(property="router_id", format="int64", type="integer", nullable=true, example=2),
- *    @OA\Property(property="beacon_id", format="int64", type="integer", nullable=true, example=3),
+ *    @OA\Property(property="location_id", format="int64", type="integer", nullable=true, example=1),
  *    @OA\Property(property="name", format="string", type="string", example="User Name"),
  *    @OA\Property(property="status", format="string", type="string", example="thebest"),
  *    @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
@@ -62,8 +61,6 @@ class User extends Model
         'name',
         'email',
         'password',
-        'router_id',
-        'beacon_id',
         'location_id',
         'api_key',
         'status'
@@ -73,7 +70,6 @@ class User extends Model
         'id',
         'admin',
         'router_id',
-        'beacon_id',
         'location_id',
         'name',
         'status',
@@ -89,14 +85,6 @@ class User extends Model
                 $model->api_key = self::generationApiKey();
             }
         });
-    }
-
-    /**
-     * Get the post that owns the comment.
-     */
-    public function beacon()
-    {
-        return $this->belongsTo('App\Beacon');
     }
 
     /**

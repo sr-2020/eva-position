@@ -89,13 +89,10 @@ curl -X POST "http://position.evarun.ru/api/v1/login" -H "Content-Type: applicat
 {
   "id": 1,
   "admin": true,
-  "router_id": null,
-  "beacon_id": null,
   "name": "Api Tim Cook",
   "status": "free",
   "updated_at": "2019-03-24 21:08:30",
   "location_id": 1,
-  "beacon": null,
   "location": {
     "id": 1,
     "label": "Танц-фойе Рим, 2 этаж"
@@ -124,13 +121,10 @@ curl -X GET "http://position.evarun.ru/api/v1/profile" -H "Authorization: Bearer
 {
   "id": 1,
   "admin": true,
-  "router_id": null,
-  "beacon_id": null,
   "name": "Api Tim Cook",
   "status": "free",
   "updated_at": "2019-03-24 21:08:30",
   "location_id": 1,
-  "beacon": null,
   "location": {
     "id": 1,
     "label": "Танц-фойе Рим, 2 этаж"
@@ -161,13 +155,10 @@ curl -X PUT "http://position.evarun.ru/api/v1/profile" -H "Authorization: Bearer
     {
       "id": 1,
       "admin": true,
-      "router_id": null,
-      "beacon_id": null,
       "name": "Api Tim Cook",
       "status": "free",
       "updated_at": "2019-03-24 21:08:30",
       "location_id": 1,
-      "beacon": null,
       "location": {
         "id": 1,
         "label": "Танц-фойе Рим, 2 этаж"

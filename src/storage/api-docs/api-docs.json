@@ -1014,7 +1014,7 @@
                         "default": 1,
                         "example": 1
                     },
-                    "beacon_id": {
+                    "location_id": {
                         "type": "integer",
                         "format": "int64",
                         "default": 1,
@@ -1041,19 +1041,19 @@
                         "default": 1,
                         "example": 1
                     },
-                    "beacon_id": {
+                    "location_id": {
                         "type": "integer",
                         "format": "int64",
                         "default": 1,
                         "example": 1
                     },
-                    "beacon": {
+                    "location": {
                         "type": "object",
                         "format": "object",
                         "nullable": true,
                         "anyOf": [
                             {
-                                "$ref": "#/components/schemas/Beacon"
+                                "$ref": "#/components/schemas/Location"
                             },
                             {
                                 "nullable": true
@@ -1187,16 +1187,10 @@
                         "format": "boolean",
                         "example": false
                     },
-                    "router_id": {
+                    "location_id": {
                         "type": "integer",
                         "format": "int64",
-                        "example": 2,
-                        "nullable": true
-                    },
-                    "beacon_id": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 3,
+                        "example": 1,
                         "nullable": true
                     },
                     "name": {

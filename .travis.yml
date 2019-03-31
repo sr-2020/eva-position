@@ -33,6 +33,7 @@ jobs:
       - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
       - cd ansible
       - make deploy env=production
+    if: branch = master
 
   - stage: test production
     script:
@@ -40,6 +41,8 @@ jobs:
       - composer install --no-interaction
       - cd ../ansible
       - make codecept-production env=production
+    if: branch = master
+
 addons:
   sonarcloud:
     organization: gurkalov-github

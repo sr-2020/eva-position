@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 /**
  * @OA\Schema(schema="NewPath", required={"user_id"},
  *     @OA\Property(property="user_id", format="int64", type="integer", default=1, example=1),
- *     @OA\Property(property="beacon_id", format="int64", type="integer", default=1, example=1),
+ *     @OA\Property(property="location_id", format="int64", type="integer", default=1, example=1),
  * )
  */
 
@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Hash;
  * @OA\Schema(schema="Path", required={"id", "user_id"},
  *     @OA\Property(property="id", format="int64", type="integer", default=1, example=1),
  *     @OA\Property(property="user_id", format="int64", type="integer", default=1, example=1),
- *     @OA\Property(property="beacon_id", format="int64", type="integer", default=1, example=1),
- *     @OA\Property(property="beacon", format="object", type="object", nullable=true, anyOf={
- *       @OA\Schema(ref="#/components/schemas/Beacon"),
+ *     @OA\Property(property="location_id", format="int64", type="integer", default=1, example=1),
+ *     @OA\Property(property="location", format="object", type="object", nullable=true, anyOf={
+ *       @OA\Schema(ref="#/components/schemas/Location"),
  *       @OA\Schema(nullable=true)
  *   }
  *     )
@@ -29,23 +29,23 @@ class Path extends Model
 {
     protected $fillable = [
         'user_id',
-        'beacon_id'
+        'location_id'
     ];
 
     protected $visible = [
         'id',
         'user_id',
-        'beacon_id',
+        'location_id',
         'created_at',
         'updated_at',
     ];
 
     /**
-     * Get the beacon that owns the point of path.
+     * Get the location that owns the point of path.
      */
-    public function beacon()
+    public function location()
     {
-        return $this->belongsTo('App\Beacon');
+        return $this->belongsTo('App\Location');
     }
 
     /**

@@ -10,7 +10,7 @@ class PositionCest
     static protected $apiKey;
 
     static protected $url = '';
-    static protected $route = '/positions';
+    static protected $route = '/positions?XDEBUG_SESSION_START=1';
 
     static protected $before = false;
 
@@ -160,7 +160,7 @@ class PositionCest
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'beacon' => [
+            'location' => [
                 'id' => self::$location['A']
             ]
         ]);
@@ -171,19 +171,9 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['A']['bssid']
+                'location' => [
+                    'id' => self::$location['A']
                 ]
-            ]
-        ]);
-
-        $I->sendGET('/users/' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'location_id' => self::$location['A'],
-            'beacon' => [
-                'id' => self::$location['A']
             ]
         ]);
     }
@@ -210,8 +200,8 @@ class PositionCest
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'beacon' => [
-                'bssid' => self::$beacons['B']['bssid']
+            'location' => [
+                'id' => self::$location['B']
             ]
         ]);
 
@@ -221,19 +211,9 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
+                'location' => [
+                    'id' => self::$location['B']
                 ]
-            ]
-        ]);
-
-        $I->sendGET('/users/' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'location_id' => self::$location['B'],
-            'location' => [
-                'id' => self::$location['B']
             ]
         ]);
     }
@@ -265,8 +245,8 @@ class PositionCest
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
-            'beacon' => [
-                'bssid' => self::$beacons['B']['bssid']
+            'location' => [
+                'id' => self::$location['B']
             ]
         ]);
 
@@ -276,19 +256,9 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
+                'location' => [
+                    'id' => self::$location['B']
                 ]
-            ]
-        ]);
-
-        $I->sendGET('/users/' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            'location_id' => self::$location['B'],
-            'location' => [
-                'id' => self::$location['B']
             ]
         ]);
     }
@@ -319,14 +289,14 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['A']['bssid']
+                'location' => [
+                    'id' => self::$location['A']
                 ]
             ],
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
+                'location' => [
+                    'id' => self::$location['B']
                 ]
             ]
         ]);
@@ -357,8 +327,8 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['A']['bssid']
+                'location' => [
+                    'id' => self::$location['A']
                 ]
             ]
         ]);
@@ -392,14 +362,14 @@ class PositionCest
         $I->canSeeResponseContainsJson([
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['A']['bssid']
+                'location' => [
+                    'id' => self::$location['A']
                 ]
             ],
             [
                 'user_id' => self::$userId,
-                'beacon' => [
-                    'bssid' => self::$beacons['B']['bssid']
+                'location' => [
+                    'id' => self::$location['B']
                 ]
             ]
         ]);

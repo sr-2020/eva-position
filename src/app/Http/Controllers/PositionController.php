@@ -184,10 +184,8 @@ class PositionController extends Controller
             return false;
         }
 
-        $beaconId = $assignBeacon->id;
+        self::createPath($user, $assignBeacon->location_id);
         $user->location_id = $assignBeacon->location_id;
-        self::createPath($user, $beaconId);
-        $user->beacon_id = $beaconId;
 
         return true;
     }
@@ -223,8 +221,8 @@ class PositionController extends Controller
         $realBeaconId = key($countBeacons);
 
         if (0 === $realBeaconId && $countBeacons[0] > $strategy - 1) {
-            self::createPath($user, $realBeaconId);
-            $user->beacon_id = $realBeaconId;
+            //self::createPath($user, $realBeaconId);
+           // $user->beacon_id = $realBeaconId;
             return ;
         }
 
@@ -235,8 +233,8 @@ class PositionController extends Controller
 
         $user->location_id = $realBeacon->location_id;
 
-        self::createPath($user, $realBeaconId);
-        $user->beacon_id = $realBeaconId;
+        //self::createPath($user, $realBeaconId);
+        //$user->beacon_id = $realBeaconId;
     }
 
     /**
@@ -289,17 +287,17 @@ class PositionController extends Controller
 
     /**
      * @param User $user
-     * @param integer $beaconId
+     * @param integer $locationId
      * @return void
      */
-    protected function createPath(User $user, $beaconId)
+    protected function createPath(User $user, $locationId)
     {
-        $iBeaconId = (int)$beaconId;
+        $iLocationId = (int)$locationId;
 
-        if ($user->beacon_id !== $beaconId) {
+        if ($user->location_id !== $locationId) {
             Path::create([
                 'user_id' => $user->id,
-                'beacon_id' => $iBeaconId,
+                'location_id' => $iLocationId,
             ]);
             return;
         }

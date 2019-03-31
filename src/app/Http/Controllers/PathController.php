@@ -49,9 +49,9 @@ class PathController extends Controller
     public function index(Request $request)
     {
         $modelClass = self::MODEL;
-        $query = $modelClass::with('beacon');
+        $query = $modelClass::with('location');
         self::applyQuery($request, $query);
-        $list = $query->get()->makeVisible('beacon');
+        $list = $query->get()->makeVisible('location');
         return new JsonResponse($list, JsonResponse::HTTP_OK);
     }
 }

@@ -17,9 +17,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'admin' => false,
         'email' => $faker->email,
         'password' => $faker->password,
-        'amount' => $faker->numberBetween(0, 1000),
         'status' => $faker->safeColorName,
-        'beacon_id' => null,
         'location_id' => null,
     ];
 });
@@ -27,7 +25,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Path::class, function (Faker\Generator $faker) {
     return [
         'user_id' => 1,
-        'beacon_id' => 1,
+        'location_id' => 0,
     ];
 });
 

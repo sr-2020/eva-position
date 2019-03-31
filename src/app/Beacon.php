@@ -47,14 +47,6 @@ class Beacon extends Model
     ];
 
     /**
-     * Get users.
-     */
-    public function users()
-    {
-        return $this->hasMany('App\User');
-    }
-
-    /**
      * Get the beacon's label.
      *
      * @param  string  $value
