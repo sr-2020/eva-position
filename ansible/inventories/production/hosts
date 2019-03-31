@@ -1,5 +1,5 @@
 [server]
-80.93.182.250 app_mail_driver=mailgun
+80.93.182.250 app_mail_driver=mailgun app_backup=true
 
 [storage]
 80.93.182.250

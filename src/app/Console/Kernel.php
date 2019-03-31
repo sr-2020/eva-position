@@ -25,8 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('backup:clean')->daily()->at('00:30');
-        $schedule->command('backup:run')->hourly();
+        if (true === env('APP_BACKUP', false)) {
+            $schedule->command('backup:clean')->daily()->at('00:30');
+            $schedule->command('backup:run')->hourly();
+        }
 
         $schedule->command('hotcache:run')->everyMinute();
     }
