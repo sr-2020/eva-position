@@ -1,19 +1,12 @@
 dist: xenial
-cache:
-  directories:
-  - "$HOME/.composer/cache"
-  - ansible/builds
 phpenv: 7.2
 language: python
 python:
 - '2.7'
 jobs:
   include:
-  - stage: build and push image
-    install:
-    - pip install ansible
+  - stage: build and push docker image
     script:
-    - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - cd src
     - composer install --no-interaction
@@ -21,23 +14,9 @@ jobs:
     - make build
     - make push
 
-  - stage: test stage
-    script:
-    - sonar-scanner
-    - cd tests
-    - composer install --no-interaction
-    - cd ../ansible
-    - make codecept env=stage
-    if: branch = master
-
   - stage: deploy production
-    install:
-      - pip install ansible
     script:
-      - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
-      - cd ansible
-      - make deploy env=production
-    if: branch = master
+    - make deploy server=84.201.132.246 password=$USER_PASSWORD
 
   - stage: test production
     script:
@@ -45,7 +24,6 @@ jobs:
       - composer install --no-interaction
       - cd ../ansible
       - make codecept-production env=production
-    if: branch = master
 
 addons:
   sonarcloud:
@@ -55,7 +33,6 @@ addons:
   ssh_known_hosts:
   - 94.103.85.103
   - 84.201.132.246
-  - 85.143.222.113
   apt:
     packages:
     - sshpass

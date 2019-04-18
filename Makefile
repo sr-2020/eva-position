@@ -14,6 +14,15 @@ push:
 	make tag
 	docker push $(baseRepo)/${IMAGE}
 
+deploy:
+	{ \
+	sshpass -p $(password) ssh -o StrictHostKeyChecking=no deploy@$(server) "cd /var/services/position ;\
+	docker-compose pull app ;\
+	docker-compose rm -fsv app nginx ;\
+	docker volume rm -f position_eva-platform-src ;\
+	docker-compose up -d --no-deps --build app nginx" ;\
+	}
+
 down:
 	docker-compose down ${flag}
 
