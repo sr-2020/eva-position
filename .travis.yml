@@ -14,10 +14,12 @@ jobs:
     - pip install ansible
     script:
     - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - cd src
     - composer install --no-interaction
     - cd ../
     - make build
+    - make push
 
   - stage: test stage
     script:
