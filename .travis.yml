@@ -1,8 +1,7 @@
 dist: xenial
-phpenv: 7.2
-language: python
-python:
-- '2.7'
+language: php
+php:
+  - '7.2'
 jobs:
   include:
   - stage: build and push docker image
