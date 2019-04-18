@@ -9,7 +9,7 @@ python:
 - '2.7'
 jobs:
   include:
-  - stage: build image
+  - stage: build and push image
     install:
     - pip install ansible
     script:
