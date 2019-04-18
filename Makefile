@@ -35,34 +35,18 @@ reset-out:
 	docker-compose up
 
 test:
-	ab -c 10 -n 500 http://${target}/
+	ab -c 10 -n 500 http://${server}/
 
 test-static:
-	ab -c 10 -n 500 http://${target}/static.txt
+	ab -c 10 -n 500 http://${server}/static.txt
 
 test-post:
-	ab -p data.json -T application/json -c 10 -n 50000 http://${target}
-
-full:
-	make build image=app
-	make build-nginx
-	make reset
+	ab -p data.json -T application/json -c 10 -n 50000 http://${server}
 
 remote-install:
 	ssh root@$(server) "curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-Linux-x86_64 > docker-compose"
 	ssh root@$(server) cp ./docker-compose /usr/local/bin/docker-compose
 	ssh root@$(server) chmod +x /usr/local/bin/docker-compose
-
-remote-deploy:
-	make build image=app
-	make build-nginx
-	make push image=app
-	make push image=nginx
-	ssh root@$(server) docker pull ognestraz/lumen-app
-	ssh root@$(server) docker pull ognestraz/lumen-nginx
-	scp docker-compose.production.yml root@$(server):docker-compose.yml
-	ssh root@$(server) docker-compose down -v
-	ssh root@$(server) docker-compose up
 
 remote-reload:
 	ssh root@$(server) docker-compose down
