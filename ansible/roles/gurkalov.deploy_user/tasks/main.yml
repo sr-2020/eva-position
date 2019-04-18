@@ -35,6 +35,7 @@
     user: "{{ user_name }}"
     state: present
   with_file: "{{ public_keys }}"
+  become: yes
 
 - name: Set user password
   user:
@@ -46,9 +47,11 @@
     state: present
     update_password: always
   when: user_password | length > 0
+  become: yes
 
 - name: Disable passwordless sudo
   file:
     path: "/etc/sudoers.d/{{ user_name }}"
     state: absent
   when: not enable_passwordless_sudo
+  become: yes

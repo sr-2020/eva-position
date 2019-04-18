@@ -1,8 +1,8 @@
 [server]
-80.93.182.250 app_mail_driver=mailgun app_backup=true
+85.143.222.113 app_mail_driver=mailgun app_backup=true
 
 [storage]
-80.93.182.250
+85.143.222.113
 
 [localhost]
 127.0.0.1 ansible_connection=local

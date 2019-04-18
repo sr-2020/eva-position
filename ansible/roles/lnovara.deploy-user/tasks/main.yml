@@ -5,6 +5,7 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ user_groups }}"
+  become: yes
 
 - name: Create deploy user
   user:
@@ -15,6 +16,7 @@
     shell: "{{ user_shell }}"
     state: present
     update_password: on_create
+  become: yes
 
 - name: Setup authorized_keys
   authorized_key:
@@ -22,11 +24,13 @@
     user: "{{ user_name }}"
     state: present
   with_file: "{{ public_keys }}"
+  become: yes
 
 - name: Install sudo package
   package:
     name: sudo
     state: present
+  become: yes
 
 - name: Setup sudoers.d
   lineinfile:
@@ -36,6 +40,7 @@
     validate: "visudo -cf %s"
     state: present
   when: enable_passwordless_sudo
+  become: yes
 
 - name: Setup passwordless sudo
   template:
@@ -46,3 +51,4 @@
     mode: 0440
     validate: "visudo -cf %s"
   when: enable_passwordless_sudo
+  become: yes

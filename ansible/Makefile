@@ -5,6 +5,7 @@ PRIVATE_KEY := roles/gurkalov.deploy_user/files/id_rsa
 NETWORK := eva
 SUBNET := 172.37.0.0/16
 ENV := $(or ${env},${env},local)
+USER := $(or ${user},${user},root)
 INVENTORY := inventories/$(ENV)
 
 .PHONY : test
@@ -39,15 +40,15 @@ seed:
 	ansible-playbook -i $(INVENTORY) -u deploy deploy.yml --tags=seed
 
 app:
-	ansible-playbook -i $(INVENTORY) -u root deploy.yml --tags=setup
+	ansible-playbook -i $(INVENTORY) -u $(USER) deploy.yml --tags=setup
 
 setup:
-	ansible-playbook -i $(INVENTORY) -u root bootstrap.yml
-	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=user
-	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=php
-	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=nginx
-	ansible-playbook -i $(INVENTORY) -u root server.yml --tags=redis
-	ansible-playbook -i $(INVENTORY) -u root mysql.yml
+	ansible-playbook -i $(INVENTORY) -u $(USER) bootstrap.yml
+	ansible-playbook -i $(INVENTORY) -u $(USER) server.yml --tags=user
+	ansible-playbook -i $(INVENTORY) -u $(USER) server.yml --tags=php
+	ansible-playbook -i $(INVENTORY) -u $(USER) server.yml --tags=nginx
+	ansible-playbook -i $(INVENTORY) -u $(USER) server.yml --tags=redis
+	ansible-playbook -i $(INVENTORY) -u $(USER) mysql.yml
 	make app
 
 docker-setup:

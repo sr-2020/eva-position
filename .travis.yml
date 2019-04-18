@@ -9,14 +9,15 @@ python:
 - '2.7'
 jobs:
   include:
-  - stage: deploy stage
+  - stage: build image
     install:
     - pip install ansible
     script:
     - echo $ANSIBLE_VAULT_PASS > ansible/.vault_pass
-    - cd ansible
-    - rm builds/*.* || true
-    - make deploy env=stage
+    - cd src
+    - composer install --no-interaction
+    - cd ../
+    - make build
 
   - stage: test stage
     script:
@@ -25,6 +26,7 @@ jobs:
     - composer install --no-interaction
     - cd ../ansible
     - make codecept env=stage
+    if: branch = master
 
   - stage: deploy production
     install:
@@ -50,7 +52,8 @@ addons:
       secure: "$SONAR_TOKEN"
   ssh_known_hosts:
   - 94.103.85.103
-  - 80.93.182.250
+  - 84.201.132.246
+  - 85.143.222.113
   apt:
     packages:
     - sshpass

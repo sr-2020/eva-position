@@ -1,8 +1,7 @@
 - hosts: server
-  user: root
 
   roles:
     - { role: gurkalov.deploy_user, tags: user }
-    - { role: gurkalov.php_fpm, tags: php }
-    - { role: geerlingguy.nginx, tags: nginx }
-    - { role: geerlingguy.redis, tags: redis }
+    - { role: gurkalov.php_fpm, tags: php, become: yes }
+    - { role: geerlingguy.nginx, tags: nginx, become: yes }
+    - { role: geerlingguy.redis, tags: redis, become: yes }
