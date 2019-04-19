@@ -30,6 +30,6 @@ class Kernel extends ConsoleKernel
             $schedule->command('backup:run')->hourly();
         }
 
-        $schedule->command('hotcache:run')->everyMinute();
+        //$schedule->command('hotcache:run')->everyMinute();
     }
 }
