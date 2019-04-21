@@ -1203,6 +1203,11 @@
                         "format": "string",
                         "example": "thebest"
                     },
+                    "created_at": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "2019-01-26 20:00:00"
+                    },
                     "updated_at": {
                         "type": "string",
                         "format": "string",

@@ -91,6 +91,7 @@ curl -X POST "http://position.evarun.ru/api/v1/login" -H "Content-Type: applicat
   "admin": true,
   "name": "Api Tim Cook",
   "status": "free",
+  "created_at": "2019-03-24 21:08:00",
   "updated_at": "2019-03-24 21:08:30",
   "location_updated_at": "2019-03-24 21:08:30",
   "location_id": 1,
@@ -124,6 +125,7 @@ curl -X GET "http://position.evarun.ru/api/v1/profile" -H "Authorization: Bearer
   "admin": true,
   "name": "Api Tim Cook",
   "status": "free",
+  "created_at": "2019-03-24 21:08:00",
   "updated_at": "2019-03-24 21:08:30",
   "location_updated_at": "2019-03-24 21:08:30",
   "location_id": 1,
@@ -148,6 +150,7 @@ curl -X PUT "http://position.evarun.ru/api/v1/profile" -H "Authorization: Bearer
 Полезные поля которые можно отобразить:
  - `name` (имя указанное при регистрации)
  - `status` (статус выбранный пользователем)
+ - `created_at` (время когда пользователь зарегистрировался в системе)
  - `updated_at` (время когда пользователь в последний раз обновлял свой профиль или местоположение)
  - `location_updated_at` (время когда от пользователя в последний раз пришел непустой набор BLE-устройств)
  - `location.label` (человеко-читаемое название локации)
@@ -160,6 +163,7 @@ curl -X PUT "http://position.evarun.ru/api/v1/profile" -H "Authorization: Bearer
       "admin": true,
       "name": "Api Tim Cook",
       "status": "free",
+      "created_at": "2019-03-24 21:08:00",
       "updated_at": "2019-03-24 21:08:30",
       "location_updated_at": "2019-03-24 21:08:30",
       "location_id": 1,
