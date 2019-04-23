@@ -51,5 +51,27 @@ class Position extends Model
                 $model->beacons = [];
             }
         });
+
+        static::created(function($model) {
+            if (is_array($model->beacons)) {
+                foreach ($model->beacons as $beacon) {
+                    $beacon['beacon_id'] = null;
+                    $beaconModel = Beacon::where('bssid', $beacon['bssid'])->first();
+                    if (null !== $beaconModel) {
+                        $beacon['beacon_id'] = $beaconModel->id;
+                    }
+
+                    $model->beacons()->create($beacon);
+                }
+            }
+        });
+    }
+
+    /**
+     * Get the beacons for the position.
+     */
+    public function beacons()
+    {
+        return $this->hasMany('App\PositionBeacon');
     }
 }

@@ -1110,6 +1110,40 @@
                 },
                 "type": "object"
             },
+            "PositionBeacon": {
+                "required": [
+                    "id",
+                    "position_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "position_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "beacon_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "bssid": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "b0:0a:95:9d:00:0a"
+                    },
+                    "level": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": -50
+                    }
+                },
+                "type": "object"
+            },
             "LoginCreds": {
                 "required": [
                     "email",
