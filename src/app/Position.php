@@ -56,6 +56,7 @@ class Position extends Model
             if (is_array($model->beacons)) {
                 foreach ($model->beacons as $beacon) {
                     $beacon['beacon_id'] = null;
+                    $beacon['bssid'] = strtoupper($beacon['bssid']);
                     $beaconModel = Beacon::where('bssid', $beacon['bssid'])->first();
                     if (null !== $beaconModel) {
                         $beacon['beacon_id'] = $beaconModel->id;
