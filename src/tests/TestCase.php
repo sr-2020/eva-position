@@ -2,7 +2,7 @@
 
 abstract class TestCase extends Laravel\Lumen\Testing\TestCase
 {
-    protected static $apiKey = '';
+    protected static $userId = 1;
 
     /**
      * Creates the application.
@@ -21,8 +21,5 @@ abstract class TestCase extends Laravel\Lumen\Testing\TestCase
     {
         parent::setUp();
         $this->artisan('db:seed');
-
-        $user = App\User::find(1);
-        self::$apiKey = $user->api_key;
     }
 }

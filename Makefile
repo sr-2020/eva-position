@@ -1,57 +1,58 @@
-baseRepo=gurkalov
-buildImage=${image}
-buildContainer=build-$(buildImage)
+DOCKER_COMPOSE_VERSION=1.24.0
+NAMESPACE=gurkalov
+SERVICE := position
 IMAGE := $(or ${image},${image},eva-position)
-TAG := ":$(or ${tag},${tag},"latest")"
+TAG := :$(or ${tag},${tag},latest)
+ENV := $(or ${env},${env},local)
+cest := $(or ${cest},${cest},)
 
-tag:
-	docker tag $(baseRepo)/${IMAGE} $(baseRepo)/${IMAGE}${TAG}
+current_dir = $(shell pwd)
 
 build:
-	docker build -t $(baseRepo)/${IMAGE} .
+	docker build -t ${NAMESPACE}/${IMAGE}${TAG} .
 
 push:
-	make tag
-	docker push $(baseRepo)/${IMAGE}
+	docker push ${NAMESPACE}/${IMAGE}
 
 deploy:
 	{ \
-	sshpass -p $(password) ssh -o StrictHostKeyChecking=no deploy@$(server) "cd /var/services/position ;\
+	sshpass -p $(password) ssh -o StrictHostKeyChecking=no deploy@$(server) "cd /var/services/$(SERVICE) ;\
 	docker-compose pull app ;\
-	docker-compose rm -fsv app nginx ;\
-	docker volume rm -f position_eva-platform-src ;\
-	docker-compose up -d --no-deps --build app nginx" ;\
+	docker-compose up -d --no-deps app" ;\
 	}
 
-down:
-	docker-compose down ${flag}
+deploy-local:
+	docker-compose rm -fs app
+	docker-compose up --no-deps app
 
-reset:
+up:
+	docker-compose up -d
+
+dev:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+down:
+	docker-compose down
+
+reload:
+	make down
+	make up
+
+restart:
 	docker-compose down -v
 	docker-compose up -d
 
-reset-out:
-	docker-compose down
-	docker-compose up
+install:
+	cp .env.example .env
+
+install-docker-compose:
+	curl -L https://github.com/docker/compose/releases/download/$(DOCKER_COMPOSE_VERSION)/docker-compose-Linux-x86_64 > /tmp/docker-compose
+	chmod +x /tmp/docker-compose
+	sudo mv /tmp/docker-compose /usr/local/bin/docker-compose
+	docker-compose -v
 
 test:
-	ab -c 10 -n 500 http://${server}/
+	docker run -v $(current_dir)/tests:/project --net host codeception/codeception run $(ENV) $(cest)
 
-test-static:
-	ab -c 10 -n 500 http://${server}/static.txt
-
-test-post:
-	ab -p data.json -T application/json -c 10 -n 50000 http://${server}
-
-remote-install:
-	ssh root@$(server) "curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-Linux-x86_64 > docker-compose"
-	ssh root@$(server) cp ./docker-compose /usr/local/bin/docker-compose
-	ssh root@$(server) chmod +x /usr/local/bin/docker-compose
-
-remote-reload:
-	ssh root@$(server) docker-compose down
-	ssh root@$(server) docker-compose up
-
-remote-reset:
-	ssh root@$(server) docker-compose down -v
-	ssh root@$(server) docker-compose up
+load:
+	docker run -v $(current_dir)/tests/loadtest:/var/loadtest --net host --entrypoint /usr/local/bin/yandex-tank -it direvius/yandex-tank -c production.yaml

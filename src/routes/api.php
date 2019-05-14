@@ -20,9 +20,6 @@ $router->group([
     'middleware' => ['auth']
 ], function () use ($router) {
     $router->post('positions', 'PositionController@create');
-    $router->post('audios', 'AudioController@create');
-    $router->get('profile', 'ProfileController@read');
-    $router->put('profile', 'ProfileController@update');
 });
 
 $router->group([
@@ -33,10 +30,6 @@ $router->group([
      * CRUD Routes
      */
     foreach ([
-        'shops' => 'ShopController',
-        'users' => 'UserController',
-        'items' => 'ItemController',
-        'routers' => 'RouterController',
         'beacons' => 'BeaconController',
         'locations' => 'LocationController',
     ] as $path => $controller) {
@@ -66,41 +59,15 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('positions/{id}', 'PositionController@read');
     $router->get('routers/users', 'RouterController@users');
 
-    $router->get('audios', 'AudioController@index');
-    $router->get('audios/{id}', 'AudioController@read');
-
-    /**
-     * Auth Routes
-     */
-    $router->post('login', 'AuthController@login');
-    $router->post('register', 'AuthController@register');
-
     /**
      * CRUD Routes
      */
     foreach ([
-        'shops' => 'ShopController',
         'users' => 'UserController',
-        'items' => 'ItemController',
-        'routers' => 'RouterController',
         'beacons' => 'BeaconController',
         'locations' => 'LocationController',
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
         $router->get($path . '/{id}', $controller . '@read');
     }
-
-    /**
-     * Relations routes
-     */
-    foreach ([
-        'users/{user_id}/items' => 'UserItemController',
-        'users/{user_id}/shops' => 'UserShopController',
-        'shops/{shop_id}/items' => 'ShopItemController',
-    ] as $path => $controller) {
-        $router->get($path, $controller . '@index');
-        $router->post($path . '/{item_id}', $controller . '@create');
-        $router->get($path . '/{item_id}', $controller . '@read');
-        $router->delete($path . '/{item_id}', $controller . '@delete');
-    }    
 });

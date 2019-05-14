@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Position;
-use App\Router;
-use App\Beacon;
 use App\User;
+use App\Beacon;
 use App\Path;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -260,7 +259,6 @@ class PositionController extends Controller
         }
 
         if ($save) {
-            $user->location_updated_at = $model->created_at;
             $user->touch();
             $user->save();
         }

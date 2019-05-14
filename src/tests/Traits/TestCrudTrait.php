@@ -1,20 +1,9 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
-use App\User;
 
 trait TestCrudTrait
 {
-    /**
-     * Get admin token
-     *
-     * @return \Laravel\Lumen\Application
-     */
-    protected static function getToken()
-    {
-        return User::find(1)->api_key;
-    }
-
     /**
      * Create factory.
      *
@@ -64,7 +53,7 @@ trait TestCrudTrait
         $model = $this->makeFactory();
  
         $this->json('POST', static::ROUTE, $model->toArray(), [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)   
             ->seeJson($model->toArray());
@@ -114,7 +103,7 @@ trait TestCrudTrait
         $newModel = $this->makeFactory();
 
         $this->json('PUT', static::ROUTE . '/' . $model->id, $newModel->toArray(), [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_OK)   
             ->seeJson($newModel->toArray());
@@ -145,7 +134,7 @@ trait TestCrudTrait
         $model->save();
 
         $this->json('DELETE', static::ROUTE . '/' . $model->id, [], [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_NO_CONTENT);
     }

@@ -15,9 +15,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (true !== $request->user()->admin) {
-            return response('Forbidden', 403);
-        }
+//        if (true !== $request->user()->admin) {
+//            return response('Forbidden', 403);
+//        }
 
         return $next($request);
     }

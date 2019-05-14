@@ -54,42 +54,16 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
-    protected $casts = [
-        'admin' => 'boolean'
-    ];
-
     protected $fillable = [
-        'admin',
-        'name',
-        'email',
-        'password',
         'location_id',
-        'api_key',
-        'status'
     ];
 
     protected $visible = [
         'id',
-        'admin',
-        'router_id',
         'location_id',
-        'name',
-        'status',
         'created_at',
-        'updated_at',
-        'location_updated_at'
+        'updated_at'
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (null === $model->api_key) {
-                $model->api_key = self::generationApiKey();
-            }
-        });
-    }
 
     /**
      * Get the location where user is.
@@ -97,31 +71,5 @@ class User extends Model
     public function location()
     {
         return $this->belongsTo('App\Location');
-    }
-
-    /**
-     * @param string $pass
-     */
-    public function setPasswordAttribute($pass)
-    {
-        $this->attributes['password'] = Hash::make($pass);
-    }
-
-    /**
-     * Generate new api key
-     * @return string
-     */
-    protected static function generationApiKey()
-    {
-        return substr(base64_encode(str_random(64)), 0, 32);
-    }
-
-    /**
-     * Generate new api key
-     * @return string
-     */
-    public function resetApiKey()
-    {
-        $this->api_key = self::generationApiKey();
     }
 }

@@ -16,6 +16,7 @@ class CreatePathsTable extends Migration
         Schema::create('paths', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('location_id')->default(0);
             $table->integer('beacon_id')->default(0);
             $table->timestamps();
         });

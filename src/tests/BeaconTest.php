@@ -28,7 +28,7 @@ class BeaconTest extends TestCase
         ]);
 
         $this->json('POST', static::ROUTE, $dataSend, [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJson($model->toArray());
@@ -46,13 +46,13 @@ class BeaconTest extends TestCase
     {
         $model = $this->makeFactory();
         $this->json('POST', static::ROUTE, $model->toArray(), [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJson($model->toArray());
 
         $this->json('POST', static::ROUTE, $model->toArray(), [
-            'Authorization' => 'Token ' . self::getToken()
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_BAD_REQUEST);
     }

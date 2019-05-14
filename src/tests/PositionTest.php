@@ -100,7 +100,7 @@ class PositionTest extends TestCase
     {
         $model = $this->makeFactory();
         $this->json('POST', static::ROUTE, $model->toArray(), [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJsonStructure([
@@ -120,7 +120,7 @@ class PositionTest extends TestCase
     {
         $user = App\User::find(1);
         $this->json('POST', static::ROUTE, [], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED)
             ->seeJsonStructure([
@@ -131,7 +131,7 @@ class PositionTest extends TestCase
             ]);
 
         $this->json('GET', '/api/v1/users/' . $user->id, [], [
-            'Authorization' => $user->api_key
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_OK);
 
@@ -148,7 +148,7 @@ class PositionTest extends TestCase
     {
         $model = $this->makeFactory();
         $this->json('POST', static::ROUTE, $model->toArray(), [
-            'Authorization' => 'token'
+            'X-User-Id' => 0
         ])
             ->seeStatusCode(JsonResponse::HTTP_UNAUTHORIZED);
     }
@@ -167,7 +167,7 @@ class PositionTest extends TestCase
         $this->json('POST', static::ROUTE, [
             'beacons' => $beacons
         ], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -190,7 +190,7 @@ class PositionTest extends TestCase
         $this->json('POST', static::ROUTE, [
             'beacons' => $beacons
         ], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -213,7 +213,7 @@ class PositionTest extends TestCase
         $this->json('POST', static::ROUTE, [
             'beacons' => $beacons
         ], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -237,7 +237,7 @@ class PositionTest extends TestCase
         $this->json('POST', static::ROUTE, [
             'beacons' => $beacons
         ], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -260,7 +260,7 @@ class PositionTest extends TestCase
         $this->json('POST', static::ROUTE, [
             'beacons' => $beacons
         ], [
-            'Authorization' => self::$apiKey
+            'X-User-Id' => self::$userId
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -290,12 +290,12 @@ class PositionTest extends TestCase
             $this->json('POST', static::ROUTE, [
                 'beacons' => $item
             ], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
             $this->json('GET', '/api/v1/users/1', [], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
@@ -322,12 +322,12 @@ class PositionTest extends TestCase
             $this->json('POST', static::ROUTE, [
                 'beacons' => $item
             ], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
             $this->json('GET', '/api/v1/users/1', [], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
@@ -347,19 +347,11 @@ class PositionTest extends TestCase
             self::$beacons['L1-1'] + ['level' => -10]
         ];
 
-        $this->json('GET', '/api/v1/users/1', [], [
-            'Authorization' => self::$apiKey
-        ])
-            ->seeStatusCode(JsonResponse::HTTP_OK);
-
-        $json = json_decode($this->response->content());
-        $this->assertEquals(null, $json->location_updated_at);
-
         for ($i = 0; $i < 2; $i++) {
             $this->json('POST', static::ROUTE, [
                 'beacons' => $beacons
             ], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
@@ -368,13 +360,13 @@ class PositionTest extends TestCase
             $postionCreatedAt = $json->created_at;
 
             $this->json('GET', '/api/v1/users/1', [], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
             $json = json_decode($this->response->content());
-            $this->assertNotEquals(null, $json->location_updated_at);
-            $this->assertEquals($postionCreatedAt, $json->location_updated_at);
+            $this->assertNotEquals(null, $json->updated_at);
+            $this->assertEquals($postionCreatedAt, $json->updated_at);
 
             sleep(1);
         }
@@ -407,12 +399,12 @@ class PositionTest extends TestCase
             $this->json('POST', static::ROUTE, [
                 'beacons' => $item
             ], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
             $this->json('GET', '/api/v1/users/1', [], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
@@ -453,12 +445,12 @@ class PositionTest extends TestCase
             $this->json('POST', static::ROUTE, [
                 'beacons' => $item
             ], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_CREATED);
 
             $this->json('GET', '/api/v1/users/1', [], [
-                'Authorization' => self::$apiKey
+                'X-User-Id' => self::$userId
             ])
                 ->seeStatusCode(JsonResponse::HTTP_OK);
 
