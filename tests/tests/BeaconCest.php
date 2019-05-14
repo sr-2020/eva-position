@@ -19,7 +19,7 @@ class BeaconCest
         $name = 'Beacon Test';
         $bssid = '00:0a:95:9d:68:16';
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'label' => $label,
             'ssid' => $name,
@@ -61,7 +61,7 @@ class BeaconCest
         $label = 'Human Label New';
         $name = 'Beacon Test New';
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPUT(self::$route . '/'  . self::$createdId, [
             'ssid' => $name,
             'label' => $label,
@@ -82,7 +82,7 @@ class BeaconCest
 
     public function deleteTest(ApiTester $I)
     {
-        $I->haveHttpHeader('Authorization', 'Token ' . $I->getAdminToken());
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendDELETE(self::$route . '/' . self::$createdId);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NO_CONTENT);
     }

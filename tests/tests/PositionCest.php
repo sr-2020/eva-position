@@ -6,8 +6,7 @@ use GuzzleHttp\Pool;
 
 class PositionCest
 {
-    static protected $userId;
-    static protected $apiKey;
+    static protected $userId = 1;
 
     static protected $url = '';
     static protected $route = '/positions';
@@ -35,39 +34,39 @@ class PositionCest
         'C' => 2
     ];
 
-    public function _before(\ApiTester $I)
-    {
-        if (static::$before) {
-            return ;
-        }
-
-        static::$url = $I->getPublicScenario()->current('')['modules']['REST']->_getConfig('url') . '/';
-
-        try {
-            $data = [
-                'email' => 'test@evarun.ru',
-                'password' => 'secret'
-            ];
-            $I->haveHttpHeader('Content-Type', 'application/json');
-            $I->sendPOST('/login', $data);
-            $jsonResponse = json_decode($I->grabResponse());
-            self::$userId = $jsonResponse->id;
-            self::$apiKey = $jsonResponse->api_key;
-        } catch (Exception $e) {
-            $data = [
-                'name' => 'Мистер T',
-                'email' => 'test@evarun.ru',
-                'password' => 'secret'
-            ];
-            $I->haveHttpHeader('Content-Type', 'application/json');
-            $I->sendPOST('/register', $data);
-        }
-        $jsonResponse = json_decode($I->grabResponse());
-        self::$userId = $jsonResponse->id;
-        self::$apiKey = $jsonResponse->api_key;
-
-        static::$before = true;
-    }
+//    public function _before(\ApiTester $I)
+//    {
+//        if (static::$before) {
+//            return ;
+//        }
+//
+//        static::$url = $I->getPublicScenario()->current('')['modules']['REST']->_getConfig('url') . '/';
+//
+//        try {
+//            $data = [
+//                'email' => 'test@evarun.ru',
+//                'password' => 'secret'
+//            ];
+//            $I->haveHttpHeader('Content-Type', 'application/json');
+//            $I->sendPOST('/login', $data);
+//            $jsonResponse = json_decode($I->grabResponse());
+//            self::$userId = $jsonResponse->id;
+//            self::$apiKey = $jsonResponse->api_key;
+//        } catch (Exception $e) {
+//            $data = [
+//                'name' => 'Мистер T',
+//                'email' => 'test@evarun.ru',
+//                'password' => 'secret'
+//            ];
+//            $I->haveHttpHeader('Content-Type', 'application/json');
+//            $I->sendPOST('/register', $data);
+//        }
+//        $jsonResponse = json_decode($I->grabResponse());
+//        self::$userId = $jsonResponse->id;
+//        self::$apiKey = $jsonResponse->api_key;
+//
+//        static::$before = true;
+//    }
 
     public function indexTest(ApiTester $I)
     {
@@ -84,7 +83,7 @@ class PositionCest
             self::$beacons['B'] + ['level' => -30]
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => $beacons
         ]);
@@ -125,7 +124,7 @@ class PositionCest
             self::$beacons['B'] + ['level' => -30]
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => $beacons
         ]);
@@ -170,7 +169,7 @@ class PositionCest
             $lowerBeaconB + ['level' => -30]
         ];
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => $beacons
         ]);
@@ -206,7 +205,7 @@ class PositionCest
     public function changeBeaconTest(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => [
                 self::$beacons['A'] + ['level' => -10],
@@ -245,7 +244,7 @@ class PositionCest
     public function doubleEmptyBeaconTest(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => [
                 self::$beacons['A'] + ['level' => -10],
@@ -277,7 +276,7 @@ class PositionCest
     public function doubleBeaconTest(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => [
                 self::$beacons['A'] + ['level' => -10],
@@ -322,7 +321,7 @@ class PositionCest
         ]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('Authorization', self::$apiKey);
+        $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
             'beacons' => [
                 self::$beacons['A'] + ['level' => -10],
@@ -343,7 +342,7 @@ class PositionCest
             for ($i = 0; $i < $total; $i++) {
                 yield new Request('POST', $route, [
                         'Content-Type' => 'application/json',
-                        'Authorization' => self::$apiKey
+                        'X-User-Id' => self::$userId
                     ], json_encode($beaconA));
             }
         };

@@ -30,6 +30,7 @@ $router->group([
      * CRUD Routes
      */
     foreach ([
+        'users' => 'UserController',
         'beacons' => 'BeaconController',
         'locations' => 'LocationController',
     ] as $path => $controller) {

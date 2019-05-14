@@ -33,8 +33,8 @@ class ApiTester extends \Codeception\Actor
      * Get admin token
      */
 
-    public function getAdminToken()
+    public function getAdminId()
     {
-        return 'TkRVem4yTERSQTNQRHFxcmo4SUozNWZp';
+        return 1;
     }
 }

@@ -2,11 +2,9 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-try {
-    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
-} catch (Dotenv\Exception\InvalidPathException $e) {
-    //
-}
+(new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
+    dirname(__DIR__)
+))->bootstrap();
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +90,7 @@ $app->configure('filesystems');
 $app->configure('backup');
 $app->configure('mail');
 $app->configure('services');
+$app->configure('position');
 
 $app->alias('mailer', Illuminate\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);

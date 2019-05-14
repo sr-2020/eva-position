@@ -250,7 +250,7 @@ class PositionController extends Controller
         $model->user_id = $user->id;
         $model->save();
 
-        $strategy = env('APP_STRATEGY', 1);
+        $strategy = config('position.strategy');
         $save = true;
         if ($strategy > 1) {
             $this->applyFlowStrategy($user, $strategy);

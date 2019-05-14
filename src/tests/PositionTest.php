@@ -379,7 +379,7 @@ class PositionTest extends TestCase
      */
     public function testPositionsFlowSuccess()
     {
-        putenv("APP_STRATEGY=3");
+        config(['position.strategy' => 3]);
         $beacons = [
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -40]],
@@ -422,7 +422,7 @@ class PositionTest extends TestCase
      */
     public function testPositionsFlowLostSuccess()
     {
-        putenv("APP_STRATEGY=3");
+        config(['position.strategy' => 3]);
         $beacons = [
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
             [self::$beacons['L1-1'] + ['level' => -50], self::$beacons['L2-1'] + ['level' => -60]],
