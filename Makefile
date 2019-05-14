@@ -1,7 +1,7 @@
 DOCKER_COMPOSE_VERSION=1.24.0
 NAMESPACE=gurkalov
 SERVICE := position
-IMAGE := $(or ${image},${image},eva-position)
+IMAGE := $(or ${image},${image},eva-position-new)
 TAG := :$(or ${tag},${tag},latest)
 ENV := $(or ${env},${env},local)
 cest := $(or ${cest},${cest},)
@@ -56,3 +56,7 @@ test:
 
 load:
 	docker run -v $(current_dir)/tests/loadtest:/var/loadtest --net host --entrypoint /usr/local/bin/yandex-tank -it direvius/yandex-tank -c production.yaml
+
+dump:
+	cd src && php artisan migrate:refresh --seed
+	mysqldump -u root -p eva-position > docker/mysql/dump.sql

@@ -15,7 +15,7 @@ suites:
       modules:
         enabled:
         - REST:
-            url: http://localhost:5001/api/v1
+            url: http://localhost:5011/api/v1
             depends: PhpBrowser
 
     stage:
