@@ -1,7 +1,7 @@
 DOCKER_COMPOSE_VERSION=1.24.0
-NAMESPACE=gurkalov
-SERVICE := position
-IMAGE := $(or ${image},${image},eva-position-new)
+NAMESPACE=sr2020
+SERVICE := platform
+IMAGE := $(or ${image},${image},eva-position)
 TAG := :$(or ${tag},${tag},latest)
 ENV := $(or ${env},${env},local)
 cest := $(or ${cest},${cest},)
@@ -17,8 +17,8 @@ push:
 deploy:
 	{ \
 	sshpass -p $(password) ssh -o StrictHostKeyChecking=no deploy@$(server) "cd /var/services/$(SERVICE) ;\
-	docker-compose pull app ;\
-	docker-compose up -d --no-deps app" ;\
+	docker-compose pull position-app ;\
+	docker-compose up -d --no-deps position-app" ;\
 	}
 
 deploy-local:
