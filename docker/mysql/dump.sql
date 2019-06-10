@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `eva-position`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `eva-position` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `eva-position`;
+
+--
 -- Table structure for table `beacons`
 --
 
@@ -84,7 +92,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +101,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (19,'2018_10_14_000000_create_users_table',1),(20,'2019_01_03_053129_create_positions_table',1),(21,'2019_01_30_175738_create_beacons_table',1),(22,'2019_02_10_132148_create_paths_table',1),(23,'2019_03_03_135919_create_locations_table',1),(24,'2019_04_23_084050_create_positions_beacons_table',1);
+INSERT INTO `migrations` VALUES (49,'2018_10_14_000000_create_users_table',1),(50,'2019_01_03_053129_create_positions_table',1),(51,'2019_01_30_175738_create_beacons_table',1),(52,'2019_02_10_132148_create_paths_table',1),(53,'2019_03_03_135919_create_locations_table',1),(54,'2019_04_23_084050_create_positions_beacons_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +208,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,NULL,'2019-06-09 22:01:42','2019-06-09 22:01:42');
+INSERT INTO `users` VALUES (1,NULL,NULL,'2019-06-10 06:48:36','2019-06-10 06:48:36');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -213,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-09 22:01:42
+-- Dump completed on 2019-06-10  6:48:36
