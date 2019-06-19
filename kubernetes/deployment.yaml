@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: position
+  labels:
+    app: position
+spec:
+  selector:
+    matchLabels:
+      app: position
+      tier: position
+  template:
+    metadata:
+      labels:
+        app: position
+        tier: position
+    spec:
+      containers:
+        - name: position-app
+          image: sr2020/eva-position:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: position-configmap
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: password
