@@ -18,6 +18,10 @@ spec:
       containers:
         - name: position-app
           image: sr2020/eva-position:latest
+          volumeMounts:
+            - name: position-env
+              mountPath: /var/www/html/.env
+              subPath: .env
           ports:
             - containerPort: 80
           envFrom:
@@ -29,3 +33,10 @@ spec:
                 secretKeyRef:
                   name: mysql
                   key: password
+      volumes:
+        - name: position-env
+          secret:
+            secretName: position-env
+            items:
+              - key: .env
+                path: .env
