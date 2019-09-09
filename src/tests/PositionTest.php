@@ -160,8 +160,13 @@ class PositionTest extends TestCase
      */
     public function testCreateNotFoundSuccess()
     {
-        $model = $this->makeFactory();
-        $this->json('POST', static::ROUTE, $model->toArray(), [
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => -10]
+        ];
+
+        $this->json('POST', static::ROUTE, [
+            'beacons' => $beacons
+        ], [
             'X-User-Id' => 1000
         ])
             ->seeStatusCode(JsonResponse::HTTP_CREATED);
