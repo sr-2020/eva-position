@@ -23,8 +23,8 @@ deploy:
 	{ \
 	sshpass -p $(password) ssh -o StrictHostKeyChecking=no deploy@$(server) "cd /var/services/$(SERVICE) ;\
 	docker-compose pull position-app ;\
-	docker-compose up -d --no-deps auth-app ;\
-	docker-compose exec -T auth-app php artisan migrate --force" ;\
+	docker-compose up -d --no-deps position-app ;\
+	docker-compose exec -T position-app php artisan migrate --force" ;\
 	}
 
 deploy-local:
