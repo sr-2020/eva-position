@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->header('X-User-Id')) {
-                return User::find($request->header('X-User-Id'));
+                return User::findOrNew($request->header('X-User-Id'));
             }
         });
     }
