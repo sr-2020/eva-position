@@ -208,6 +208,8 @@ class PositionCest
 
     public function changeBeaconTest(ApiTester $I)
     {
+        $I->getPublicScenario()->skip('Skip for production!');
+
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
