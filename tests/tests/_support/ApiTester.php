@@ -32,9 +32,21 @@ class ApiTester extends \Codeception\Actor
     /**
      * Get admin token
      */
-
     public function getAdminId()
     {
         return 1;
+    }
+
+    /**
+     * Get env
+     *
+     * @return string
+     */
+    public function getEnv()
+    {
+        if (!empty($_SERVER['argv'][2])) {
+            return $_SERVER['argv'][2];
+        }
+        return '';
     }
 }

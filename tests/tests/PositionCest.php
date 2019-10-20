@@ -119,7 +119,9 @@ class PositionCest
 
     public function secondBeaconTest(ApiTester $I)
     {
-        $I->getPublicScenario()->skip('Skip for production!');
+        if ('production' === $I->getEnv()) {
+            $I->getPublicScenario()->skip('Skip for production!');
+        }
 
         $beacons = [
             self::$beacons['A'] + ['level' => -50],
@@ -161,7 +163,9 @@ class PositionCest
 
     public function thirdBeaconLowerBssidTest(ApiTester $I)
     {
-        $I->getPublicScenario()->skip('Skip for production!');
+        if ('production' === $I->getEnv()) {
+            $I->getPublicScenario()->skip('Skip for production!');
+        }
 
         $lowerBeaconA = self::$beacons['A'];
         $lowerBeaconA['bssid'] = strtolower($lowerBeaconA['bssid']);
@@ -208,7 +212,9 @@ class PositionCest
 
     public function changeBeaconTest(ApiTester $I)
     {
-        $I->getPublicScenario()->skip('Skip for production!');
+        if ('production' === $I->getEnv()) {
+            $I->getPublicScenario()->skip('Skip for production!');
+        }
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
@@ -281,7 +287,9 @@ class PositionCest
 
     public function doubleBeaconTest(ApiTester $I)
     {
-        $I->getPublicScenario()->skip('Skip for production!');
+        if ('production' === $I->getEnv()) {
+            $I->getPublicScenario()->skip('Skip for production!');
+        }
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
