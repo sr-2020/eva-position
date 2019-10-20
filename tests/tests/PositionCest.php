@@ -119,6 +119,8 @@ class PositionCest
 
     public function secondBeaconTest(ApiTester $I)
     {
+        $I->getPublicScenario()->skip('Skip for production!');
+
         $beacons = [
             self::$beacons['A'] + ['level' => -50],
             self::$beacons['B'] + ['level' => -30]
@@ -159,6 +161,8 @@ class PositionCest
 
     public function thirdBeaconLowerBssidTest(ApiTester $I)
     {
+        $I->getPublicScenario()->skip('Skip for production!');
+
         $lowerBeaconA = self::$beacons['A'];
         $lowerBeaconA['bssid'] = strtolower($lowerBeaconA['bssid']);
         $lowerBeaconB = self::$beacons['B'];
@@ -275,6 +279,8 @@ class PositionCest
 
     public function doubleBeaconTest(ApiTester $I)
     {
+        $I->getPublicScenario()->skip('Skip for production!');
+
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
