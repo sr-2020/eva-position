@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
@@ -164,10 +165,13 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         $modelClass = self::MODEL;
-        $list = $modelClass::with('location')
+        $query = $modelClass::query();
+        self::applyQuery($request, $query);
+
+        $list = $query->with('location')
             ->get()
             ->makeVisible(['location']);
         return new JsonResponse($list, JsonResponse::HTTP_OK);
