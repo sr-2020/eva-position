@@ -31,6 +31,13 @@ use Illuminate\Http\Request;
  *             @OA\Items(ref="#/components/schemas/Path")
  *         ),
  *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Path bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
  * )
  */
 

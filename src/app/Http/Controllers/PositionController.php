@@ -35,6 +35,13 @@ use Illuminate\Support\Facades\Log;
  *             @OA\Items(ref="#/components/schemas/Position")
  *         ),
  *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Position bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
  * )
  */
 

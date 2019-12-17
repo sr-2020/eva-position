@@ -30,6 +30,13 @@ use Illuminate\Http\JsonResponse;
  *             @OA\Items(ref="#/components/schemas/Location")
  *         ),
  *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Location bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
  * )
  */
 

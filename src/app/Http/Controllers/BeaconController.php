@@ -30,6 +30,13 @@ use Illuminate\Http\JsonResponse;
  *             @OA\Items(ref="#/components/schemas/Beacon")
  *         ),
  *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Beacon bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
  * )
  */
 

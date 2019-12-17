@@ -13,99 +13,6 @@
         }
     ],
     "paths": {
-        "/api/v1/login": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "description": "Login as user.",
-                "operationId": "loginUser",
-                "requestBody": {
-                    "description": "Creds for authorization.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/LoginCreds"
-                            },
-                            "example": {
-                                "email": "test@email.com",
-                                "password": "secret"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Authorize user",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UserApiKey"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/register": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "description": "Register new user.",
-                "operationId": "registerUser",
-                "requestBody": {
-                    "description": "Creds for registeration.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/RegisterCreds"
-                            },
-                            "example": {
-                                "email": "new-user-test@email.com",
-                                "password": "secret",
-                                "name": "Tim Cook"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Register user",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UserApiKey"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/beacons": {
             "get": {
                 "tags": [
@@ -136,6 +43,16 @@
                                     "items": {
                                         "$ref": "#/components/schemas/Beacon"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Beacon bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
@@ -356,6 +273,16 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Location bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -573,6 +500,16 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Path bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -606,6 +543,16 @@
                                     "items": {
                                         "$ref": "#/components/schemas/Position"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Position bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
@@ -704,93 +651,6 @@
                 }
             }
         },
-        "/api/v1/profile": {
-            "get": {
-                "tags": [
-                    "Profile"
-                ],
-                "description": "Returns a user info which auth for token",
-                "operationId": "profileUser",
-                "responses": {
-                    "200": {
-                        "description": "User response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Profile"
-                ],
-                "description": "Update user profile.",
-                "operationId": "updateProfile",
-                "requestBody": {
-                    "description": "Creds for registeration.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            },
-                            "example": {
-                                "email": "api-test@email.com",
-                                "password": "secret",
-                                "name": "Api Tim Cook",
-                                "status": "free"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Register user",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorModel"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -820,6 +680,16 @@
                                     "items": {
                                         "$ref": "#/components/schemas/User"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
