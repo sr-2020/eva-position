@@ -3,9 +3,11 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-language: php
+language: python
 php:
   - '7.2'
+python:
+  - '3.6'
 jobs:
   include:
   - stage: build and push docker image
@@ -22,6 +24,12 @@ jobs:
   - stage: test production
     script:
       - make test env=production
+
+  - stage: test openapi3
+    script:
+      - pip3 install schemathesis
+      - schemathesis --version
+      - schemathesis run -c not_a_server_error -c status_code_conformance -c content_type_conformance -c response_schema_conformance http://position.evarun.ru/docs
 
 addons:
   sonarcloud:
