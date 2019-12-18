@@ -45,7 +45,7 @@ use Illuminate\Support\Facades\Hash;
  *    @OA\Property(property="created_at", format="string", type="string", example="2019-01-26 20:00:00"),
  *    @OA\Property(property="updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
  *    @OA\Property(property="location_updated_at", format="string", type="string", example="2019-01-26 20:00:57"),
- *    @OA\Property(property="location", format="object", type="object",
+ *    @OA\Property(property="location", format="object", type="object", nullable=true,
  *        ref="#/components/schemas/Location"
  *    )
  *    )

@@ -1125,6 +1125,7 @@
                     "location": {
                         "type": "object",
                         "format": "object",
+                        "nullable": true,
                         "$ref": "#/components/schemas/Location"
                     }
                 },
