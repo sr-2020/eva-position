@@ -29,7 +29,7 @@ jobs:
     script:
       - pip3 install schemathesis
       - schemathesis --version
-      - schemathesis run -c not_a_server_error -c status_code_conformance -c content_type_conformance -c response_schema_conformance http://position.evarun.ru/docs
+      - schemathesis run --hypothesis-deadline=5000 -c not_a_server_error -c status_code_conformance -c content_type_conformance -c response_schema_conformance http://position.evarun.ru/docs
 
 addons:
   sonarcloud:
