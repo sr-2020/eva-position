@@ -68,6 +68,13 @@ use Illuminate\Support\Facades\Log;
  *         @OA\JsonContent(ref="#/components/schemas/Position"),
  *     ),
  *     @OA\Response(
+ *         response=400,
+ *         description="Position bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
+ *     @OA\Response(
  *         response=404,
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
@@ -275,19 +282,6 @@ class PositionController extends Controller
         $response['location_id'] = $user->location_id;
 
         return new JsonResponse($response, JsonResponse::HTTP_CREATED);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function read($id)
-    {
-        $modelClass = self::MODEL;
-        $model= $modelClass::findOrFail($id);
-        return new JsonResponse($model, JsonResponse::HTTP_OK);
     }
 
     /**

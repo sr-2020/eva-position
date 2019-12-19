@@ -64,6 +64,13 @@ use Illuminate\Http\JsonResponse;
  *         @OA\JsonContent(ref="#/components/schemas/Beacon"),
  *     ),
  *     @OA\Response(
+ *         response=400,
+ *         description="Beacon bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
+ *     @OA\Response(
  *         response=404,
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),

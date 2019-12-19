@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Get(
@@ -61,6 +62,13 @@ use Illuminate\Http\Request;
  *         response=200,
  *         description="User response",
  *         @OA\JsonContent(ref="#/components/schemas/User"),
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="User bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
  *     ),
  *     @OA\Response(
  *         response=404,
@@ -192,6 +200,14 @@ class UserController extends Controller
      */
     public function read($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|integer|between:1,100000000'
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->getMessageBag(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $modelClass = self::MODEL;
         $model= $modelClass::with('location')
             ->findOrFail($id)

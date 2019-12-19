@@ -137,6 +137,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Beacon bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "unexpected error",
                         "content": {
@@ -360,6 +370,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Location"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Location bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
@@ -638,6 +658,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Position bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "unexpected error",
                         "content": {
@@ -724,6 +754,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
