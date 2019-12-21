@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class ValidateMiddleware
 {
@@ -17,8 +18,12 @@ class ValidateMiddleware
     public function handle($request, Closure $next)
     {
         $limit = $request->get('limit', 100);
-        if ($limit < 0) {
-            return new JsonResponse(null, JsonResponse::HTTP_BAD_REQUEST);
+        $validator = Validator::make(['id' => $limit], [
+            'id' => 'required|integer|between:1,1000'
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->getMessageBag(), JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $email = $request->get('email', null);
