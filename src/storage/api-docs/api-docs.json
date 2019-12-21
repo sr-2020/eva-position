@@ -1054,64 +1054,16 @@
                 },
                 "type": "object"
             },
-            "LoginCreds": {
+            "NewUser": {
                 "required": [
-                    "email",
-                    "password"
+                    "location_id"
                 ],
                 "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "test@email.com"
-                    },
-                    "password": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "secret"
-                    }
-                },
-                "type": "object"
-            },
-            "RegisterCreds": {
-                "required": [
-                    "email",
-                    "password"
-                ],
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "test@email.com"
-                    },
-                    "password": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "secret"
-                    },
-                    "name": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "Tom Sand"
-                    }
-                },
-                "type": "object"
-            },
-            "UserApiKey": {
-                "required": [
-                    "id",
-                    "api_key"
-                ],
-                "properties": {
-                    "id": {
+                    "location_id": {
                         "type": "integer",
                         "format": "int64",
-                        "example": 1
-                    },
-                    "api_key": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "em1JbEVqSnZlR0lPMlozenZ5YmpPUWdKSURiVGpnZmg="
+                        "example": 1,
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -1126,26 +1078,11 @@
                         "format": "int64",
                         "example": 1
                     },
-                    "admin": {
-                        "type": "boolean",
-                        "format": "boolean",
-                        "example": false
-                    },
                     "location_id": {
                         "type": "integer",
                         "format": "int64",
                         "example": 1,
                         "nullable": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "User Name"
-                    },
-                    "status": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "thebest"
                     },
                     "created_at": {
                         "type": "string",
@@ -1153,11 +1090,6 @@
                         "example": "2019-01-26 20:00:00"
                     },
                     "updated_at": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "2019-01-26 20:00:57"
-                    },
-                    "location_updated_at": {
                         "type": "string",
                         "format": "string",
                         "example": "2019-01-26 20:00:57"
