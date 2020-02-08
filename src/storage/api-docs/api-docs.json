@@ -806,6 +806,20 @@
                         "format": "string",
                         "default": "c0:0a:95:9d:00:0c",
                         "example": "c0:0a:95:9d:00:0c"
+                    },
+                    "lat": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": 50.5,
+                        "nullable": true
+                    },
+                    "lng": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": -70.7,
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -860,6 +874,20 @@
                         "type": "string",
                         "format": "string",
                         "example": "b0:0a:95:9d:00:0a"
+                    },
+                    "lat": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": 50.5,
+                        "nullable": true
+                    },
+                    "lng": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": -70.7,
+                        "nullable": true
                     }
                 },
                 "type": "object"

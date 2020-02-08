@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc5d9a64a503f35e65d1e014fb42d5a2",
+    "content-hash": "98cd5cf5b2df9f5a61555bbbf7f00d36",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -5757,6 +5757,7 @@
                 "selenium",
                 "webdriver"
             ],
+            "abandoned": "php-webdriver/webdriver",
             "time": "2019-06-13T08:02:18+00:00"
         },
         {
