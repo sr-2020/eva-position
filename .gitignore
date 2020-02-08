@@ -2,6 +2,7 @@
 /src/tests/build
 /src/.scannerwork
 /src/.env
+/src/.phpunit.result.cache
 /.hypothesis
 /tests/vendor
 /tests/loadtest/logs

@@ -918,6 +918,26 @@
                         "format": "string",
                         "default": "Hall Room",
                         "example": "Hall Room"
+                    },
+                    "polygon": {
+                        "type": "object",
+                        "format": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {},
+                            "example": "{}"
+                        },
+                        "example": "{}"
+                    },
+                    "options": {
+                        "type": "object",
+                        "format": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {},
+                            "example": "{}"
+                        },
+                        "example": "{}"
                     }
                 },
                 "type": "object"
@@ -937,6 +957,26 @@
                         "type": "string",
                         "format": "string",
                         "example": "Hall Room"
+                    },
+                    "polygon": {
+                        "type": "object",
+                        "format": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {},
+                            "example": "{}"
+                        },
+                        "example": "{}"
+                    },
+                    "options": {
+                        "type": "object",
+                        "format": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {},
+                            "example": "{}"
+                        },
+                        "example": "{}"
                     }
                 },
                 "type": "object"
