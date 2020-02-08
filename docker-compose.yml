@@ -15,15 +15,15 @@ services:
 
   database:
     image: ${IMAGE_DATABASE}
-    command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - eva-position-db:/var/lib/mysql
-      - ./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - eva-position-db:/var/lib/postgresql/data
+#      - ./docker/mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    ports:
+      - ${DB_PORT}:5432
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   redis:
     image: ${IMAGE_REDIS}

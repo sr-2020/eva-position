@@ -1105,11 +1105,10 @@
             }
         },
         "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
+            "ApiKeyAuth": {
+                "type": "apiKey",
                 "name": "Authorization",
-                "in": "header",
-                "scheme": "bearer"
+                "in": "header"
             }
         }
     }

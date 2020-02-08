@@ -70,6 +70,9 @@ test:
 load:
 	docker run -v $(current_dir)/tests/loadtest:/var/loadtest --net host --entrypoint /usr/local/bin/yandex-tank -it direvius/yandex-tank -c production.yaml
 
-dump:
+migrate:
 	docker-compose exec app php artisan migrate:refresh --seed
+
+dump:
+	make migrate
 	docker exec -it eva-position_database_1 mysqldump -u root -p${DB_ROOT_PASS} --databases eva-position | grep -v "mysqldump: \[Warning\]" > docker/mysql/dump.sql
