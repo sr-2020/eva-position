@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Location;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
@@ -182,6 +183,21 @@ class LocationController extends Controller
     use Traits\CrudTrait;
     
     const MODEL = Location::class;
+
+    /**
+     * Display a listing of the resource.
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $modelClass = self::MODEL;
+        $query = $modelClass::with('beacons');
+        self::applyQuery($request, $query);
+        $list = $query->get()->makeVisible('beacons');
+        return new JsonResponse($list, JsonResponse::HTTP_OK);
+    }
 
     /**
      * Display a listing of the resource.

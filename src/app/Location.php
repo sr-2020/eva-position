@@ -42,6 +42,9 @@ use Illuminate\Database\Eloquent\Model;
  *          @OA\Items()
  *       ),
  *     ),
+ *     @OA\Property(property="beacons", format="array", type="array", nullable=true,
+ *         @OA\Items(ref="#/components/schemas/Beacon")
+ *     ),
  * )
  */
 
@@ -78,6 +81,6 @@ class Location extends Model
      */
     public function beacons()
     {
-        return $this->belongsToMany('App\Beacon');
+        return $this->hasMany('App\Beacon');
     }
 }

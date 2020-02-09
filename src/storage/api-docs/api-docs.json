@@ -977,6 +977,14 @@
                             "example": "{}"
                         },
                         "example": "{}"
+                    },
+                    "beacons": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Beacon"
+                        },
+                        "nullable": true
                     }
                 },
                 "type": "object"
