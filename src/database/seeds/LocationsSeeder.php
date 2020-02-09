@@ -12,9 +12,9 @@ class LocationsSeeder extends Seeder
     public function run()
     {
         App\Location::insert([
-            ['id' => 1, 'label' => 'Танц-фойе Рим, 2 этаж'],
-            ['id' => 2, 'label' => 'Концертный зал Москва'],
-            ['id' => 3, 'label' => 'Левый коридор, 2 этаж'],
+            ['label' => 'Танц-фойе Рим, 2 этаж'],
+            ['label' => 'Концертный зал Москва'],
+            ['label' => 'Левый коридор, 2 этаж'],
         ]);
     }
 }

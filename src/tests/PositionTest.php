@@ -385,9 +385,7 @@ class PositionTest extends TestCase
 
             $json = json_decode($this->response->content());
             $this->assertNotEquals(null, $json->updated_at);
-            $this->assertEquals($postionCreatedAt, $json->updated_at);
-
-            sleep(1);
+            $this->assertGreaterThanOrEqual($postionCreatedAt,  $json->updated_at);
         }
     }
 

@@ -90,7 +90,7 @@ use Illuminate\Http\JsonResponse;
  *         @OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(ref="#/components/schemas/NewBeacon"),
- *             example={"label": "room1", "ssid": "beacon1", "bssid":"c0:0a:95:9d:00:0c"}
+ *             example={"label": "room1", "ssid": "beacon1", "bssid":"c0:0a:95:9d:00:0c", "location_id": 1, "lat":50.5, "lng":-70.7}
  *         )
  *     ),
  *     @OA\Response(

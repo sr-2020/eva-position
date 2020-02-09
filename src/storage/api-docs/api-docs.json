@@ -76,7 +76,10 @@
                             "example": {
                                 "label": "room1",
                                 "ssid": "beacon1",
-                                "bssid": "c0:0a:95:9d:00:0c"
+                                "bssid": "c0:0a:95:9d:00:0c",
+                                "location_id": 1,
+                                "lat": 50.5,
+                                "lng": -70.7
                             }
                         }
                     }
@@ -807,6 +810,12 @@
                         "default": "c0:0a:95:9d:00:0c",
                         "example": "c0:0a:95:9d:00:0c"
                     },
+                    "location_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1,
+                        "nullable": true
+                    },
                     "lat": {
                         "type": "number",
                         "format": "float",
@@ -874,6 +883,12 @@
                         "type": "string",
                         "format": "string",
                         "example": "b0:0a:95:9d:00:0a"
+                    },
+                    "location_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1,
+                        "nullable": true
                     },
                     "lat": {
                         "type": "number",

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *     @OA\Property(property="label", format="string", type="string", default="Hall Room", example="Hall Room"),
  *     @OA\Property(property="ssid", format="string", type="string", default="hall2", example="hall2"),
  *     @OA\Property(property="bssid", format="string", type="string", default="c0:0a:95:9d:00:0c", example="c0:0a:95:9d:00:0c"),
+ *     @OA\Property(property="location_id", format="int64", type="integer", nullable=true, example=1),
  *     @OA\Property(property="lat", format="float", type="number", nullable=true, default=null, example=50.5),
  *     @OA\Property(property="lng", format="float", type="number", nullable=true, default=null, example=-70.7),
  * )
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  *    @OA\Property(property="label", format="string", type="string", example="Hall Room"),
  *    @OA\Property(property="ssid", format="string", type="string", example="beacon1"),
  *    @OA\Property(property="bssid", format="string", type="string", example="b0:0a:95:9d:00:0a"),
+ *    @OA\Property(property="location_id", format="int64", type="integer", nullable=true, example=1),
  *    @OA\Property(property="lat", format="float", type="number", nullable=true, default=null, example=50.5),
  *    @OA\Property(property="lng", format="float", type="number", nullable=true, default=null, example=-70.7)
  * )
@@ -35,6 +37,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Beacon extends Model
 {
+    protected $casts = [
+        'lat' => 'float',
+        'lng' => 'float'
+    ];
+
     protected $fillable = [
         'label',
         'ssid',
