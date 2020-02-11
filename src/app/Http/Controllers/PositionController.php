@@ -107,7 +107,7 @@ use Illuminate\Support\Facades\Log;
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
  *      security={
- *         {"bearerAuth": {"TkRVem4yTERSQTNQRHFxcmo4SUozNWZp"}}
+ *         {"ApiKeyAuth": {"1"}}
  *     }
  * )
  */

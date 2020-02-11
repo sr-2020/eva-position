@@ -103,6 +103,9 @@ use Illuminate\Http\JsonResponse;
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
+ *      security={
+ *         {"ApiKeyAuth": {"1"}}
+ *     }
  * )
  */
 
@@ -141,7 +144,10 @@ use Illuminate\Http\JsonResponse;
  *         response="default",
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
- *     )
+ *     ),
+ *     security={
+ *         {"ApiKeyAuth": {"1"}}
+ *     }
  * )
  */
 
@@ -174,7 +180,10 @@ use Illuminate\Http\JsonResponse;
  *         response="default",
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
- *     )
+ *     ),
+ *     security={
+ *         {"ApiKeyAuth": {"1"}}
+ *     }
  * )
  */
 class BeaconController extends Controller

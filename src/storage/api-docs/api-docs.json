@@ -105,7 +105,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/beacons/{id}": {
@@ -214,7 +221,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -250,7 +264,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/locations": {
@@ -342,7 +363,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/locations/{id}": {
@@ -451,7 +479,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -487,7 +522,14 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
             }
         },
         "/api/v1/paths": {
@@ -623,8 +665,8 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": [
-                            "TkRVem4yTERSQTNQRHFxcmo4SUozNWZp"
+                        "ApiKeyAuth": [
+                            "1"
                         ]
                     }
                 ]
