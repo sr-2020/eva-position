@@ -19,7 +19,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  *   securityScheme="ApiKeyAuth",
  *   type="apiKey",
  *   in="header",
- *   name="Authorization",
+ *   name="X-User-Id",
  * )
  */
 
