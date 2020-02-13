@@ -19,7 +19,7 @@ class ValidateMiddleware
     {
         $limit = $request->get('limit', 100);
         $validator = Validator::make(['id' => $limit], [
-            'id' => 'required|integer|between:1,1000'
+            'id' => 'required|integer|between:1,100000'
         ]);
 
         if ($validator->fails()) {
