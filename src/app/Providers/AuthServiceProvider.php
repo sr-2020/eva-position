@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -31,6 +33,14 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
 
         $this->app['auth']->viaRequest('api', function ($request) {
+            $validator = Validator::make(['id' => $request->header('X-User-Id')], [
+                'id' => 'required|integer|between:1,1000000000'
+            ]);
+
+            if ($validator->fails()) {
+                return null;
+            }
+
             if ($request->header('X-User-Id')) {
                 $user = User::find($request->header('X-User-Id'));
                 if (null === $user) {

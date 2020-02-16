@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @OA\Schema(schema="NewLocation", required={"label"},
@@ -69,6 +69,17 @@ class Location extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected static $rules = [
+        'common' => [],
+        'create' => [],
+        'update' => [
+            'id' => 'between:1,1000000000',
+        ],
+    ];
+
+    /**
      * Get users.
      */
     public function users()
@@ -82,5 +93,21 @@ class Location extends Model
     public function beacons()
     {
         return $this->hasMany('App\Beacon');
+    }
+
+    /**
+     *
+     */
+    public function getOptionsAttribute()
+    {
+        return (object)json_decode($this->attributes['options']);
+    }
+
+    /**
+     *
+     */
+    public function getPolygonAttribute()
+    {
+        return (object)json_decode($this->attributes['polygon']);
     }
 }

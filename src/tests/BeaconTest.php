@@ -56,4 +56,18 @@ class BeaconTest extends TestCase
         ])
             ->seeStatusCode(JsonResponse::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testUpdateBigId()
+    {
+        $model = $this->makeFactory();
+        $this->json('PUT', static::ROUTE . '/2147483660', $model->toArray(), [
+            'X-User-Id' => self::$userId
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+    }
 }

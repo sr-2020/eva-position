@@ -177,6 +177,25 @@ class PositionTest extends TestCase
      *
      * @return void
      */
+    public function testCreateWrongBeaconFail()
+    {
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => 234732847364]
+        ];
+
+        $this->json('POST', static::ROUTE, [
+            'beacons' => $beacons
+        ], [
+            'X-User-Id' => 1
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
     public function testOneBeaconOneLocationSuccess()
     {
         $beacons = [

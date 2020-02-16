@@ -95,6 +95,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Beacon bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "unexpected error",
                         "content": {
@@ -211,6 +221,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Beacon bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "unexpected error",
                         "content": {
@@ -253,6 +273,16 @@
                 "responses": {
                     "204": {
                         "description": "Beacon deleted"
+                    },
+                    "400": {
+                        "description": "Beacon bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "default": {
                         "description": "unexpected error",
@@ -469,6 +499,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Location bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "unexpected error",
                         "content": {
@@ -511,6 +551,16 @@
                 "responses": {
                     "204": {
                         "description": "Location deleted"
+                    },
+                    "400": {
+                        "description": "Location bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "default": {
                         "description": "unexpected error",
@@ -648,6 +698,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Position"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Position bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * @OA\Schema(schema="NewPosition", required={"name"},
  *     @OA\Property(property="beacons", format="array", type="array",
@@ -41,6 +39,19 @@ class Position extends Model
         'beacons',
         'created_at',
         'updated_at'
+    ];
+
+    /**
+     * @var array
+     */
+    protected static $rules = [
+        'common' => [
+            'beacons.*.level' => 'integer|between:-200,0',
+        ],
+        'create' => [],
+        'update' => [
+            'id' => 'between:1,1000000000',
+        ],
     ];
 
     protected static function boot()

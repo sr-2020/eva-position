@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * @OA\Schema(schema="NewBeacon", required={"bssid"},
  *     @OA\Property(property="label", format="string", type="string", default="Hall Room", example="Hall Room"),
@@ -59,6 +57,20 @@ class Beacon extends Model
         'lat',
         'lng',
         'location_id'
+    ];
+
+    /**
+     * @var array
+     */
+    protected static $rules = [
+        'common' => [
+            'bssid' => 'required|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+        ],
+        'create' => [],
+        'update' => [
+            'id' => 'between:1,1000000000',
+            'bssid' => 'sometimes|required|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+        ],
     ];
 
     /**

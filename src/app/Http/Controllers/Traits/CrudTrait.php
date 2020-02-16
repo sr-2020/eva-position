@@ -119,6 +119,11 @@ trait CrudTrait
     public function create(Request $request)
     {
         $modelClass = self::MODEL;
+        $validator = (new $modelClass())->validate($request->all());
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         try {
             $model = $modelClass::create($request->all());
         } catch (QueryException $e) {
@@ -161,7 +166,20 @@ trait CrudTrait
     public function update(Request $request, $id)
     {
         $modelClass = self::MODEL;
-        $model= $modelClass::findOrFail($id);
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|integer|between:1,100000000'
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->getMessageBag(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $model = $modelClass::findOrFail($id);
+        $validator = $model->validate($request->all());
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $model->fill($request->all());
         $model->save();
         return new JsonResponse($model, JsonResponse::HTTP_OK);
@@ -175,6 +193,14 @@ trait CrudTrait
      */
     public function delete($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|integer|between:1,100000000'
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->getMessageBag(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $modelClass = self::MODEL;
         $model= $modelClass::findOrFail($id);
         $model->delete();

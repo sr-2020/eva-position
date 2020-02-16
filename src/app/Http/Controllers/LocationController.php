@@ -142,6 +142,13 @@ use Illuminate\Http\Request;
  *         @OA\JsonContent(ref="#/components/schemas/Location"),
  *     ),
  *     @OA\Response(
+ *         response=400,
+ *         description="Location bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
+ *     @OA\Response(
  *         response="default",
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
@@ -176,6 +183,13 @@ use Illuminate\Http\Request;
  *         @OA\Schema(
  *             type=null
  *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Location bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
  *     ),
  *     @OA\Response(
  *         response="default",

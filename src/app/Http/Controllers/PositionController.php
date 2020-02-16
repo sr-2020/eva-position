@@ -102,6 +102,13 @@ use Illuminate\Support\Facades\Log;
  *         @OA\JsonContent(ref="#/components/schemas/Position")
  *     ),
  *     @OA\Response(
+ *         response=400,
+ *         description="Position bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
+ *     ),
+ *     @OA\Response(
  *         response="default",
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
@@ -258,7 +265,12 @@ class PositionController extends Controller
     public function create(Request $request)
     {
         $modelClass = self::MODEL;
-        $model= $modelClass::create($request->all());
+        $validator = (new $modelClass())->validate($request->all());
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors(), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $model = $modelClass::create($request->all());
 
         $user = $request->user();
         $model->user_id = $user->id;
