@@ -6,7 +6,10 @@ namespace App;
  * @OA\Schema(schema="NewPosition", required={"name"},
  *     @OA\Property(property="beacons", format="array", type="array",
  *         @OA\Items(ref="#/components/schemas/BeaconSignal")
- *     )
+ *     ),
+ *     @OA\Property(property="lat", format="float", type="number", nullable=true, default=null, example=50.5),
+ *     @OA\Property(property="lng", format="float", type="number", nullable=true, default=null, example=-70.7),
+ *     @OA\Property(property="type", format="int64", type="integer", nullable=true, example=1),
  * )
  */
 

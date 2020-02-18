@@ -1177,6 +1177,26 @@
                         "items": {
                             "$ref": "#/components/schemas/BeaconSignal"
                         }
+                    },
+                    "lat": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": 50.5,
+                        "nullable": true
+                    },
+                    "lng": {
+                        "type": "number",
+                        "format": "float",
+                        "default": null,
+                        "example": -70.7,
+                        "nullable": true
+                    },
+                    "type": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1,
+                        "nullable": true
                     }
                 },
                 "type": "object"
