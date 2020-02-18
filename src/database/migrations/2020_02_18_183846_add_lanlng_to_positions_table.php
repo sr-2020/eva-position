@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLatLngToBeaconsTable extends Migration
+class AddLanlngToPositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddLatLngToBeaconsTable extends Migration
      */
     public function up()
     {
-        Schema::table('beacons', function (Blueprint $table) {
-            $table->float('lat')->nullable()->after('bssid');
+        Schema::table('positions', function (Blueprint $table) {
+            $table->float('lat')->nullable()->after('beacons');
             $table->float('lng')->nullable()->after('lat');
+            $table->integer('type')->nullable()->after('lng');
         });
     }
 
@@ -26,8 +27,8 @@ class AddLatLngToBeaconsTable extends Migration
      */
     public function down()
     {
-        Schema::table('beacons', function (Blueprint $table) {
-            $table->dropColumn(['lat', 'lng']);
+        Schema::table('positions', function (Blueprint $table) {
+            $table->dropColumn(['lat', 'lng', 'type']);
         });
     }
 }

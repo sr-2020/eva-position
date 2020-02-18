@@ -78,6 +78,10 @@ class PositionCest
 
     public function firstBeaconTest(ApiTester $I)
     {
+        $lat = -63.4;
+        $lng = 12.7;
+        $type = 1;
+
         $beacons = [
             self::$beacons['A'] + ['level' => -10],
             self::$beacons['B'] + ['level' => -30]
@@ -85,7 +89,10 @@ class PositionCest
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
-            'beacons' => $beacons
+            'beacons' => $beacons,
+            'lat' => $lat,
+            'lng' => $lng,
+            'type' => $type,
         ]);
 
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::CREATED);
@@ -93,6 +100,9 @@ class PositionCest
         $I->seeResponseMatchesJsonType([
             'id' => 'integer',
             'location_id' => 'integer',
+            'lat' => 'float',
+            'lng' => 'float',
+            'type' => 'integer'
         ]);
 
         $I->sendGET('/users/' . self::$userId);
