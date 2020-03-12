@@ -25,11 +25,11 @@ jobs:
     script:
       - make test env=production
 
-  - stage: test openapi3
-    script:
-      - pip3 install schemathesis==0.24.0
-      - schemathesis --version
-      - schemathesis run --hypothesis-deadline=5000 -c not_a_server_error -c status_code_conformance -c content_type_conformance -c response_schema_conformance http://position.evarun.ru/docs
+#  - stage: test openapi3
+#    script:
+#      - pip3 install schemathesis==0.24.0
+#      - schemathesis --version
+#      - schemathesis run --hypothesis-deadline=5000 -c not_a_server_error -c status_code_conformance -c content_type_conformance -c response_schema_conformance http://position.evarun.ru/docs
 
 addons:
   sonarcloud:
