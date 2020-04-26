@@ -2,11 +2,10 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Hash;
-
 /**
  * @OA\Schema(schema="NewLocation", required={"label"},
  *     @OA\Property(property="label", format="string", type="string", default="Hall Room", example="Hall Room"),
+ *     @OA\Property(property="layer_id", format="int64", type="integer", nullable=false, example=1),
  *     @OA\Property(property="polygon", format="array", type="object", example="{}",
  *       @OA\Items(
  *          type="array",
@@ -28,6 +27,7 @@ use Illuminate\Support\Facades\Hash;
  * @OA\Schema(schema="Location", required={"id", "label"},
  *    @OA\Property(property="id", format="int64", type="integer", example=1),
  *    @OA\Property(property="label", format="string", type="string", example="Hall Room"),
+ *    @OA\Property(property="layer_id", format="int64", type="integer", nullable=false, example=1),
  *     @OA\Property(property="polygon", format="array", type="object", example="{}",
  *       @OA\Items(
  *          type="array",
@@ -57,6 +57,7 @@ class Location extends Model
 
     protected $fillable = [
         'label',
+        'layer_id',
         'polygon',
         'options',
     ];
@@ -64,6 +65,7 @@ class Location extends Model
     protected $visible = [
         'id',
         'label',
+        'layer_id',
         'polygon',
         'options',
     ];

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Location;
+use App\Layer;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Get(
- *     tags={"Location"},
- *     path="/api/v1/locations",
- *     description="Returns all locations",
+ *     tags={"Layer"},
+ *     path="/api/v1/layers",
+ *     description="Returns all Layers",
  *     @OA\Parameter(
  *         name="limit",
  *         in="query",
@@ -25,15 +27,15 @@ use Illuminate\Http\Request;
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Location response",
+ *         description="Layer response",
  *         @OA\JsonContent(
  *             type="array",
- *             @OA\Items(ref="#/components/schemas/Location")
+ *             @OA\Items(ref="#/components/schemas/Layer")
  *         ),
  *     ),
  *     @OA\Response(
  *         response=400,
- *         description="Location bad request",
+ *         description="Layer bad request",
  *         @OA\JsonContent(
  *             type="object"
  *         ),
@@ -43,12 +45,12 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
- *     tags={"Location"},
- *     path="/api/v1/locations/{id}",
- *     description="Returns a location based on a single ID",
- *     operationId="getLocation",
+ *     tags={"Layer"},
+ *     path="/api/v1/layers/{id}",
+ *     description="Returns a Layer based on a single ID",
+ *     operationId="getLayer",
  *     @OA\Parameter(
- *         description="ID of location to fetch",
+ *         description="ID of Layer to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
@@ -61,12 +63,12 @@ use Illuminate\Http\Request;
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Location response",
- *         @OA\JsonContent(ref="#/components/schemas/Location"),
+ *         description="Layer response",
+ *         @OA\JsonContent(ref="#/components/schemas/Layer"),
  *     ),
  *     @OA\Response(
  *         response=400,
- *         description="Location bad request",
+ *         description="Layer bad request",
  *         @OA\JsonContent(
  *             type="object"
  *         ),
@@ -81,30 +83,37 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Post(
- *     tags={"Location"},
- *     path="/api/v1/locations",
- *     operationId="createLocation",
- *     description="Creates a new location.",
+ *     tags={"Layer"},
+ *     path="/api/v1/layers",
+ *     operationId="createLayer",
+ *     description="Creates a new Layer.",
  *     @OA\RequestBody(
- *         description="Location to add.",
+ *         description="Layer to add.",
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewLocation"),
- *             example={"label": "location1", "layer_id": 1, "options":{"a":1,"b":"B","c":true}, "polygon":{}}
+ *             @OA\Schema(ref="#/components/schemas/NewLayer"),
+ *             example={"label": "room1", "ssid": "Layer1", "bssid":"c0:0a:95:9d:00:0c", "location_id": 1, "lat":50.5, "lng":-70.7}
  *         )
  *     ),
  *     @OA\Response(
  *         response=201,
- *         description="Location response",
- *         @OA\JsonContent(ref="#/components/schemas/Location")
+ *         description="Layer response",
+ *         @OA\JsonContent(ref="#/components/schemas/Layer")
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Layer bad request",
+ *         @OA\JsonContent(
+ *             type="object"
+ *         ),
  *     ),
  *     @OA\Response(
  *         response="default",
  *         description="unexpected error",
  *         @OA\JsonContent(ref="#/components/schemas/ErrorModel"),
  *     ),
- *     security={
+ *      security={
  *         {"ApiKeyAuth": {"1"}}
  *     }
  * )
@@ -112,12 +121,12 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Put(
- *     tags={"Location"},
- *     path="/api/v1/locations/{id}",
- *     description="Update a location based on a single ID.",
- *     operationId="updateLocation",
+ *     tags={"Layer"},
+ *     path="/api/v1/layers/{id}",
+ *     description="Update a Layer based on a single ID.",
+ *     operationId="updateLayer",
  *     @OA\Parameter(
- *         description="ID of location to fetch",
+ *         description="ID of Layer to fetch",
  *         in="path",
  *         name="id",
  *         required=true,
@@ -129,21 +138,21 @@ use Illuminate\Http\Request;
  *         )
  *     ),
  *     @OA\RequestBody(
- *         description="Location to update.",
+ *         description="Layer to update.",
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/NewLocation")
+ *             @OA\Schema(ref="#/components/schemas/NewLayer")
  *         )
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="Location response",
- *         @OA\JsonContent(ref="#/components/schemas/Location"),
+ *         description="Layer response",
+ *         @OA\JsonContent(ref="#/components/schemas/Layer"),
  *     ),
  *     @OA\Response(
  *         response=400,
- *         description="Location bad request",
+ *         description="Layer bad request",
  *         @OA\JsonContent(
  *             type="object"
  *         ),
@@ -161,12 +170,12 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Delete(
- *     tags={"Location"},
- *     path="/api/v1/locations/{id}",
- *     description="Deletes a single location based on the ID.",
- *     operationId="deleteLocation",
+ *     tags={"Layer"},
+ *     path="/api/v1/layers/{id}",
+ *     description="Deletes a single Layer based on the ID.",
+ *     operationId="deleteLayer",
  *     @OA\Parameter(
- *         description="ID of location to delete",
+ *         description="ID of Layer to delete",
  *         in="path",
  *         name="id",
  *         required=true,
@@ -179,14 +188,14 @@ use Illuminate\Http\Request;
  *     ),
  *     @OA\Response(
  *         response=204,
- *         description="Location deleted",
+ *         description="Layer deleted",
  *         @OA\Schema(
  *             type=null
  *         )
  *     ),
  *     @OA\Response(
  *         response=400,
- *         description="Location bad request",
+ *         description="Layer bad request",
  *         @OA\JsonContent(
  *             type="object"
  *         ),
@@ -201,36 +210,9 @@ use Illuminate\Http\Request;
  *     }
  * )
  */
-class LocationController extends Controller
+class LayerController extends Controller
 {
     use Traits\CrudTrait;
     
-    const MODEL = Location::class;
-
-    /**
-     * Display a listing of the resource.
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(Request $request)
-    {
-        $modelClass = self::MODEL;
-        $query = $modelClass::with('beacons');
-        self::applyQuery($request, $query);
-        $list = $query->get()->makeVisible('beacons');
-        return new JsonResponse($list, JsonResponse::HTTP_OK);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function users()
-    {
-        $modelClass = self::MODEL;
-        $list = $modelClass::has('users')->get()->makeVisible('users');
-        return new JsonResponse($list, JsonResponse::HTTP_OK);
-    }
+    const MODEL = Layer::class;
 }

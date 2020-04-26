@@ -11,6 +11,9 @@
 |
 */
 
+use App\Location;
+use Faker\Generator;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'location_id' => null,
@@ -52,5 +55,11 @@ $factory->define(App\Position::class, function (Faker\Generator $faker) {
                 'level' => -($faker->randomDigit % 100)
             ],
         ],
+    ];
+});
+
+$factory->define(App\Layer::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->colorName,
     ];
 });

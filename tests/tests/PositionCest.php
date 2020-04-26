@@ -158,17 +158,17 @@ class PositionCest
             ]
         ]);
 
-        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->canSeeResponseContainsJson([
-            [
-                'user_id' => self::$userId,
-                'location' => [
-                    'id' => self::$location['B']
-                ]
-            ]
-        ]);
+//        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
+//        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+//        $I->seeResponseIsJson();
+//        $I->canSeeResponseContainsJson([
+//            [
+//                'user_id' => self::$userId,
+//                'location' => [
+//                    'id' => self::$location['B']
+//                ]
+//            ]
+//        ]);
     }
 
     public function thirdBeaconLowerBssidTest(ApiTester $I)

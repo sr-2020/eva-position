@@ -304,6 +304,297 @@
                 ]
             }
         },
+        "/api/v1/layers": {
+            "get": {
+                "tags": [
+                    "Layer"
+                ],
+                "description": "Returns all Layers",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "maximum number of results to return",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": "100"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Layer response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Layer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Layer bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Layer"
+                ],
+                "description": "Creates a new Layer.",
+                "operationId": "createLayer",
+                "requestBody": {
+                    "description": "Layer to add.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewLayer"
+                            },
+                            "example": {
+                                "label": "room1",
+                                "ssid": "Layer1",
+                                "bssid": "c0:0a:95:9d:00:0c",
+                                "location_id": 1,
+                                "lat": 50.5,
+                                "lng": -70.7
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Layer response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Layer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Layer bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/api/v1/layers/{id}": {
+            "get": {
+                "tags": [
+                    "Layer"
+                ],
+                "description": "Returns a Layer based on a single ID",
+                "operationId": "getLayer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Layer to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "default": "1"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Layer response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Layer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Layer bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Layer"
+                ],
+                "description": "Update a Layer based on a single ID.",
+                "operationId": "updateLayer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Layer to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "default": "1"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "description": "Layer to update.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NewLayer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Layer response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Layer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Layer bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Layer"
+                ],
+                "description": "Deletes a single Layer based on the ID.",
+                "operationId": "deleteLayer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Layer to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "default": 2
+                        },
+                        "example": 2
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Layer deleted"
+                    },
+                    "400": {
+                        "description": "Layer bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorModel"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": [
+                            "1"
+                        ]
+                    }
+                ]
+            }
+        },
         "/api/v1/locations": {
             "get": {
                 "tags": [
@@ -365,9 +656,14 @@
                                 "$ref": "#/components/schemas/NewLocation"
                             },
                             "example": {
-                                "label": "room1",
-                                "ssid": "location1",
-                                "bssid": "c0:0a:95:9d:00:0c"
+                                "label": "location1",
+                                "layer_id": 1,
+                                "options": {
+                                    "a": 1,
+                                    "b": "B",
+                                    "c": true
+                                },
+                                "polygon": []
                             }
                         }
                     }
@@ -1025,6 +1321,39 @@
                 },
                 "type": "object"
             },
+            "NewLayer": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string",
+                        "default": "Level1",
+                        "example": "Level1"
+                    }
+                },
+                "type": "object"
+            },
+            "Layer": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Level1"
+                    }
+                },
+                "type": "object"
+            },
             "NewLocation": {
                 "required": [
                     "label"
@@ -1035,6 +1364,12 @@
                         "format": "string",
                         "default": "Hall Room",
                         "example": "Hall Room"
+                    },
+                    "layer_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1,
+                        "nullable": false
                     },
                     "polygon": {
                         "type": "object",
@@ -1074,6 +1409,12 @@
                         "type": "string",
                         "format": "string",
                         "example": "Hall Room"
+                    },
+                    "layer_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1,
+                        "nullable": false
                     },
                     "polygon": {
                         "type": "object",

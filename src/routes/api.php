@@ -33,6 +33,7 @@ $router->group([
         'users' => 'UserController',
         'beacons' => 'BeaconController',
         'locations' => 'LocationController',
+        'layers' => 'LayerController',
     ] as $path => $controller) {
         $router->post($path, $controller . '@create');
         $router->put($path . '/{id}', $controller . '@update');
@@ -67,6 +68,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'users' => 'UserController',
         'beacons' => 'BeaconController',
         'locations' => 'LocationController',
+        'layers' => 'LayerController',
     ] as $path => $controller) {
         $router->get($path, $controller . '@index');
         $router->get($path . '/{id}', $controller . '@read');
