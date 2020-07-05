@@ -73,4 +73,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get($path, $controller . '@index');
         $router->get($path . '/{id}', $controller . '@read');
     }
+
+    $router->put('/locations', 'LocationController@listUpdate');
 });

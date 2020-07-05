@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Get(
@@ -232,5 +233,53 @@ class LocationController extends Controller
         $modelClass = self::MODEL;
         $list = $modelClass::has('users')->get()->makeVisible('users');
         return new JsonResponse($list, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * Update the list of specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listUpdate(Request $request)
+    {
+        $modelClass = self::MODEL;
+
+        $allowFields = [
+            'options'
+        ];
+
+        $data = $request->all();
+        foreach ($data as $location) {
+            if (empty($location['id'])) {
+                return new JsonResponse([
+                    'id' => ['Empty location id']
+                ], JsonResponse::HTTP_BAD_REQUEST);
+            }
+            if (empty($location['body'])) {
+                return new JsonResponse([
+                    'id' => ['Empty location body']
+                ], JsonResponse::HTTP_BAD_REQUEST);
+            }
+
+            $model = $modelClass::find($location['id']);
+            if (null === $model) {
+                return new JsonResponse([
+                    'id' => ['Location id ' . $location['id'] . ' not found.']
+                ], JsonResponse::HTTP_BAD_REQUEST);
+            }
+
+            foreach ($location['body'] as $key => $value) {
+                if (!in_array($key, $allowFields)) {
+                    return new JsonResponse([
+                        $key => ['Location field can not change.']
+                    ], JsonResponse::HTTP_BAD_REQUEST);
+                }
+                $model->$key = $value;
+            }
+            $model->save();
+        }
+
+        return new JsonResponse(null, JsonResponse::HTTP_OK);
     }
 }
