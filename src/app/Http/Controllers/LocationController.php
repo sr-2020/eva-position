@@ -249,6 +249,7 @@ class LocationController extends Controller
             'options'
         ];
 
+        $result = [];
         $data = $request->all();
         foreach ($data as $location) {
             if (empty($location['id'])) {
@@ -278,8 +279,9 @@ class LocationController extends Controller
                 $model->$key = $value;
             }
             $model->save();
+            $result[] = $model;
         }
 
-        return new JsonResponse(null, JsonResponse::HTTP_OK);
+        return new JsonResponse($result, JsonResponse::HTTP_OK);
     }
 }
