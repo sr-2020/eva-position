@@ -67,7 +67,8 @@ $app->singleton(
 */
 
 $app->middleware([
-    App\Http\Middleware\ValidateMiddleware::class
+    App\Http\Middleware\ValidateMiddleware::class,
+    App\Http\Middleware\ResponseMiddleware::class,
 ]);
 
 $app->routeMiddleware([
