@@ -8,6 +8,7 @@ app:
     connection: pgsql
   functions:
     host: https://europe-west3-imposing-elixir-249711.cloudfunctions.net
+    enable: true
 
 image:
   repository: sr2020/eva-position

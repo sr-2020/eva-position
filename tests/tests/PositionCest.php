@@ -20,18 +20,13 @@ class PositionCest
         ],
         'B' => [
             'ssid' => 'room_b',
-            'bssid' => 'C0:DA:B3:09:A9:FB'
-        ],
-        'C' => [
-            'ssid' => 'room_b',
-            'bssid' => 'F6:A3:B4:E1:D1:15'
+            'bssid' => 'D2:7E:91:02:AB:64'
         ]
     ];
 
     static protected $location = [
         'A' => 1,
-        'B' => 2,
-        'C' => 2
+        'B' => 2
     ];
 
 //    public function _before(\ApiTester $I)
@@ -129,10 +124,6 @@ class PositionCest
 
     public function secondBeaconTest(ApiTester $I)
     {
-        if ('production' === $I->getEnv()) {
-            $I->getPublicScenario()->skip('Skip for production!');
-        }
-
         $beacons = [
             self::$beacons['A'] + ['level' => -50],
             self::$beacons['B'] + ['level' => -30]
@@ -158,25 +149,21 @@ class PositionCest
             ]
         ]);
 
-//        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
-//        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
-//        $I->seeResponseIsJson();
-//        $I->canSeeResponseContainsJson([
-//            [
-//                'user_id' => self::$userId,
-//                'location' => [
-//                    'id' => self::$location['B']
-//                ]
-//            ]
-//        ]);
+        $I->sendGET('/paths?limit=1&sort=-id&filter[user_id]=' . self::$userId);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->canSeeResponseContainsJson([
+            [
+                'user_id' => self::$userId,
+                'location' => [
+                    'id' => self::$location['B']
+                ]
+            ]
+        ]);
     }
 
     public function thirdBeaconLowerBssidTest(ApiTester $I)
     {
-        if ('production' === $I->getEnv()) {
-            $I->getPublicScenario()->skip('Skip for production!');
-        }
-
         $lowerBeaconA = self::$beacons['A'];
         $lowerBeaconA['bssid'] = strtolower($lowerBeaconA['bssid']);
         $lowerBeaconB = self::$beacons['B'];
@@ -222,10 +209,6 @@ class PositionCest
 
     public function changeBeaconTest(ApiTester $I)
     {
-        if ('production' === $I->getEnv()) {
-            $I->getPublicScenario()->skip('Skip for production!');
-        }
-
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [
@@ -297,10 +280,6 @@ class PositionCest
 
     public function doubleBeaconTest(ApiTester $I)
     {
-        if ('production' === $I->getEnv()) {
-            $I->getPublicScenario()->skip('Skip for production!');
-        }
-
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->haveHttpHeader('X-User-Id', $I->getAdminId());
         $I->sendPOST(self::$route, [

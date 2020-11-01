@@ -8,3 +8,4 @@ data:
   DB_DATABASE: {{ .Values.app.postgres.db | quote }}
   DB_CONNECTION: {{ .Values.app.postgres.connection | quote }}
   FUNCTIONS_HOST: {{ .Values.app.functions.host | quote }}
+  FUNCTIONS_ENABLE: {{ .Values.app.functions.enable | quote}}

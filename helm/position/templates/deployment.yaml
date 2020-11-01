@@ -36,6 +36,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-configmap
                   key: FUNCTIONS_HOST
+            - name: FUNCTIONS_ENABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: FUNCTIONS_ENABLE
             - name: DB_CONNECTION
               valueFrom:
                 configMapKeyRef:
