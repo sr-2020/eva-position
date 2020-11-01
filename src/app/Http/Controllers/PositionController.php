@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Functions\Functions;
 use App\Position;
 use App\User;
 use App\Beacon;
@@ -310,6 +311,9 @@ class PositionController extends Controller
                 'user_id' => $user->id,
                 'location_id' => $iLocationId,
             ]);
+
+            $functions = app(Functions::class);
+            $functions->characterLocationChange($user->id, $iLocationId, (int)$user->location_id);
             return;
         }
 

@@ -40,4 +40,9 @@ return [
         ],
     ],
 
+    'functions' => [
+        'host' => env('FUNCTIONS_HOST'),
+        'timeout' => env('FUNCTIONS_TIMEOUT', 3),
+        'enable' => env('FUNCTIONS_ENABLE', false),
+    ],
 ];

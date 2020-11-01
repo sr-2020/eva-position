@@ -31,6 +31,11 @@ spec:
               value: "1"
             - name: SKIP_CHOWN
               value: "1"
+            - name: FUNCTIONS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: FUNCTIONS_HOST
             - name: DB_CONNECTION
               valueFrom:
                 configMapKeyRef:

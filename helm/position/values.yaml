@@ -6,6 +6,8 @@ app:
     port: 5432
     db: position
     connection: pgsql
+  functions:
+    host: https://europe-west3-imposing-elixir-249711.cloudfunctions.net
 
 image:
   repository: sr2020/eva-position

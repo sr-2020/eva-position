@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Functions\Functions;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Functions::class, function () {
+            return new Functions(config('services.functions'));
+        });
     }
 }
