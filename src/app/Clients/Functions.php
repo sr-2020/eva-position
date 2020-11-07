@@ -27,11 +27,13 @@ class Functions {
         }
 
         try {
+            $timestamp = (int)round(microtime(true) * 1000);
             $response = $this->client->request('POST', '/characterLocationChange', [
                 'json' => [
                     'id' => $id,
                     'locationId' => $locationId,
                     'prevLocationId' => $prevLocationId,
+                    'timestamp'=> $timestamp,
                 ]
             ]);
         } catch (\Exception $e) {
