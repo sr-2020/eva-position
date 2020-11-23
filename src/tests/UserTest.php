@@ -32,17 +32,22 @@ class UserTest extends TestCase
                 'location_id',
                 'created_at',
                 'updated_at',
+                'location_updated_at',
             ], [
                 'id',
                 'location',
                 'location_id',
                 'created_at',
                 'updated_at',
+                'location_updated_at',
             ]]);
 
         $json = json_decode($this->response->content());
         $this->assertEquals(null, $json[0]->location_id);
         $this->assertEquals(1, $json[1]->location_id);
+
+        $this->assertEquals($json[0]->updated_at, $json[0]->location_updated_at);
+        $this->assertEquals($json[1]->updated_at, $json[1]->location_updated_at);
     }
 
     /**
@@ -65,6 +70,7 @@ class UserTest extends TestCase
                 'location_id',
                 'created_at',
                 'updated_at',
+                'location_updated_at',
             ]]);
 
         $json = json_decode($this->response->content());

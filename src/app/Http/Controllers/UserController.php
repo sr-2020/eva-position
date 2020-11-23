@@ -188,7 +188,15 @@ class UserController extends Controller
 
         $list = $query->with('location')
             ->get()
-            ->makeVisible(['location']);
+            ->makeVisible(['location', 'location_updated_at']);
+        $list->map(function($item) {
+            if (!empty($item->updated_at)) {
+                $item['location_updated_at'] = $item->updated_at->format('Y-m-d H:i:s');
+            } else {
+                $item['location_updated_at'] = "";
+            }
+        });
+
         return new JsonResponse($list, JsonResponse::HTTP_OK);
     }
 
