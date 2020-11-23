@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Validator;
  *         @OA\Schema(
  *             type="integer",
  *             format="int32",
- *             default="100"
+ *             default="1000"
  *         )
  *     ),
  *     @OA\Response(

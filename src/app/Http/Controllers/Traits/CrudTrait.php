@@ -39,7 +39,7 @@ trait CrudTrait
      */
     protected function applyLimit($request, $query)
     {
-        $limit = $request->get('limit', 100);
+        $limit = $request->get('limit', 1000);
         $offset = $request->get('offset', 0);
         $query->limit($limit);
         $query->offset($offset);
