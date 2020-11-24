@@ -25,8 +25,8 @@ class PositionCest
     ];
 
     static protected $location = [
-        'A' => 1,
-        'B' => 2
+        'A' => 3216,
+        'B' => 3212
     ];
 
 //    public function _before(\ApiTester $I)
