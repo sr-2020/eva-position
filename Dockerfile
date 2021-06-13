@@ -18,5 +18,7 @@ ADD docker/supervisor/crond.conf /etc/supervisor/conf.d/
 ADD ./src /var/www/html
 RUN cp /var/www/html/.env.docker /var/www/html/.env
 
+RUN cd /var/www/html && composer install --no-interaction && vendor/bin/phpunit
+
 RUN chown -R nginx:nginx /var/www/html
 RUN chmod -R 777 /var/www/html/storage/

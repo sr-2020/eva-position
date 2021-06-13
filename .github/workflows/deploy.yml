@@ -33,3 +33,10 @@ jobs:
           helm version
           helm upgrade position helm/position/ --wait \
             --set image.tag=$GITHUB_SHA
+
+  test_production:
+    runs-on: ubuntu-20.04
+    needs: [deploy_production]
+    steps:
+      - uses: actions/checkout@v1
+      - run: make test env=production
