@@ -2,7 +2,7 @@ replicaCount: 1
 
 app:
   postgres:
-    host: postgres
+    host: postgres13
     port: 5432
     db: position
     connection: pgsql
