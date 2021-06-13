@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:1.10.4
+FROM richarvey/nginx-php-fpm:1.7.0
 
 RUN apk update && apk add libzip-dev zip mysql-client && rm -rf /var/cache/apk/*
 RUN docker-php-ext-install opcache mysqli pdo_mysql zip
