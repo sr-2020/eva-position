@@ -33,6 +33,8 @@ spec:
               value: "1"
             - name: REDIS_HOST
               value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
             - name: FUNCTIONS_HOST
               valueFrom:
                 configMapKeyRef:
