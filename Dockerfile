@@ -3,6 +3,12 @@ FROM richarvey/nginx-php-fpm:1.7.0
 RUN apk update && apk add libzip-dev zip mysql-client && rm -rf /var/cache/apk/*
 RUN docker-php-ext-install opcache mysqli pdo_mysql zip
 
+RUN apk add --no-cache \
+		$PHPIZE_DEPS \
+		openssl-dev
+
+RUN pecl install redis && docker-php-ext-enable redis
+
 ADD docker/php-fpm/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 ADD docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 ADD docker/php-fpm/php.ini /usr/local/etc/php/php.ini

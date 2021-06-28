@@ -274,6 +274,7 @@ class PositionController extends Controller
         $model = $modelClass::create($request->all());
 
         $user = $request->user();
+        $oldLocationId = $user->location_id;
         $model->user_id = $user->id;
         $model->save();
 
@@ -293,6 +294,14 @@ class PositionController extends Controller
         $response = $model->toArray();
         unset($response['beacons']);
         $response['location_id'] = $user->location_id;
+
+        if ($oldLocationId !== $response['location_id']) {
+            try {
+                app('redis')->del("cache::position::" . $user->id);
+            } catch (\Exception $exception) {
+                Log::error($exception->getMessage());
+            }
+        }
 
         return new JsonResponse($response, JsonResponse::HTTP_CREATED);
     }

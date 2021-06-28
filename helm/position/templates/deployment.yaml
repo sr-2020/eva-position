@@ -31,6 +31,8 @@ spec:
               value: "1"
             - name: SKIP_CHOWN
               value: "1"
+            - name: REDIS_HOST
+              value: "redis"
             - name: FUNCTIONS_HOST
               valueFrom:
                 configMapKeyRef:
