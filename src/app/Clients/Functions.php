@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Functions;
+namespace App\Clients;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;

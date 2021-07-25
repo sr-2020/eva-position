@@ -1,14 +1,5 @@
 # suite config
 suites:
-    dev:
-        actor: ApiTester
-        path: .
-        modules:
-            enabled:
-                - REST:
-                    url: http://position.evarun.loc:5070/api/v1
-                    depends: PhpBrowser
-
     local:
       actor: ApiTester
       path: .
@@ -17,24 +8,6 @@ suites:
         - REST:
             url: http://localhost:5011/api/v1
             depends: PhpBrowser
-
-    stage:
-        actor: ApiTester
-        path: .
-        modules:
-            enabled:
-                - REST:
-                      url: http://35.198.111.141/api/v1
-                      depends: PhpBrowser
-
-    mirror:
-        actor: ApiTester
-        path: .
-        modules:
-            enabled:
-                - REST:
-                      url: http://84.201.132.246/api/v1
-                      depends: PhpBrowser
 
     production:
         actor: ApiTester

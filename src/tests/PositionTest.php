@@ -40,7 +40,11 @@ class PositionTest extends TestCase
         'W' => [
             'ssid' => 'B7',
             'bssid' => 'F3:8F:00:2F:00:C9'
-        ]
+        ],
+        'A' => [
+            'ssid' => 'AA',
+            'bssid' => 'AA:8F:DE:2F:66:00'
+        ],
     ];
 
     static protected $location = [
@@ -495,5 +499,53 @@ class PositionTest extends TestCase
                 $this->assertEquals(self::$locationId[$setBeacons[$index]], $json->location_id);
             }
         }
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testPositionsWithNotExistsBeaconSuccess()
+    {
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => -50],
+            self::$beacons['W'] + ['level' => -5],
+            self::$beacons['L3-1'] + ['level' => -10],
+        ];
+
+        $this->json('POST', static::ROUTE, [
+            'beacons' => $beacons
+        ], [
+            'X-User-Id' => self::$userId
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+        $json = json_decode($this->response->content());
+        $this->assertEquals(3, $json->location_id);
+    }
+
+    /**
+     * A basic test create.
+     *
+     * @return void
+     */
+    public function testPositionsWithNBeaconWithoutLocationSuccess()
+    {
+        $beacons = [
+            self::$beacons['L1-1'] + ['level' => -50],
+            self::$beacons['A'] + ['level' => -5],
+            self::$beacons['L3-1'] + ['level' => -10],
+        ];
+
+        $this->json('POST', static::ROUTE, [
+            'beacons' => $beacons
+        ], [
+            'X-User-Id' => self::$userId
+        ])
+            ->seeStatusCode(JsonResponse::HTTP_CREATED);
+
+        $json = json_decode($this->response->content());
+        $this->assertEquals(3, $json->location_id);
     }
 }

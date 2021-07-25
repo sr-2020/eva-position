@@ -18,6 +18,7 @@ class BeaconsSeeder extends Seeder
             ['bssid' => 'C0:DA:B3:09:A9:FB', 'ssid' => 'C0:DA:B3:09:A9:FB', 'location_id' => 2],
             ['bssid' => 'F6:A3:B4:E1:D1:15', 'ssid' => 'F6:A3:B4:E1:D1:15', 'location_id' => 2],
             ['bssid' => 'F3:8F:DE:2F:66:C9', 'ssid' => 'F3:8F:DE:2F:66:C9', 'location_id' => 3],
+            ['bssid' => 'AA:8F:DE:2F:66:00', 'ssid' => 'AA:8F:DE:2F:66:00', 'location_id' => 0],
         ]);
     }
 }

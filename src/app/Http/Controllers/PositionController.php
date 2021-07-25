@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Functions\Functions;
+use App\Clients\Functions;
 use App\Position;
 use App\User;
 use App\Beacon;
 use App\Path;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -343,22 +342,32 @@ class PositionController extends Controller
         if (!is_array($beacons)) {
             return null;
         }
-        $lowerBeacons = [];
-        foreach ($beacons as $router) {
-            $lowerBeacons[] = array_change_key_case($router, CASE_LOWER);
+        if (count($beacons) == 0) {
+            return null;
         }
 
-        $sort = array_column($lowerBeacons, 'level', 'bssid');
+        $beaconsBssids = [];
+        foreach ($beacons as $beacon) {
+            $beaconsBssids[] = $beacon['bssid'];
+        }
+
+        $findBeacons = Beacon::whereIn('bssid', $beaconsBssids)
+            ->where('location_id', '!=', '0')
+            ->get()
+            ->keyBy('bssid');
+
+        if (!$findBeacons->count()) {
+            return null;
+        }
+
+        $sort = array_column($beacons, 'level', 'bssid');
         arsort($sort);
-        if ([] !== $sort) {
-            foreach ($sort as $key => $item) {
-                $bssid = strtoupper($key);
-                $beacon = Beacon::where('bssid', $bssid)->first();
-                if (null !== $beacon) {
-                    return $beacon;
-                }
+        foreach ($sort as $key => $item) {
+            if (!empty($findBeacons[$key])) {
+                return $findBeacons[$key];
             }
         }
+
         return null;
     }
 }

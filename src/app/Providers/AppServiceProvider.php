@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Functions\Functions;
+use App\Clients\Functions;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

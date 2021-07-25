@@ -15,18 +15,18 @@ class PositionCest
 
     static protected $beacons = [
         'A' => [
-            'ssid' => 'room_a',
-            'bssid' => 'E9:DC:0E:20:E3:DC'
+            'ssid' => 'masterka',
+            'bssid' => 'E6:62:DB:D9:79:D5'
         ],
         'B' => [
-            'ssid' => 'room_b',
-            'bssid' => 'D2:7E:91:02:AB:64'
+            'ssid' => 'technopark',
+            'bssid' => 'EC:F5:48:BA:E0:3C'
         ]
     ];
 
     static protected $location = [
-        'A' => 3216,
-        'B' => 3212
+        'A' => 3425,
+        'B' => 3424
     ];
 
 //    public function _before(\ApiTester $I)
